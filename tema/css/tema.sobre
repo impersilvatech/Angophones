@@ -1,0 +1,352 @@
+/* ============================================
+   SOBRE.CSS – Estilos da página Sobre (Angophones)
+   ============================================ */
+
+/* -------------------- Hero Sobre ------------------- */
+.sobre-hero {
+  padding: 4rem 0 2rem;
+  text-align: center;
+}
+
+.sobre-hero h1 {
+  margin-bottom: 1rem;
+}
+
+.sobre-hero p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.2rem;
+}
+
+/* -------------------- História ------------------- */
+.historia-section {
+  padding: 3rem 0;
+}
+
+.historia-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.historia-content h2 {
+  margin-bottom: 1.5rem;
+}
+
+.historia-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.historia-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--font-titulo);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.historia-image img {
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--sombra-lg);
+}
+
+@media (max-width: 768px) {
+  .historia-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* -------------------- Missão, Visão, Valores ------------------- */
+.mvv-section {
+  padding: 3rem 0;
+  background: var(--cor-fundo-alt);
+  border-radius: var(--border-radius-xl);
+  margin: 2rem 0;
+}
+
+.mvv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.mvv-card {
+  text-align: center;
+  padding: 2rem;
+}
+
+.mvv-icon {
+  width: 72px;
+  height: 72px;
+  background: rgba(255,85,0,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
+  color: var(--cor-primaria);
+}
+
+.mvv-card h3 {
+  margin-bottom: 1rem;
+}
+
+.mvv-card p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .mvv-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -------------------- Equipa ------------------- */
+.equipa-section {
+  padding: 4rem 0;
+}
+
+.equipa-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.equipa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.equipa-card {
+  background: var(--cor-card);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  transition: var(--transition);
+}
+
+.equipa-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--sombra-lg);
+  border-color: var(--cor-primaria);
+}
+
+.equipa-img {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #1A1A1E;
+}
+
+.equipa-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.equipa-card:hover .equipa-img img {
+  transform: scale(1.05);
+}
+
+.equipa-info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.equipa-info h3 {
+  margin-bottom: 0.25rem;
+  font-size: 1.25rem;
+}
+
+.equipa-cargo {
+  color: var(--cor-primaria);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.equipa-bio {
+  color: var(--cor-texto-suave);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.equipa-social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.equipa-social a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--cor-fundo-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.equipa-social a:hover {
+  background: var(--cor-primaria);
+  color: white;
+}
+
+/* -------------------- Galeria do Espaço ------------------- */
+.galeria-section {
+  padding: 4rem 0;
+}
+
+.galeria-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.galeria-item {
+  aspect-ratio: 16 / 10;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.galeria-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.galeria-item:hover img {
+  transform: scale(1.05);
+}
+
+.galeria-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.galeria-item:hover::after {
+  opacity: 1;
+}
+
+.galeria-item i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 2;
+}
+
+.galeria-item:hover i {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .galeria-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .galeria-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -------------------- Contacto / Localização ------------------- */
+.contacto-section {
+  padding: 3rem 0;
+  background: var(--cor-fundo-alt);
+  border-radius: var(--border-radius-xl);
+  margin: 2rem 0 4rem;
+}
+
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.contacto-info h3 {
+  margin-bottom: 1.5rem;
+}
+
+.contacto-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.contacto-item i {
+  width: 24px;
+  color: var(--cor-primaria);
+  font-size: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.contacto-item p {
+  margin: 0;
+}
+
+.contacto-mapa {
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  height: 300px;
+  background: var(--cor-card);
+}
+
+.contacto-mapa iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .contacto-grid {
+    grid-template-columns: 1fr;
+  }
+}
