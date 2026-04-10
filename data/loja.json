@@ -1,0 +1,52 @@
+{
+  "nome": "Angophones",
+  "tagline": "Tech Premium",
+  "slogan": "O teu próximo telemóvel está aqui.",
+  "whatsapp": "+244954288128",
+  "email": "contacto@angophones.co.ao",
+  "moeda": "Kz",
+  "corPrimaria": "#FF5500",
+  "corFundo": "#06060E",
+  "pinAdmin": "1793",
+  "redesSociais": {
+    "instagram": "https://instagram.com/angophones",
+    "facebook": "https://facebook.com/angophones",
+    "tiktok": "",
+    "twitter": ""
+  },
+  "endereco": "Av. 21 de Janeiro, nº 45, Luanda, Angola",
+  "telefone": "+244 954 288 128",
+  "horario": "Seg-Sex: 9h-18h, Sáb: 9h-13h",
+  "historia": "Fundada em 2021, a Angophones nasceu da paixão por tecnologia de ponta e da vontade de trazer os melhores dispositivos para o mercado angolano. Trabalhamos apenas com produtos originais, garantia oficial e um serviço de apoio ao cliente dedicado. A nossa missão é tornar a tecnologia premium acessível e confiável para todos os angolanos.",
+  "equipa": [
+    {
+      "nome": "Carlos Mendes",
+      "cargo": "Fundador & CEO",
+      "foto": "carlos.webp",
+      "bio": "Apaixonado por gadgets desde criança, Carlos tem mais de 10 anos de experiência no sector tecnológico."
+    },
+    {
+      "nome": "Ana Costa",
+      "cargo": "Diretora de Operações",
+      "foto": "ana.webp",
+      "bio": "Especialista em logística e atendimento ao cliente, garante que cada encomenda chegue perfeita."
+    },
+    {
+      "nome": "Miguel Santos",
+      "cargo": "Especialista de Produto",
+      "foto": "miguel.webp",
+      "bio": "Conhece cada smartphone como a palma da mão e ajuda a escolher o ideal para ti."
+    }
+  ],
+  "galeriaEspaco": [
+    "loja-fachada.webp",
+    "loja-interior1.webp",
+    "loja-interior2.webp"
+  ],
+  "entregas": {
+    "temEntrega": true,
+    "temLevantamento": true,
+    "taxaEntregaBase": 1500,
+    "gratisAcima": 50000
+  }
+}
