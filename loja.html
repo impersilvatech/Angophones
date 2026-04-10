@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#06060E">
+  <meta name="description" content="Catalogo de produtos Angophones - Smartphones, tablets, acessorios e muito mais.">
+  
+  <title>Loja – Angophones</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="tema/assets/favicon.ico" type="image/x-icon">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="core/css/core.css">
+  <link rel="stylesheet" href="core/css/componentes.css">
+  
+  <!-- Tema Angophones -->
+  <link rel="stylesheet" href="tema/css/tema.css">
+  
+  <style>
+    /* Estilos especificos da pagina loja */
+    .loja-header {
+      padding: 2rem 0;
+    }
+    
+    .loja-header h1 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .loja-filtros {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    
+    .filtros-categorias {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .filtro-categoria {
+      padding: 0.5rem 1rem;
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: 100px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .filtro-categoria:hover,
+    .filtro-categoria.active {
+      background: var(--cor-primaria);
+      border-color: var(--cor-primaria);
+      color: white;
+    }
+    
+    .ordenacao-select {
+      padding: 0.5rem 2rem 0.5rem 1rem;
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: 100px;
+      color: var(--cor-texto);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    
+    .pesquisa-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .pesquisa-wrapper i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--cor-texto-muted);
+    }
+    
+    .pesquisa-input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: 100px;
+      color: var(--cor-texto);
+    }
+    
+    .resultados-info {
+      margin-bottom: 1.5rem;
+      color: var(--cor-texto-muted);
+    }
+    
+    .produtos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .sem-resultados {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: var(--cor-card);
+      border-radius: var(--border-radius-lg);
+    }
+    
+    .sem-resultados i {
+      font-size: 3rem;
+      color: var(--cor-texto-muted);
+      margin-bottom: 1rem;
+    }
+    
+    .paginacao {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 3rem;
+    }
+    
+    .paginacao-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: var(--border-radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .paginacao-btn:hover,
+    .paginacao-btn.active {
+      background: var(--cor-primaria);
+      border-color: var(--cor-primaria);
+      color: white;
+    }
+    
+    .paginacao-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    /* Quick view modal */
+    .modal-overlay {
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header class="cabecalho">
+    <div class="container">
+      <div class="cabecalho-inner">
+        <a href="index.html" class="logo">
+          Ango<span>phones</span>
+        </a>
+        
+        <nav class="nav-links">
+          <a href="index.html">Inicio</a>
+          <a href="loja.html" class="active">Loja</a>
+          <a href="sobre.html">Sobre</a>
+          <a href="carrinho.html" class="carrinho-link">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="carrinho-contador" data-carrinho-contador style="display: none;">0</span>
+          </a>
+          <a href="favoritos.html" class="favoritos-link">
+            <i class="fa-regular fa-heart"></i>
+            <span class="favoritos-contador" data-favoritos-contador style="display: none;">0</span>
+          </a>
+          <button class="btn-icon tema-toggle" data-tema-toggle aria-label="Alternar tema">
+            <i class="fa-regular fa-sun"></i>
+          </button>
+        </nav>
+        
+        <button class="menu-mobile-toggle" aria-label="Menu" id="menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="menu-mobile" id="menu-mobile">
+      <div class="container">
+        <nav class="nav-mobile">
+          <a href="index.html">Inicio</a>
+          <a href="loja.html">Loja</a>
+          <a href="sobre.html">Sobre</a>
+          <a href="carrinho.html">Carrinho</a>
+          <a href="favoritos.html">Favoritos</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Header da Loja -->
+      <div class="loja-header">
+        <h1>Catalogo de Produtos</h1>
+        <p class="text-muted">Descubra os melhores smartphones e acessorios</p>
+      </div>
+      
+      <!-- Filtros e Pesquisa -->
+      <div class="loja-filtros">
+        <div class="pesquisa-wrapper">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="pesquisa-input" class="pesquisa-input" placeholder="Pesquisar produtos...">
+        </div>
+        
+        <select id="ordenacao-select" class="ordenacao-select">
+          <option value="destaque">Em Destaque</option>
+          <option value="nome">Nome (A-Z)</option>
+          <option value="preco-asc">Preco (Menor)</option>
+          <option value="preco-desc">Preco (Maior)</option>
+        </select>
+      </div>
+      
+      <!-- Filtros por Categoria -->
+      <div class="filtros-categorias" id="filtros-categorias">
+        <button class="filtro-categoria active" data-categoria="todos">Todos</button>
+        <!-- Preenchido via JavaScript -->
+      </div>
+      
+      <!-- Info de resultados -->
+      <div class="resultados-info" id="resultados-info">
+        <span id="resultados-contagem">0</span> produtos encontrados
+      </div>
+      
+      <!-- Grid de Produtos -->
+      <div class="produtos-grid" id="produtos-container">
+        <!-- Preenchido via JavaScript -->
+      </div>
+      
+      <!-- Paginacao -->
+      <div class="paginacao" id="paginacao-container">
+        <!-- Preenchido via JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Rodape -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 class="footer-titulo">Angophones</h4>
+          <p class="text-muted">Tech Premium em Angola.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4 class="footer-titulo">Links Rapidos</h4>
+          <div class="footer-links">
+            <a href="index.html">Inicio</a>
+            <a href="loja.html">Loja</a>
+            <a href="sobre.html">Sobre Nos</a>
+            <a href="carrinho.html">Carrinho</a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4 class="footer-titulo">Contacto</h4>
+          <div class="footer-links">
+            <a href="#" id="footer-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            <a href="#" id="footer-email"><i class="fa-regular fa-envelope"></i> Email</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 Angophones. Desenvolvido por IMPERSILVA TECH.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript -->
+  <script src="core/js/loader.js"></script>
+  <script src="core/js/utils.js"></script>
+  <script src="core/js/core.js"></script>
+  <script src="core/js/toast.js"></script>
+  <script src="core/js/tema-core.js"></script>
+  <script src="core/js/cart.js"></script>
+  <script src="core/js/favoritos.js"></script>
+  <script src="core/js/search.js"></script>
+  <script src="core/js/quick-view.js"></script>
+  
+  <!-- Script especifico da loja -->
+  <script>
+    // Estado da pagina
+    let produtosFiltrados = [];
+    let categoriaAtual = 'todos';
+    let ordenacaoAtual = 'destaque';
+    let termoPesquisa = '';
+    let paginaAtual = 1;
+    const produtosPorPagina = 12;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Aguardar o catalogo carregar
+      window.addEventListener('catalogoCarregado', function(e) {
+        inicializarLoja(e.detail);
+      });
+      
+      if (window.CATALOGO) {
+        inicializarLoja(window.CATALOGO);
+      }
+      
+      // Menu mobile
+      const menuToggle = document.getElementById('menu-toggle');
+      const menuMobile = document.getElementById('menu-mobile');
+      
+      if (menuToggle && menuMobile) {
+        menuToggle.addEventListener('click', function() {
+          menuMobile.classList.toggle('active');
+          const icon = menuToggle.querySelector('i');
+          icon.className = menuMobile.classList.contains('active') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+        });
+      }
+      
+      // Event listeners
+      document.getElementById('pesquisa-input').addEventListener('input', function(e) {
+        termoPesquisa = e.target.value;
+        paginaAtual = 1;
+        filtrarEAtualizar();
+      });
+      
+      document.getElementById('ordenacao-select').addEventListener('change', function(e) {
+        ordenacaoAtual = e.target.value;
+        paginaAtual = 1;
+        filtrarEAtualizar();
+      });
+    });
+    
+    function inicializarLoja(catalogo) {
+      // Verificar categoria na URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const categoriaURL = urlParams.get('categoria');
+      if (categoriaURL) {
+        categoriaAtual = categoriaURL;
+      }
+      
+      // Renderizar filtros de categoria
+      const filtrosContainer = document.getElementById('filtros-categorias');
+      if (filtrosContainer && catalogo.categorias) {
+        catalogo.categorias.forEach(cat => {
+          const btn = document.createElement('button');
+          btn.className = `filtro-categoria ${categoriaAtual === cat.id ? 'active' : ''}`;
+          btn.setAttribute('data-categoria', cat.id);
+          btn.innerHTML = `<i class="fa-solid ${cat.icone || 'fa-mobile-screen'}"></i> ${cat.nome}`;
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.filtro-categoria').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            categoriaAtual = cat.id;
+            paginaAtual = 1;
+            filtrarEAtualizar();
+          });
+          filtrosContainer.appendChild(btn);
+        });
+      }
+      
+      // Botao "Todos"
+      document.querySelector('[data-categoria="todos"]')?.addEventListener('click', () => {
+        document.querySelectorAll('.filtro-categoria').forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-categoria="todos"]').classList.add('active');
+        categoriaAtual = 'todos';
+        paginaAtual = 1;
+        filtrarEAtualizar();
+      });
+      
+      // Footer
+      if (catalogo.loja) {
+        const footerWhatsapp = document.getElementById('footer-whatsapp');
+        const footerEmail = document.getElementById('footer-email');
+        if (footerWhatsapp) footerWhatsapp.href = `https://wa.me/${catalogo.loja.whatsapp?.replace(/\D/g, '')}`;
+        if (footerEmail) footerEmail.href = `mailto:${catalogo.loja.email}`;
+      }
+      
+      // Primeira filtragem
+      filtrarEAtualizar();
+    }
+    
+    function filtrarEAtualizar() {
+      const catalogo = window.CATALOGO;
+      if (!catalogo || !catalogo.produtos) return;
+      
+      // Filtrar por categoria
+      let produtos = categoriaAtual === 'todos' 
+        ? [...catalogo.produtos]
+        : catalogo.produtos.filter(p => p.categoria === categoriaAtual);
+      
+      // Filtrar por pesquisa
+      if (termoPesquisa) {
+        const termo = termoPesquisa.toLowerCase();
+        produtos = produtos.filter(p => 
+          p.nome.toLowerCase().includes(termo) || 
+          (p.descricao || '').toLowerCase().includes(termo) ||
+          (p.categoria || '').toLowerCase().includes(termo)
+        );
+      }
+      
+      // Ordenar
+      produtos = window.search ? window.search.ordenarProdutos(produtos, ordenacaoAtual) : produtos;
+      
+      produtosFiltrados = produtos;
+      
+      // Actualizar contagem
+      document.getElementById('resultados-contagem').textContent = produtos.length;
+      
+      // Renderizar com paginacao
+      renderizarProdutosPaginados();
+      renderizarPaginacao();
+    }
+    
+    function renderizarProdutosPaginados() {
+      const container = document.getElementById('produtos-container');
+      if (!container) return;
+      
+      const inicio = (paginaAtual - 1) * produtosPorPagina;
+      const fim = inicio + produtosPorPagina;
+      const produtosPagina = produtosFiltrados.slice(inicio, fim);
+      
+      if (produtosPagina.length === 0) {
+        container.innerHTML = `
+          <div class="sem-resultados">
+            <i class="fa-regular fa-face-frown"></i>
+            <h3>Nenhum produto encontrado</h3>
+            <p>Tente ajustar os filtros ou pesquisar por outro termo.</p>
+            <button class="btn" onclick="document.getElementById('pesquisa-input').value=''; termoPesquisa=''; filtrarEAtualizar();">
+              Limpar Pesquisa
+            </button>
+          </div>
+        `;
+        document.getElementById('paginacao-container').innerHTML = '';
+        return;
+      }
+      
+      container.innerHTML = '';
+      produtosPagina.forEach(produto => {
+        const card = criarCardProduto(produto);
+        container.appendChild(card);
+      });
+    }
+    
+    function criarCardProduto(produto) {
+      const card = document.createElement('div');
+      card.className = 'card-produto';
+      
+      const preco = produto.precoPromocional || produto.preco;
+      const precoOriginal = produto.emPromocao ? produto.preco : null;
+      
+      card.innerHTML = `
+        <div class="card-produto-img">
+          <img src="imagens/produtos/${produto.imagens?.[0] || 'placeholder.png'}" alt="${produto.nome}" onerror="this.src='core/assets/placeholder.png'">
+          ${produto.emPromocao ? '<span class="badge badge-promo">Promocao</span>' : ''}
+          ${produto.destaque ? '<span class="badge badge-novo">Destaque</span>' : ''}
+          <button class="btn-wishlist" data-produto-id="${produto.id}">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+        <div class="card-produto-conteudo">
+          <h3 class="card-produto-titulo">${produto.nome}</h3>
+          <p class="card-produto-descricao">${produto.descricao || ''}</p>
+          <div class="card-produto-preco">
+            ${formatarKzDisplay(preco)}
+            ${precoOriginal ? `<s>${formatarKzDisplay(precoOriginal)}</s>` : ''}
+          </div>
+          <div class="card-produto-actions">
+            <button class="btn btn-block btn-adicionar" data-produto-id="${produto.id}">
+              <i class="fa-solid fa-cart-shopping"></i> Adicionar
+            </button>
+            <button class="btn-quick-view" data-produto-id="${produto.id}">
+              <i class="fa-regular fa-eye"></i> Ver Rapido
+            </button>
+          </div>
+        </div>
+      `;
+      
+      // Event listeners
+      card.querySelector('.btn-adicionar').addEventListener('click', (e) => {
+        e.preventDefault();
+        if (window.cart) {
+          window.cart.adicionarAoCarrinho(produto, 1);
+        }
+      });
+      
+      card.querySelector('.btn-quick-view').addEventListener('click', (e) => {
+        e.preventDefault();
+        if (window.quickView) {
+          window.quickView.abrirModal(produto.id);
+        }
+      });
+      
+      card.querySelector('.btn-wishlist').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.favoritos) {
+          const isFavorito = window.favoritos.alternarFavorito(produto);
+          const btn = e.currentTarget;
+          const icon = btn.querySelector('i');
+          icon.className = isFavorito ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+          btn.classList.toggle('ativo', isFavorito);
+        }
+      });
+      
+      // Verificar favoritos
+      if (window.favoritos && window.favoritos.estaNosFavoritos(produto.id)) {
+        const btn = card.querySelector('.btn-wishlist');
+        btn.querySelector('i').className = 'fa-solid fa-heart';
+        btn.classList.add('ativo');
+      }
+      
+      // Clique no card para ver detalhes
+      card.addEventListener('click', (e) => {
+        if (!e.target.closest('button')) {
+          window.location.href = `produto.html?id=${produto.id}`;
+        }
+      });
+      
+      return card;
+    }
+    
+    function renderizarPaginacao() {
+      const container = document.getElementById('paginacao-container');
+      if (!container) return;
+      
+      const totalPaginas = Math.ceil(produtosFiltrados.length / produtosPorPagina);
+      
+      if (totalPaginas <= 1) {
+        container.innerHTML = '';
+        return;
+      }
+      
+      let html = '';
+      
+      // Botao anterior
+      html += `<button class="paginacao-btn" ${paginaAtual === 1 ? 'disabled' : ''} data-page="prev">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>`;
+      
+      // Paginas
+      for (let i = 1; i <= totalPaginas; i++) {
+        if (i === 1 || i === totalPaginas || (i >= paginaAtual - 2 && i <= paginaAtual + 2)) {
+          html += `<button class="paginacao-btn ${i === paginaAtual ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        } else if (i === paginaAtual - 3 || i === paginaAtual + 3) {
+          html += `<span class="paginacao-ellipsis">...</span>`;
+        }
+      }
+      
+      // Botao proximo
+      html += `<button class="paginacao-btn" ${paginaAtual === totalPaginas ? 'disabled' : ''} data-page="next">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>`;
+      
+      container.innerHTML = html;
+      
+      // Event listeners
+      container.querySelectorAll('[data-page]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const page = btn.dataset.page;
+          if (page === 'prev' && paginaAtual > 1) {
+            paginaAtual--;
+          } else if (page === 'next' && paginaAtual < totalPaginas) {
+            paginaAtual++;
+          } else if (!isNaN(page)) {
+            paginaAtual = parseInt(page);
+          }
+          
+          renderizarProdutosPaginados();
+          renderizarPaginacao();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    }
+    
+    function formatarKzDisplay(valor) {
+      return valor.toLocaleString('pt-AO', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }) + ' Kz';
+    }
+  </script>
+  
+  <style>
+    /* Estilos adicionais para a loja */
+    .menu-mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--cor-texto);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    
+    .menu-mobile {
+      display: none;
+      background: var(--cor-fundo);
+      border-top: 1px solid var(--cor-borda);
+      padding: 1rem 0;
+    }
+    
+    .menu-mobile.active {
+      display: block;
+    }
+    
+    .nav-mobile {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .nav-mobile a {
+      padding: 0.75rem 0;
+      font-size: 1.1rem;
+      border-bottom: 1px solid var(--cor-borda);
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .menu-mobile-toggle {
+        display: block;
+      }
+      
+      .loja-filtros {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .filtros-categorias {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        flex-wrap: nowrap;
+      }
+      
+      .filtro-categoria {
+        white-space: nowrap;
+      }
+    }
+    
+    .favoritos-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .favoritos-contador {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      background: #EF4444;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .card-produto {
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+    }
+    
+    .badge-promo {
+      background: #E8002D;
+    }
+    
+    .badge-novo {
+      background: #22C55E;
+    }
+    
+    .card-produto-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .btn-quick-view {
+      padding: 0.75rem;
+      background: transparent;
+      border: 1px solid var(--cor-borda);
+      border-radius: var(--border-radius-md);
+      color: var(--cor-texto);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .btn-quick-view:hover {
+      border-color: var(--cor-primaria);
+      color: var(--cor-primaria);
+    }
+    
+    .paginacao-ellipsis {
+      padding: 0 0.5rem;
+      color: var(--cor-texto-muted);
+    }
+    
+    .search-highlight {
+      background: rgba(255, 85, 0, 0.2);
+      color: var(--cor-primaria);
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+  </style>
+</body>
+</html>
