@@ -1,0 +1,20 @@
+[
+  {
+    "nome": "Joana Ribeiro",
+    "cidade": "Luanda",
+    "texto": "Comprei o iPhone 15 Pro e chegou em 2 dias! Atendimento impecável.",
+    "avaliacao": 5
+  },
+  {
+    "nome": "Paulo Nascimento",
+    "cidade": "Benguela",
+    "texto": "Melhor loja de tecnologia em Angola. Produtos originais e garantia.",
+    "avaliacao": 5
+  },
+  {
+    "nome": "Carla Mendonça",
+    "cidade": "Huambo",
+    "texto": "Já comprei vários acessórios. Rápidos e confiáveis.",
+    "avaliacao": 4
+  }
+]
