@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#06060E">
+  <meta name="description" content="Catalogo de produtos Angophones - Smartphones, tablets, acessorios e muito mais.">
+  
+  <title>Loja – Angophones</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="tema/assets/favicon.ico" type="image/x-icon">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="core/css/core.css">
+  <link rel="stylesheet" href="core/css/componentes.css">
+  
+  <!-- Tema Angophones -->
+  <link rel="stylesheet" href="tema/css/tema.css">
+  
+  <style>
+    /* ===== CABECALHO ===== */
+    .cabecalho {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255, 85, 0, 0.1);
+      background: rgba(6, 6, 14, 0.95);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .cabecalho-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      font-family: 'Bebas Neue', 'Impact', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    
+    .logo span {
+      color: var(--cor-primaria, #FF5500);
+    }
+    
+    .tema-toggle {
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      font-size: 1.25rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    
+    .tema-toggle:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    /* ===== LOJA HEADER ===== */
+    .loja-header {
+      padding: 1.5rem 0 0.5rem;
+    }
+    
+    .loja-header h1 {
+      margin-bottom: 0.25rem;
+      font-size: 2rem;
+    }
+    
+    /* ===== FILTROS ===== */
+    .filtros-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .pesquisa-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .pesquisa-wrapper i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--cor-texto-muted);
+      font-size: 0.9rem;
+    }
+    
+    .pesquisa-input {
+      width: 100%;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: 100px;
+      color: var(--cor-texto);
+      font-size: 0.9rem;
+    }
+    
+    .ordenacao-select {
+      padding: 0.6rem 2rem 0.6rem 1rem;
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: 100px;
+      color: var(--cor-texto);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    
+    .filtros-categorias {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .filtros-categorias::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .filtro-categoria {
+      padding: 0.5rem 1rem;
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--cor-texto-suave);
+    }
+    
+    .filtro-categoria i {
+      margin-right: 0.25rem;
+      font-size: 0.8rem;
+    }
+    
+    .filtro-categoria.active {
+      background: var(--cor-primaria);
+      border-color: var(--cor-primaria);
+      color: white;
+    }
+    
+    .resultados-info {
+      margin-bottom: 1rem;
+      color: var(--cor-texto-muted);
+      font-size: 0.85rem;
+    }
+    
+    /* ===== GRID DE PRODUTOS - COMPACTO ===== */
+    .produtos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    
+    @media (min-width: 480px) {
+      .produtos-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+    }
+    
+    @media (min-width: 640px) {
+      .produtos-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .produtos-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    
+    .card-produto {
+      background: var(--cor-card);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--cor-borda);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-produto-img {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: var(--cor-fundo-alt);
+      position: relative;
+    }
+    
+    .card-produto-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .badge-promo {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: #E8002D;
+      color: white;
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    
+    .btn-wishlist {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      border: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+      z-index: 3;
+      font-size: 0.8rem;
+    }
+    
+    .btn-wishlist.ativo {
+      color: #EF4444;
+    }
+    
+    .card-produto-conteudo {
+      padding: 0.75rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-produto-titulo {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--cor-texto);
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .card-produto-descricao {
+      font-size: 0.7rem;
+      color: var(--cor-texto-muted);
+      margin-bottom: 0.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.3;
+    }
+    
+    .card-produto-preco {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--cor-primaria);
+      margin-bottom: 0.5rem;
+    }
+    
+    .card-produto-preco s {
+      font-size: 0.7rem;
+      color: var(--cor-texto-muted);
+      margin-left: 0.35rem;
+      font-weight: 400;
+    }
+    
+    .btn-adicionar {
+      width: 100%;
+      padding: 0.5rem;
+      background: var(--cor-primaria);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-top: auto;
+    }
+    
+    .btn-adicionar i {
+      font-size: 0.7rem;
+    }
+    
+    /* ===== SEM RESULTADOS ===== */
+    .sem-resultados {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--cor-card);
+      border-radius: 12px;
+      border: 1px solid var(--cor-borda);
+      grid-column: 1 / -1;
+    }
+    
+    .sem-resultados i {
+      font-size: 2.5rem;
+      color: var(--cor-texto-muted);
+      margin-bottom: 0.75rem;
+    }
+    
+    .sem-resultados h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .sem-resultados p {
+      color: var(--cor-texto-muted);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    /* ===== PAGINACAO ===== */
+    .paginacao {
+      display: flex;
+      justify-content: center;
+      gap: 0.35rem;
+      margin: 1.5rem 0;
+    }
+    
+    .paginacao-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: 8px;
+      color: var(--cor-texto);
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    
+    .paginacao-btn.active {
+      background: var(--cor-primaria);
+      border-color: var(--cor-primaria);
+      color: white;
+    }
+    
+    .paginacao-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    
+    /* ===== BOTTOM NAV ===== */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(6, 6, 14, 0.98);
+      border-top: 1px solid rgba(255, 85, 0, 0.1);
+      backdrop-filter: blur(12px);
+      z-index: 90;
+      padding: 0.35rem 0;
+      padding-bottom: max(0.35rem, env(safe-area-inset-bottom));
+    }
+    
+    .bottom-nav .container {
+      padding: 0 0.5rem;
+    }
+    
+    .bottom-nav-menu {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.15rem;
+      padding: 0.3rem 0.5rem;
+      color: #A0A0A8;
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      border-radius: 8px;
+      text-decoration: none;
+      position: relative;
+    }
+    
+    .bottom-nav-item i {
+      font-size: 1.25rem;
+    }
+    
+    .bottom-nav-item.active {
+      color: var(--cor-primaria, #FF5500);
+    }
+    
+    .bottom-nav-item .nav-badge {
+      position: absolute;
+      top: 0;
+      right: 2px;
+      background: var(--cor-primaria, #FF5500);
+      color: white;
+      border-radius: 100px;
+      min-width: 16px;
+      height: 16px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 3px;
+      border: 2px solid #06060E;
+    }
+    
+    .bottom-nav-item .nav-badge.favoritos-badge {
+      background: #EF4444;
+    }
+    
+    /* ===== FAB WHATSAPP ===== */
+    .fab-whatsapp {
+      position: fixed;
+      bottom: calc(75px + env(safe-area-inset-bottom));
+      right: 16px;
+      width: 50px;
+      height: 50px;
+      background: #25D366;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+      z-index: 95;
+      text-decoration: none;
+    }
+    
+    /* ===== AJUSTES ===== */
+    main {
+      padding-bottom: calc(75px + env(safe-area-inset-bottom));
+    }
+    
+    @media (min-width: 769px) {
+      .bottom-nav {
+        display: none;
+      }
+      
+      .fab-whatsapp {
+        bottom: 24px;
+        right: 24px;
+      }
+      
+      main {
+        padding-bottom: 0;
+      }
+    }
+    
+    .loading-placeholder {
+      text-align: center;
+      padding: 2rem;
+      color: var(--cor-texto-muted);
+      grid-column: 1 / -1;
+    }
+    
+    .loading-placeholder i {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header class="cabecalho">
+    <div class="container">
+      <div class="cabecalho-inner">
+        <a href="index.html" class="logo">
+          Ango<span>phones</span>
+        </a>
+        
+        <button class="tema-toggle" id="tema-toggle" aria-label="Alternar tema">
+          <i class="fa-regular fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="loja-header">
+        <h1>Catalogo</h1>
+      </div>
+      
+      <!-- Filtros -->
+      <div class="filtros-wrapper">
+        <div class="pesquisa-wrapper">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="pesquisa-input" class="pesquisa-input" placeholder="Pesquisar...">
+        </div>
+        
+        <select id="ordenacao-select" class="ordenacao-select">
+          <option value="destaque">Destaque</option>
+          <option value="nome">A-Z</option>
+          <option value="preco-asc">Menor preco</option>
+          <option value="preco-desc">Maior preco</option>
+        </select>
+      </div>
+      
+      <!-- Categorias -->
+      <div class="filtros-categorias" id="filtros-categorias">
+        <button class="filtro-categoria active" data-categoria="todos">Todos</button>
+      </div>
+      
+      <!-- Resultados -->
+      <div class="resultados-info">
+        <span id="resultados-contagem">0</span> produtos
+      </div>
+      
+      <!-- Grid -->
+      <div class="produtos-grid" id="produtos-container">
+        <div class="loading-placeholder">
+          <i class="fa-solid fa-spinner"></i>
+          <p>Carregando...</p>
+        </div>
+      </div>
+      
+      <!-- Paginacao -->
+      <div class="paginacao" id="paginacao-container"></div>
+    </div>
+  </main>
+
+  <!-- FAB WhatsApp -->
+  <a href="#" class="fab-whatsapp" id="fab-whatsapp" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="container">
+      <div class="bottom-nav-menu">
+        <a href="index.html" class="bottom-nav-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Inicio</span>
+        </a>
+        <a href="loja.html" class="bottom-nav-item active">
+          <i class="fa-solid fa-mobile-screen"></i>
+          <span>Loja</span>
+        </a>
+        <a href="carrinho.html" class="bottom-nav-item">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Carrinho</span>
+          <span class="nav-badge" data-carrinho-contador style="display: none;">0</span>
+        </a>
+        <a href="favoritos.html" class="bottom-nav-item">
+          <i class="fa-solid fa-heart"></i>
+          <span>Favoritos</span>
+          <span class="nav-badge favoritos-badge" data-favoritos-contador style="display: none;">0</span>
+        </a>
+        <a href="sobre.html" class="bottom-nav-item">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Sobre</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="core/js/loader.js"></script>
+  <script src="core/js/utils.js"></script>
+  <script src="core/js/core.js"></script>
+  <script src="core/js/toast.js"></script>
+  <script src="core/js/tema.js"></script>
+  <script src="core/js/cart.js"></script>
+  <script src="core/js/favoritos.js"></script>
+  
+  <script>
+    (function() {
+      console.log('Loja carregada');
+      
+      let produtosFiltrados = [];
+      let categoriaAtual = 'todos';
+      let ordenacaoAtual = 'destaque';
+      let termoPesquisa = '';
+      let paginaAtual = 1;
+      const produtosPorPagina = 12;
+      
+      const pesquisaInput = document.getElementById('pesquisa-input');
+      const ordenacaoSelect = document.getElementById('ordenacao-select');
+      const filtrosContainer = document.getElementById('filtros-categorias');
+      const produtosContainer = document.getElementById('produtos-container');
+      const resultadosContagem = document.getElementById('resultados-contagem');
+      const paginacaoContainer = document.getElementById('paginacao-container');
+      
+      function inicializar(catalogo) {
+        if (!catalogo) return;
+        
+        // WhatsApp
+        if (catalogo.loja?.whatsapp) {
+          const fab = document.getElementById('fab-whatsapp');
+          if (fab) {
+            const num = catalogo.loja.whatsapp.replace(/\D/g, '');
+            fab.href = `https://wa.me/${num}?text=Ola!%20Gostaria%20de%20informacoes.`;
+          }
+        }
+        
+        // URL categoria
+        const urlParams = new URLSearchParams(window.location.search);
+        const catURL = urlParams.get('categoria');
+        if (catURL) categoriaAtual = catURL;
+        
+        // Filtros categoria
+        if (catalogo.categorias) {
+          catalogo.categorias.sort((a,b) => (a.ordem||99) - (b.ordem||99)).forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = `filtro-categoria ${categoriaAtual === cat.id ? 'active' : ''}`;
+            btn.dataset.categoria = cat.id;
+            btn.innerHTML = `<i class="fa-solid ${cat.icone || 'fa-mobile-screen'}"></i> ${cat.nome}`;
+            btn.onclick = () => {
+              document.querySelectorAll('.filtro-categoria').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              categoriaAtual = cat.id;
+              paginaAtual = 1;
+              filtrar();
+            };
+            filtrosContainer.appendChild(btn);
+          });
+        }
+        
+        document.querySelector('[data-categoria="todos"]').onclick = () => {
+          document.querySelectorAll('.filtro-categoria').forEach(b => b.classList.remove('active'));
+          document.querySelector('[data-categoria="todos"]').classList.add('active');
+          categoriaAtual = 'todos';
+          paginaAtual = 1;
+          filtrar();
+        };
+        
+        pesquisaInput.oninput = () => { termoPesquisa = pesquisaInput.value; paginaAtual = 1; filtrar(); };
+        ordenacaoSelect.onchange = () => { ordenacaoAtual = ordenacaoSelect.value; paginaAtual = 1; filtrar(); };
+        
+        filtrar();
+      }
+      
+      function filtrar() {
+        const catalogo = window.CATALOGO;
+        if (!catalogo?.produtos) return;
+        
+        let produtos = categoriaAtual === 'todos' 
+          ? [...catalogo.produtos]
+          : catalogo.produtos.filter(p => p.categoria === categoriaAtual);
+        
+        if (termoPesquisa) {
+          const t = termoPesquisa.toLowerCase();
+          produtos = produtos.filter(p => p.nome.toLowerCase().includes(t) || (p.descricao||'').toLowerCase().includes(t));
+        }
+        
+        // Ordenar
+        produtos.sort((a,b) => {
+          const pa = a.precoPromocional || a.preco;
+          const pb = b.precoPromocional || b.preco;
+          switch(ordenacaoAtual) {
+            case 'nome': return a.nome.localeCompare(b.nome);
+            case 'preco-asc': return pa - pb;
+            case 'preco-desc': return pb - pa;
+            default: return (b.destaque?1:0) - (a.destaque?1:0);
+          }
+        });
+        
+        produtosFiltrados = produtos;
+        resultadosContagem.textContent = produtos.length;
+        renderizar();
+      }
+      
+      function renderizar() {
+        const inicio = (paginaAtual - 1) * produtosPorPagina;
+        const fim = inicio + produtosPorPagina;
+        const pagina = produtosFiltrados.slice(inicio, fim);
+        
+        if (pagina.length === 0) {
+          produtosContainer.innerHTML = `<div class="sem-resultados">
+            <i class="fa-regular fa-face-frown"></i>
+            <h3>Nenhum produto</h3>
+            <p>Tente outros filtros.</p>
+            <button class="btn btn-small" onclick="document.getElementById('pesquisa-input').value=''; termoPesquisa=''; filtrar();">Limpar</button>
+          </div>`;
+          paginacaoContainer.innerHTML = '';
+          return;
+        }
+        
+        produtosContainer.innerHTML = pagina.map(p => {
+          const preco = p.precoPromocional || p.preco;
+          const precoOriginal = p.emPromocao ? p.preco : null;
+          
+          return `<div class="card-produto" data-id="${p.id}">
+            <div class="card-produto-img">
+              <img src="imagens/produtos/${p.imagens?.[0] || 'placeholder.png'}" alt="${p.nome}" onerror="this.src='core/assets/placeholder.png'">
+              ${p.emPromocao ? '<span class="badge-promo">Promo</span>' : ''}
+              <button class="btn-wishlist" data-id="${p.id}">
+                <i class="fa-regular fa-heart"></i>
+              </button>
+            </div>
+            <div class="card-produto-conteudo">
+              <h3 class="card-produto-titulo">${p.nome}</h3>
+              <p class="card-produto-descricao">${p.descricao || ''}</p>
+              <div class="card-produto-preco">
+                ${preco.toLocaleString('pt-AO', {minimumFractionDigits:2, maximumFractionDigits:2})} Kz
+                ${precoOriginal ? `<s>${precoOriginal.toLocaleString('pt-AO', {minimumFractionDigits:2, maximumFractionDigits:2})} Kz</s>` : ''}
+              </div>
+              <button class="btn-adicionar" data-id="${p.id}">
+                <i class="fa-solid fa-cart-shopping"></i> Adicionar
+              </button>
+            </div>
+          </div>`;
+        }).join('');
+        
+        // Event listeners
+        produtosContainer.querySelectorAll('.card-produto').forEach(card => {
+          const id = card.dataset.id;
+          card.onclick = (e) => {
+            if (!e.target.closest('button')) {
+              window.location.href = `produto.html?id=${id}`;
+            }
+          };
+        });
+        
+        produtosContainer.querySelectorAll('.btn-adicionar').forEach(btn => {
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            const id = btn.dataset.id;
+            const produto = window.CATALOGO.produtos.find(p => p.id === id);
+            if (produto && window.cart) {
+              window.cart.adicionarAoCarrinho(produto, 1);
+              window.toast?.sucesso(`${produto.nome} adicionado!`);
+            }
+          };
+        });
+        
+        produtosContainer.querySelectorAll('.btn-wishlist').forEach(btn => {
+          const id = btn.dataset.id;
+          if (window.favoritos?.estaNosFavoritos(id)) {
+            btn.querySelector('i').className = 'fa-solid fa-heart';
+            btn.classList.add('ativo');
+          }
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            const produto = window.CATALOGO.produtos.find(p => p.id === id);
+            if (produto && window.favoritos) {
+              const isFav = window.favoritos.alternarFavorito(produto);
+              const icon = btn.querySelector('i');
+              icon.className = isFav ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+              btn.classList.toggle('ativo', isFav);
+            }
+          };
+        });
+        
+        renderizarPaginacao();
+      }
+      
+      function renderizarPaginacao() {
+        const total = Math.ceil(produtosFiltrados.length / produtosPorPagina);
+        if (total <= 1) { paginacaoContainer.innerHTML = ''; return; }
+        
+        let html = `<button class="paginacao-btn" ${paginaAtual === 1 ? 'disabled' : ''} data-page="prev"><i class="fa-solid fa-chevron-left"></i></button>`;
+        
+        for (let i = 1; i <= total; i++) {
+          if (i === 1 || i === total || (i >= paginaAtual - 1 && i <= paginaAtual + 1)) {
+            html += `<button class="paginacao-btn ${i === paginaAtual ? 'active' : ''}" data-page="${i}">${i}</button>`;
+          } else if (i === paginaAtual - 2 || i === paginaAtual + 2) {
+            html += `<span class="paginacao-btn" style="pointer-events:none;">...</span>`;
+          }
+        }
+        
+        html += `<button class="paginacao-btn" ${paginaAtual === total ? 'disabled' : ''} data-page="next"><i class="fa-solid fa-chevron-right"></i></button>`;
+        
+        paginacaoContainer.innerHTML = html;
+        
+        paginacaoContainer.querySelectorAll('[data-page]').forEach(btn => {
+          btn.onclick = () => {
+            const p = btn.dataset.page;
+            if (p === 'prev' && paginaAtual > 1) paginaAtual--;
+            else if (p === 'next' && paginaAtual < total) paginaAtual++;
+            else if (!isNaN(p)) paginaAtual = parseInt(p);
+            renderizar();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+          };
+        });
+      }
+      
+      if (window.CATALOGO) inicializar(window.CATALOGO);
+      else window.addEventListener('catalogoCarregado', e => inicializar(e.detail));
+      setTimeout(() => { if (window.CATALOGO) inicializar(window.CATALOGO); }, 1500);
+    })();
+  </script>
+  
+  <!-- Toggle tema -->
+  <script>
+    (function() {
+      const btn = document.getElementById('tema-toggle');
+      if (!btn) return;
+      function update() {
+        if (window.tema) {
+          const tema = window.tema.getTema();
+          btn.querySelector('i').className = tema === 'escuro' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+        } else setTimeout(update, 100);
+      }
+      update();
+      btn.onclick = () => { window.tema?.alternarTema(); update(); };
+    })();
+  </script>
+</body>
+</html>
