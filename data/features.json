@@ -1,0 +1,22 @@
+[
+  {
+    "icone": "fa-truck-fast",
+    "titulo": "Entrega em 24h",
+    "descricao": "Luanda e provincias com tracking online."
+  },
+  {
+    "icone": "fa-certificate",
+    "titulo": "Garantia Oficial",
+    "descricao": "Todos os produtos com garantia de 2 anos."
+  },
+  {
+    "icone": "fa-whatsapp",
+    "titulo": "Suporte WhatsApp",
+    "descricao": "Respostas em menos de 5 minutos."
+  },
+  {
+    "icone": "fa-lock",
+    "titulo": "Pagamento Seguro",
+    "descricao": "Transferencia bancaria ou pagamento na entrega."
+  }
+]
