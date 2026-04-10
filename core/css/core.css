@@ -1,0 +1,181 @@
+/* ============================================
+   CORE.CSS – Reset, variáveis globais e estilos base
+   ============================================ */
+
+/* Reset moderno */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variáveis globais neutras (serão sobrescritas pelo tema) */
+:root {
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-heading: 'Bebas Neue', 'Impact', sans-serif;
+  
+  --cor-fundo: #06060E;
+  --cor-texto: #FFFFFF;
+  --cor-texto-suave: #A0A0A8;
+  --cor-borda: #2A2A2E;
+  --cor-card: #0F0F13;
+  
+  --sombra-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --sombra-md: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --sombra-lg: 0 16px 40px rgba(0, 0, 0, 0.3);
+  
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+  --border-radius-xl: 32px;
+  
+  --transition: all 0.2s ease;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tipografia base */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 0.5em;
+}
+
+h1 { font-size: clamp(2.5rem, 8vw, 5rem); }
+h2 { font-size: clamp(2rem, 6vw, 3.5rem); }
+h3 { font-size: clamp(1.5rem, 4vw, 2rem); }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.1rem; }
+h6 { font-size: 1rem; }
+
+p {
+  margin-bottom: 1rem;
+  color: var(--cor-texto-suave);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* Utilitários de layout */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0 1.5rem;
+}
+
+/* Grid responsivo */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .container { padding: 0 1rem; }
+}
+
+/* Flex utilities */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+.gap-4 { gap: 2rem; }
+
+/* Espaçamento */
+.p-0 { padding: 0; }
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+.py-1 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-2 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-4 { padding-top: 2rem; padding-bottom: 2rem; }
+.py-6 { padding-top: 4rem; padding-bottom: 4rem; }
+.mt-auto { margin-top: auto; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+/* Texto */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.uppercase { text-transform: uppercase; }
+.font-bold { font-weight: 700; }
+.text-small { font-size: 0.875rem; }
+.text-muted { color: var(--cor-texto-suave); }
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cor-card);
+}
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
