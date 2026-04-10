@@ -1,0 +1,776 @@
+/* ============================================
+   TEMA.CSS – Identidade visual Angophones (Tech Premium)
+   ============================================ */
+
+:root {
+  /* Cores principais */
+  --cor-primaria: #FF5500;
+  --cor-primaria-hover: #FF7A33;
+  --cor-secundaria: #FFAA66;
+  
+  /* Fundos */
+  --cor-fundo: #06060E;
+  --cor-fundo-alt: #0A0A14;
+  --cor-card: #0F0F13;
+  --cor-card-hover: #14141A;
+  --cor-borda: #2A2A2E;
+  
+  /* Texto */
+  --cor-texto: #FFFFFF;
+  --cor-texto-suave: #A0A0A8;
+  --cor-texto-muted: #6B6B76;
+  
+  /* Tipografia Angophones */
+  --font-titulo: 'Bebas Neue', 'Impact', sans-serif;
+  --font-corpo: 'Outfit', system-ui, -apple-system, sans-serif;
+  
+  /* Sombras específicas */
+  --sombra-laranja: 0 8px 24px rgba(255, 85, 0, 0.15);
+  --glow-laranja: 0 0 20px rgba(255, 85, 0, 0.3);
+  
+  /* Override de variáveis core */
+  --font-heading: var(--font-titulo);
+  --font-body: var(--font-corpo);
+}
+
+/* Aplicar tipografia */
+body {
+  font-family: var(--font-corpo);
+  background-color: var(--cor-fundo);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-titulo);
+  letter-spacing: 0.03em;
+}
+
+h1 {
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Estilo editorial para títulos (característico do Angophones) */
+.titulo-editorial {
+  font-size: clamp(3.5rem, 12vw, 7rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.titulo-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--cor-primaria);
+  text-stroke: 2px var(--cor-primaria);
+}
+
+@media (max-width: 640px) {
+  .titulo-outline {
+    -webkit-text-stroke: 1px var(--cor-primaria);
+  }
+}
+
+/* Cores personalizadas nos componentes */
+.btn {
+  background-color: var(--cor-primaria);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.btn:hover {
+  background-color: var(--cor-primaria-hover);
+  box-shadow: var(--sombra-laranja);
+}
+
+.btn-outline {
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria);
+}
+
+.btn-outline:hover {
+  background-color: var(--cor-primaria);
+  color: white;
+}
+
+/* Cards com estilo Angophones */
+.card-produto {
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+}
+
+.card-produto:hover {
+  border-color: var(--cor-primaria);
+  box-shadow: var(--sombra-laranja);
+}
+
+.card-produto-preco {
+  color: var(--cor-primaria);
+  font-weight: 700;
+}
+
+/* Badge laranja */
+.badge {
+  background: var(--cor-primaria);
+}
+
+/* Links com hover laranja */
+a:hover {
+  color: var(--cor-primaria);
+}
+
+/* Formulários com foco laranja */
+.form-control:focus {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px rgba(255, 85, 0, 0.15);
+}
+
+/* Scrollbar personalizada com cor primária */
+::-webkit-scrollbar-thumb {
+  background: var(--cor-primaria);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cor-primaria-hover);
+}
+
+/* -------------------- Cabeçalho Angophones ------------------- */
+.cabecalho {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(255, 85, 0, 0.1);
+  background: rgba(6, 6, 14, 0.9);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.cabecalho-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--font-titulo);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--cor-texto);
+  text-transform: uppercase;
+}
+
+.logo span {
+  color: var(--cor-primaria);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-weight: 500;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  padding: 0.25rem 0;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--cor-primaria);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.carrinho-link {
+  position: relative;
+}
+
+.carrinho-contador {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: var(--cor-primaria);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .cabecalho {
+    padding: 1rem 0;
+  }
+  .logo {
+    font-size: 1.5rem;
+  }
+  .nav-links {
+    gap: 1.25rem;
+  }
+  .nav-links a {
+    font-size: 0.875rem;
+  }
+}
+
+/* -------------------- Rodapé ------------------- */
+.footer {
+  margin-top: auto;
+  padding: 3rem 0 2rem;
+  border-top: 1px solid var(--cor-borda);
+  background: var(--cor-fundo-alt);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.footer-titulo {
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: var(--cor-texto);
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-links a {
+  color: var(--cor-texto-suave);
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--cor-primaria);
+}
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.footer-social a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--cor-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: all 0.2s;
+}
+
+.footer-social a:hover {
+  background: var(--cor-primaria);
+  color: white;
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--cor-borda);
+  text-align: center;
+  color: var(--cor-texto-muted);
+  font-size: 0.875rem;
+}
+
+/* -------------------- Hero Editorial (específico do Angophones) ------------------- */
+.hero-angophones {
+  padding: 4rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-conteudo h1 {
+  font-size: clamp(4rem, 10vw, 7rem);
+  line-height: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.hero-conteudo .titulo-outline {
+  display: block;
+  margin-top: -0.2em;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background: rgba(255, 85, 0, 0.1);
+  border: 1px solid var(--cor-primaria);
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cor-primaria);
+  margin-bottom: 1.5rem;
+}
+
+.hero-slogan {
+  font-size: 1.25rem;
+  color: var(--cor-texto-suave);
+  margin: 1.5rem 0 2rem;
+}
+
+.hero-imagem {
+  position: relative;
+}
+
+.hero-imagem img {
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--sombra-lg);
+}
+
+.hero-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,85,0,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-conteudo h1 {
+    font-size: clamp(3rem, 12vw, 5rem);
+  }
+}
+
+/* -------------------- Categorias em lista numerada (estilo lookbook) ------------------- */
+.categorias-lookbook {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.categoria-lookbook-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--cor-card);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--cor-borda);
+  transition: all 0.3s ease;
+  counter-increment: categoria-counter;
+}
+
+.categoria-lookbook-item::before {
+  content: "0" counter(categoria-counter);
+  font-family: var(--font-titulo);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  opacity: 0.5;
+  min-width: 60px;
+}
+
+.categoria-lookbook-item:hover {
+  border-color: var(--cor-primaria);
+  transform: translateX(10px);
+  box-shadow: var(--sombra-laranja);
+}
+
+.categoria-lookbook-item i {
+  font-size: 2rem;
+  color: var(--cor-primaria);
+  width: 40px;
+  text-align: center;
+}
+
+.categoria-lookbook-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.categoria-lookbook-info p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.categoria-seta {
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.3s;
+  color: var(--cor-primaria);
+}
+
+.categoria-lookbook-item:hover .categoria-seta {
+  opacity: 1;
+}
+
+.categorias-lookbook {
+  counter-reset: categoria-counter;
+}
+
+/* -------------------- Banner de destaque ------------------- */
+.banner-destaque {
+  background: linear-gradient(135deg, rgba(255,85,0,0.1), rgba(255,85,0,0.02));
+  border: 1px solid rgba(255,85,0,0.2);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem 2rem;
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.banner-destaque p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.banner-destaque i {
+  color: var(--cor-primaria);
+  margin-right: 0.5rem;
+}
+
+/* -------------------- Página de detalhe do produto ------------------- */
+.produto-detalhe-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding: 2rem 0;
+}
+
+.produto-galeria {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.produto-main-image {
+  aspect-ratio: 1 / 1;
+  background: var(--cor-card);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+}
+
+.produto-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.produto-thumbs {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+}
+
+.produto-thumb {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: var(--cor-card);
+}
+
+.produto-thumb.active {
+  border-color: var(--cor-primaria);
+}
+
+.produto-info h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.produto-preco {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  margin: 1rem 0;
+}
+
+.produto-preco s {
+  font-size: 1.25rem;
+  color: var(--cor-texto-suave);
+  margin-left: 1rem;
+}
+
+.produto-variantes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.variante-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--border-radius-md);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.variante-btn:hover,
+.variante-btn.active {
+  border-color: var(--cor-primaria);
+  background: rgba(255,85,0,0.1);
+  color: var(--cor-primaria);
+}
+
+.produto-cores {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.cor-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--cor-borda);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.cor-btn:hover,
+.cor-btn.active {
+  transform: scale(1.1);
+  border-color: var(--cor-primaria);
+}
+
+.produto-especificacoes {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--cor-card);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--cor-borda);
+}
+
+.produto-especificacoes h4 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--cor-borda);
+}
+
+.spec-label {
+  color: var(--cor-texto-suave);
+}
+
+.spec-value {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .produto-detalhe-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -------------------- Página Sobre ------------------- */
+.sobre-hero {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin: 3rem 0;
+}
+
+.sobre-historia {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.equipa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.equipa-card {
+  background: var(--cor-card);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  transition: var(--transition);
+}
+
+.equipa-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--sombra-lg);
+  border-color: var(--cor-primaria);
+}
+
+.equipa-img {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.equipa-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.equipa-card:hover .equipa-img img {
+  transform: scale(1.05);
+}
+
+.equipa-info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.equipa-info h3 {
+  margin-bottom: 0.25rem;
+}
+
+.equipa-cargo {
+  color: var(--cor-primaria);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.equipa-bio {
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+}
+
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 3rem 0;
+}
+
+.galeria-item {
+  aspect-ratio: 16 / 10;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.galeria-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.galeria-item:hover img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .sobre-grid {
+    grid-template-columns: 1fr;
+  }
+  .galeria-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -------------------- Modo escuro (já é o padrão) e claro (opcional) ------------------- */
+/* O tema claro pode ser activado via JavaScript adicionando classe .tema-claro ao body */
+body.tema-claro {
+  --cor-fundo: #F5F5F7;
+  --cor-fundo-alt: #FFFFFF;
+  --cor-card: #FFFFFF;
+  --cor-card-hover: #F9F9FB;
+  --cor-borda: #E5E5EA;
+  --cor-texto: #1C1C1E;
+  --cor-texto-suave: #3A3A3C;
+  --cor-texto-muted: #8E8E93;
+}
+
+body.tema-claro .cabecalho {
+  background: rgba(245, 245, 247, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom-color: rgba(0,0,0,0.05);
+}
+
+body.tema-claro .card-produto,
+body.tema-claro .form-control {
+  background: #FFFFFF;
+  color: #1C1C1E;
+}
+
+body.tema-claro .form-control {
+  background: #FFFFFF;
+  border-color: #E5E5EA;
+}
+
+/* -------------------- Animações ------------------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.stagger-item {
+  opacity: 0;
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
