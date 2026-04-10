@@ -1,0 +1,37 @@
+[
+  {
+    "id": "smartphones",
+    "nome": "Smartphones",
+    "icone": "fa-mobile-screen",
+    "cor": "#FF5500",
+    "ordem": 1
+  },
+  {
+    "id": "acessorios",
+    "nome": "Acessórios",
+    "icone": "fa-headphones",
+    "cor": "#FF7A33",
+    "ordem": 2
+  },
+  {
+    "id": "capas",
+    "nome": "Capas",
+    "icone": "fa-shield",
+    "cor": "#FFAA66",
+    "ordem": 3
+  },
+  {
+    "id": "carregadores",
+    "nome": "Carregadores",
+    "icone": "fa-bolt",
+    "cor": "#FFCC99",
+    "ordem": 4
+  },
+  {
+    "id": "tablets",
+    "nome": "Tablets",
+    "icone": "fa-tablet-screen-button",
+    "cor": "#FF5500",
+    "ordem": 5
+  }
+]
