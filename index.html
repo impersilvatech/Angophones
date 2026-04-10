@@ -27,187 +27,121 @@
   <link rel="stylesheet" href="tema/css/tema.css">
   <link rel="stylesheet" href="tema/css/vitrine.css">
   
-  <!-- Drawer CSS adicional -->
+  <!-- Bottom Navigation Bar CSS -->
   <style>
-    /* ===== DRAWER MELHORADO ===== */
-    .drawer-overlay {
+    /* ===== BOTTOM NAVIGATION BAR ===== */
+    .bottom-nav {
       position: fixed;
-      top: 0;
+      bottom: 0;
       left: 0;
       right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-    
-    .drawer-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .drawer {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 85%;
-      max-width: 380px;
       background: var(--cor-fundo);
-      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
-      z-index: 1001;
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      flex-direction: column;
-      border-left: 1px solid var(--cor-borda);
-    }
-    
-    .drawer.active {
-      transform: translateX(0);
-    }
-    
-    .drawer-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--cor-borda);
-    }
-    
-    .drawer-header h3 {
-      margin: 0;
-      font-size: 1.5rem;
-      color: var(--cor-primaria);
-    }
-    
-    .drawer-close {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--cor-card);
-      border: none;
-      color: var(--cor-texto);
-      font-size: 1.25rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-    
-    .drawer-close:hover {
-      background: var(--cor-primaria);
-      color: white;
-    }
-    
-    .drawer-body {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1.5rem;
-    }
-    
-    .drawer-menu {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    .drawer-menu-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.25rem;
-      background: var(--cor-card);
-      border-radius: var(--border-radius-md);
-      border: 1px solid var(--cor-borda);
-      color: var(--cor-texto);
-      font-weight: 500;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-    
-    .drawer-menu-item:hover {
-      background: var(--cor-primaria);
-      border-color: var(--cor-primaria);
-      color: white;
-      transform: translateX(-4px);
-    }
-    
-    .drawer-menu-item i {
-      width: 24px;
-      font-size: 1.25rem;
-      text-align: center;
-    }
-    
-    .drawer-menu-item .badge-drawer {
-      margin-left: auto;
-      background: var(--cor-primaria);
-      color: white;
-      padding: 0.25rem 0.5rem;
-      border-radius: 100px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-    
-    .drawer-menu-item:hover .badge-drawer {
-      background: white;
-      color: var(--cor-primaria);
-    }
-    
-    .drawer-divider {
-      height: 1px;
-      background: var(--cor-borda);
-      margin: 1rem 0;
-    }
-    
-    .drawer-footer {
-      padding: 1.5rem;
       border-top: 1px solid var(--cor-borda);
-      text-align: center;
+      backdrop-filter: blur(12px);
+      background: rgba(6, 6, 14, 0.95);
+      z-index: 100;
+      padding: 0.5rem 0;
+      padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
     }
     
-    .drawer-footer .tema-toggle {
-      width: 100%;
-      justify-content: center;
-      gap: 0.75rem;
-      padding: 0.75rem;
-      background: var(--cor-card);
+    .bottom-nav .container {
+      padding: 0 0.5rem;
+    }
+    
+    .bottom-nav-menu {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.5rem 0.75rem;
+      color: var(--cor-texto-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      transition: all 0.2s ease;
       border-radius: var(--border-radius-md);
-    }
-    
-    /* Menu mobile toggle (hamburguer) */
-    .menu-toggle {
-      display: none;
+      position: relative;
+      text-decoration: none;
       background: none;
       border: none;
-      color: var(--cor-texto);
-      font-size: 1.5rem;
       cursor: pointer;
-      padding: 0.5rem;
-      width: 44px;
-      height: 44px;
+    }
+    
+    .bottom-nav-item i {
+      font-size: 1.5rem;
+      transition: transform 0.2s ease;
+    }
+    
+    .bottom-nav-item:hover {
+      color: var(--cor-texto);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .bottom-nav-item.active {
+      color: var(--cor-primaria);
+    }
+    
+    .bottom-nav-item.active i {
+      transform: translateY(-2px);
+    }
+    
+    .bottom-nav-item .nav-badge {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: var(--cor-primaria);
+      color: white;
+      border-radius: 100px;
+      min-width: 18px;
+      height: 18px;
+      font-size: 0.65rem;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: var(--border-radius-sm);
-      transition: background 0.2s;
+      padding: 0 4px;
+      border: 2px solid var(--cor-fundo);
     }
     
-    .menu-toggle:hover {
-      background: var(--cor-card);
+    .bottom-nav-item .nav-badge.favoritos-badge {
+      background: #EF4444;
     }
     
+    /* Ajuste para o conteudo principal nao ficar escondido atras da barra */
+    main {
+      padding-bottom: calc(80px + env(safe-area-inset-bottom));
+    }
+    
+    /* Esconder bottom nav em desktop (mostrar nav normal) */
+    @media (min-width: 769px) {
+      .bottom-nav {
+        display: none;
+      }
+      
+      main {
+        padding-bottom: 0;
+      }
+    }
+    
+    /* Esconder nav-links em mobile (usar bottom nav) */
     @media (max-width: 768px) {
       .nav-links {
         display: none;
       }
       
-      .menu-toggle {
-        display: flex;
+      .cabecalho .container {
+        justify-content: center;
+      }
+      
+      .cabecalho-inner {
+        justify-content: center;
       }
     }
     
@@ -227,6 +161,41 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+    
+    /* Toggle de tema no cabecalho (mobile) */
+    .tema-toggle-mobile {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--cor-texto);
+      font-size: 1.25rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    
+    .tema-toggle-mobile:hover {
+      background: var(--cor-card);
+    }
+    
+    @media (max-width: 768px) {
+      .tema-toggle-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      
+      .cabecalho-inner {
+        position: relative;
+      }
+    }
   </style>
 </head>
 <body>
@@ -238,6 +207,7 @@
           Ango<span>phones</span>
         </a>
         
+        <!-- Navegacao Desktop -->
         <nav class="nav-links">
           <a href="index.html" class="active">Inicio</a>
           <a href="loja.html">Loja</a>
@@ -250,73 +220,18 @@
             <i class="fa-regular fa-heart"></i>
             <span class="favoritos-contador" data-favoritos-contador style="display: none;">0</span>
           </a>
+          <button class="btn-icon tema-toggle" data-tema-toggle aria-label="Alternar tema">
+            <i class="fa-regular fa-sun"></i>
+          </button>
         </nav>
         
-        <!-- Botao hamburguer para mobile -->
-        <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
-          <i class="fa-solid fa-bars"></i>
+        <!-- Toggle de tema para mobile -->
+        <button class="tema-toggle-mobile" id="tema-toggle-mobile" aria-label="Alternar tema">
+          <i class="fa-regular fa-sun"></i>
         </button>
       </div>
     </div>
   </header>
-
-  <!-- Drawer (menu mobile melhorado) -->
-  <div class="drawer-overlay" id="drawer-overlay"></div>
-  <div class="drawer" id="drawer">
-    <div class="drawer-header">
-      <h3>Menu</h3>
-      <button class="drawer-close" id="drawer-close">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
-    
-    <div class="drawer-body">
-      <div class="drawer-menu">
-        <a href="index.html" class="drawer-menu-item">
-          <i class="fa-solid fa-house"></i>
-          <span>Inicio</span>
-        </a>
-        <a href="loja.html" class="drawer-menu-item">
-          <i class="fa-solid fa-mobile-screen"></i>
-          <span>Loja</span>
-        </a>
-        <a href="sobre.html" class="drawer-menu-item">
-          <i class="fa-regular fa-circle-info"></i>
-          <span>Sobre Nos</span>
-        </a>
-        <a href="carrinho.html" class="drawer-menu-item">
-          <i class="fa-solid fa-bag-shopping"></i>
-          <span>Carrinho</span>
-          <span class="badge-drawer" data-carrinho-contador>0</span>
-        </a>
-        <a href="favoritos.html" class="drawer-menu-item">
-          <i class="fa-regular fa-heart"></i>
-          <span>Favoritos</span>
-          <span class="badge-drawer" data-favoritos-contador>0</span>
-        </a>
-      </div>
-      
-      <div class="drawer-divider"></div>
-      
-      <div class="drawer-menu">
-        <a href="#" class="drawer-menu-item" id="drawer-whatsapp">
-          <i class="fa-brands fa-whatsapp"></i>
-          <span>WhatsApp</span>
-        </a>
-        <a href="#" class="drawer-menu-item" id="drawer-email">
-          <i class="fa-regular fa-envelope"></i>
-          <span>Contacto</span>
-        </a>
-      </div>
-    </div>
-    
-    <div class="drawer-footer">
-      <button class="btn-outline tema-toggle" id="drawer-tema-toggle" style="width: 100%;">
-        <i class="fa-regular fa-sun"></i>
-        <span>Alternar Tema</span>
-      </button>
-    </div>
-  </div>
 
   <main>
     <!-- Hero Section -->
@@ -441,56 +356,39 @@
     </section>
   </main>
 
-  <!-- Rodape -->
-  <footer class="footer">
+  <!-- Bottom Navigation Bar (Mobile) -->
+  <nav class="bottom-nav">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <h4 class="footer-titulo">Angophones</h4>
-          <p class="text-muted">Tech Premium em Angola. Os melhores smartphones e acessorios com garantia oficial.</p>
-          <div class="footer-social">
-            <a href="#" id="social-instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" id="social-facebook" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#" id="social-tiktok" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-          </div>
-        </div>
-        
-        <div class="footer-col">
-          <h4 class="footer-titulo">Links Rapidos</h4>
-          <div class="footer-links">
-            <a href="index.html">Inicio</a>
-            <a href="loja.html">Loja</a>
-            <a href="sobre.html">Sobre Nos</a>
-            <a href="carrinho.html">Carrinho</a>
-            <a href="favoritos.html">Favoritos</a>
-          </div>
-        </div>
-        
-        <div class="footer-col">
-          <h4 class="footer-titulo">Ajuda</h4>
-          <div class="footer-links">
-            <a href="faq.html">Perguntas Frequentes</a>
-            <a href="entregas.html">Politica de Entregas</a>
-            <a href="garantia.html">Garantia</a>
-            <a href="contacto.html">Contacto</a>
-          </div>
-        </div>
-        
-        <div class="footer-col">
-          <h4 class="footer-titulo">Contacto</h4>
-          <div class="footer-links">
-            <a href="#" id="footer-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-            <a href="#" id="footer-email"><i class="fa-regular fa-envelope"></i> Email</a>
-            <a href="#" id="footer-telefone"><i class="fa-solid fa-phone"></i> Telefone</a>
-            <span id="footer-endereco"><i class="fa-solid fa-location-dot"></i> Carregando...</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="footer-bottom">
-        <p>&copy; 2024 Angophones. Todos os direitos reservados. Desenvolvido por IMPERSILVA TECH.</p>
+      <div class="bottom-nav-menu">
+        <a href="index.html" class="bottom-nav-item active">
+          <i class="fa-solid fa-house"></i>
+          <span>Inicio</span>
+        </a>
+        <a href="loja.html" class="bottom-nav-item">
+          <i class="fa-solid fa-mobile-screen"></i>
+          <span>Loja</span>
+        </a>
+        <a href="carrinho.html" class="bottom-nav-item">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span>Carrinho</span>
+          <span class="nav-badge" data-carrinho-contador style="display: none;">0</span>
+        </a>
+        <a href="favoritos.html" class="bottom-nav-item">
+          <i class="fa-regular fa-heart"></i>
+          <span>Favoritos</span>
+          <span class="nav-badge favoritos-badge" data-favoritos-contador style="display: none;">0</span>
+        </a>
+        <a href="sobre.html" class="bottom-nav-item">
+          <i class="fa-regular fa-circle-info"></i>
+          <span>Sobre</span>
+        </a>
       </div>
     </div>
+  </nav>
+
+  <!-- Rodape (apenas desktop) -->
+  <footer class="footer" style="display: none;">
+    <!-- Mantido apenas para desktop, escondido em mobile -->
   </footer>
 
   <!-- Core JavaScript -->
@@ -535,32 +433,6 @@
               bannerSection.style.display = 'block';
             }
           }
-          
-          // Footer
-          const footerWhatsapp = document.getElementById('footer-whatsapp');
-          const footerEmail = document.getElementById('footer-email');
-          const footerTelefone = document.getElementById('footer-telefone');
-          const footerEndereco = document.getElementById('footer-endereco');
-          const drawerWhatsapp = document.getElementById('drawer-whatsapp');
-          const drawerEmail = document.getElementById('drawer-email');
-          
-          const whatsappNum = catalogo.loja.whatsapp?.replace(/\D/g, '') || '';
-          
-          if (footerWhatsapp) footerWhatsapp.href = `https://wa.me/${whatsappNum}`;
-          if (footerEmail) footerEmail.href = `mailto:${catalogo.loja.email}`;
-          if (footerTelefone) footerTelefone.href = `tel:${catalogo.loja.telefone}`;
-          if (footerEndereco) footerEndereco.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${catalogo.loja.endereco || 'Luanda, Angola'}`;
-          if (drawerWhatsapp) drawerWhatsapp.href = `https://wa.me/${whatsappNum}`;
-          if (drawerEmail) drawerEmail.href = `mailto:${catalogo.loja.email}`;
-          
-          // Redes sociais
-          const socialIg = document.getElementById('social-instagram');
-          const socialFb = document.getElementById('social-facebook');
-          const socialTt = document.getElementById('social-tiktok');
-          
-          if (socialIg && catalogo.loja.redesSociais?.instagram) socialIg.href = catalogo.loja.redesSociais.instagram;
-          if (socialFb && catalogo.loja.redesSociais?.facebook) socialFb.href = catalogo.loja.redesSociais.facebook;
-          if (socialTt && catalogo.loja.redesSociais?.tiktok) socialTt.href = catalogo.loja.redesSociais.tiktok;
         }
         
         // Renderizar categorias
@@ -569,28 +441,32 @@
           categoriasContainer.innerHTML = '';
           const categoriasOrdenadas = [...catalogo.categorias].sort((a, b) => (a.ordem || 99) - (b.ordem || 99));
           
-          categoriasOrdenadas.forEach(cat => {
-            const qtdProdutos = catalogo.produtos?.filter(p => p.categoria === cat.id).length || 0;
-            const item = document.createElement('div');
-            item.className = 'categoria-item';
-            item.setAttribute('data-categoria', cat.id);
-            item.innerHTML = `
-              <div class="categoria-icon">
-                <i class="fa-solid ${cat.icone || 'fa-mobile-screen'}"></i>
-              </div>
-              <div class="categoria-info">
-                <h3>${cat.nome}</h3>
-                <span class="categoria-count">${qtdProdutos} produtos</span>
-              </div>
-              <div class="categoria-arrow">
-                <i class="fa-solid fa-arrow-right"></i>
-              </div>
-            `;
-            item.addEventListener('click', () => {
-              window.location.href = `loja.html?categoria=${cat.id}`;
+          if (categoriasOrdenadas.length === 0) {
+            categoriasContainer.innerHTML = '<p class="text-center text-muted">Nenhuma categoria disponivel.</p>';
+          } else {
+            categoriasOrdenadas.forEach(cat => {
+              const qtdProdutos = catalogo.produtos?.filter(p => p.categoria === cat.id).length || 0;
+              const item = document.createElement('div');
+              item.className = 'categoria-item';
+              item.setAttribute('data-categoria', cat.id);
+              item.innerHTML = `
+                <div class="categoria-icon">
+                  <i class="fa-solid ${cat.icone || 'fa-mobile-screen'}"></i>
+                </div>
+                <div class="categoria-info">
+                  <h3>${cat.nome}</h3>
+                  <span class="categoria-count">${qtdProdutos} produtos</span>
+                </div>
+                <div class="categoria-arrow">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </div>
+              `;
+              item.addEventListener('click', () => {
+                window.location.href = `loja.html?categoria=${cat.id}`;
+              });
+              categoriasContainer.appendChild(item);
             });
-            categoriasContainer.appendChild(item);
-          });
+          }
         }
         
         // Renderizar produtos em destaque
@@ -613,18 +489,22 @@
         const featuresContainer = document.getElementById('features-container');
         if (featuresContainer && catalogo.features) {
           featuresContainer.innerHTML = '';
-          catalogo.features.forEach(feature => {
-            const card = document.createElement('div');
-            card.className = 'feature-card';
-            card.innerHTML = `
-              <div class="feature-icon">
-                <i class="fa-solid ${feature.icone || 'fa-circle-check'}"></i>
-              </div>
-              <h4>${feature.titulo}</h4>
-              <p>${feature.descricao}</p>
-            `;
-            featuresContainer.appendChild(card);
-          });
+          if (catalogo.features.length === 0) {
+            featuresContainer.innerHTML = '<p class="text-center text-muted">Nenhuma caracteristica disponivel.</p>';
+          } else {
+            catalogo.features.forEach(feature => {
+              const card = document.createElement('div');
+              card.className = 'feature-card';
+              card.innerHTML = `
+                <div class="feature-icon">
+                  <i class="fa-solid ${feature.icone || 'fa-circle-check'}"></i>
+                </div>
+                <h4>${feature.titulo}</h4>
+                <p>${feature.descricao}</p>
+              `;
+              featuresContainer.appendChild(card);
+            });
+          }
         }
         
         // Renderizar depoimentos
@@ -732,65 +612,33 @@
         });
       }
       
-      // Fallback: tentar novamente apos 1 segundo
+      // Fallback
       setTimeout(function() {
         if (window.CATALOGO) {
           console.log('Fallback: carregando catalogo apos timeout.');
           inicializarPagina(window.CATALOGO);
-        } else {
-          console.warn('Catalogo ainda nao disponivel apos timeout. Verifique loader.js e ficheiros JSON.');
         }
       }, 1000);
     })();
   </script>
   
-  <!-- Script para o drawer e menu -->
+  <!-- Script para toggle de tema mobile -->
   <script>
     (function() {
-      const menuToggle = document.getElementById('menu-toggle');
-      const drawer = document.getElementById('drawer');
-      const drawerOverlay = document.getElementById('drawer-overlay');
-      const drawerClose = document.getElementById('drawer-close');
-      
-      function abrirDrawer() {
-        drawer.classList.add('active');
-        drawerOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-      
-      function fecharDrawer() {
-        drawer.classList.remove('active');
-        drawerOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-      
-      if (menuToggle) {
-        menuToggle.addEventListener('click', abrirDrawer);
-      }
-      
-      if (drawerClose) {
-        drawerClose.addEventListener('click', fecharDrawer);
-      }
-      
-      if (drawerOverlay) {
-        drawerOverlay.addEventListener('click', fecharDrawer);
-      }
-      
-      // Fechar com tecla ESC
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && drawer.classList.contains('active')) {
-          fecharDrawer();
-        }
-      });
-      
-      // Toggle de tema no drawer
-      const drawerTemaToggle = document.getElementById('drawer-tema-toggle');
-      if (drawerTemaToggle && window.tema) {
-        drawerTemaToggle.addEventListener('click', function() {
-          window.tema.alternarTema();
-          const icon = this.querySelector('i');
+      const temaToggleMobile = document.getElementById('tema-toggle-mobile');
+      if (temaToggleMobile && window.tema) {
+        // Sincronizar icone com tema atual
+        const atualizarIcone = () => {
           const temaAtual = window.tema.getTema();
+          const icon = temaToggleMobile.querySelector('i');
           icon.className = temaAtual === 'escuro' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+        };
+        
+        atualizarIcone();
+        
+        temaToggleMobile.addEventListener('click', () => {
+          window.tema.alternarTema();
+          atualizarIcone();
         });
       }
     })();
