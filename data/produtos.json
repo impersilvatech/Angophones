@@ -1,0 +1,168 @@
+[
+  {
+    "id": "iphone15pro",
+    "nome": "iPhone 15 Pro",
+    "descricao": "Titânio. Chip A17 Pro. Câmara de 48 MP. O iPhone mais Pro de sempre.",
+    "descricaoLonga": "O iPhone 15 Pro traz um design em titânio leve e resistente, o novo chip A17 Pro para gráficos de nível de consola, e um sistema de câmaras profissional com zoom ótico de 3x. A Dynamic Island mantém-te informado de forma elegante. Disponível em várias cores e capacidades.",
+    "preco": 850000,
+    "precoPromocional": 799999,
+    "emPromocao": true,
+    "categoria": "smartphones",
+    "imagens": ["iphone15pro-1.webp", "iphone15pro-2.webp", "iphone15pro-3.webp"],
+    "video": "iphone15pro.mp4",
+    "especificacoes": {
+      "ecra": "6.1” Super Retina XDR",
+      "processador": "A17 Pro",
+      "ram": "8GB",
+      "armazenamento": "128GB / 256GB / 512GB / 1TB",
+      "camara": "48 MP + 12 MP + 12 MP",
+      "bateria": "3274 mAh",
+      "sistema": "iOS 17"
+    },
+    "variantes": [
+      { "nome": "128GB", "preco": 850000 },
+      { "nome": "256GB", "preco": 980000 },
+      { "nome": "512GB", "preco": 1150000 }
+    ],
+    "cores": ["Titânio Natural", "Titânio Azul", "Titânio Branco", "Titânio Preto"],
+    "stock": 8,
+    "destaque": true
+  },
+  {
+    "id": "samsung-s24ultra",
+    "nome": "Samsung Galaxy S24 Ultra",
+    "descricao": "O poder da IA no teu bolso. Caneta S Pen incluída.",
+    "descricaoLonga": "O Galaxy S24 Ultra redefine a fotografia com zoom de 100x e edição por IA. Ecrã Dynamic AMOLED 2X de 6.8” com taxa de atualização de 120Hz. Processador Snapdragon 8 Gen 3 para máximo desempenho. A S Pen oferece precisão para notas e desenhos.",
+    "preco": 920000,
+    "precoPromocional": null,
+    "emPromocao": false,
+    "categoria": "smartphones",
+    "imagens": ["s24ultra-1.webp", "s24ultra-2.webp"],
+    "especificacoes": {
+      "ecra": "6.8” Dynamic AMOLED 2X",
+      "processador": "Snapdragon 8 Gen 3",
+      "ram": "12GB",
+      "armazenamento": "256GB / 512GB / 1TB",
+      "camara": "200 MP + 50 MP + 12 MP + 10 MP",
+      "bateria": "5000 mAh",
+      "sistema": "Android 14"
+    },
+    "variantes": [
+      { "nome": "256GB", "preco": 920000 },
+      { "nome": "512GB", "preco": 1050000 }
+    ],
+    "cores": ["Titânio Violeta", "Titânio Cinza", "Titânio Preto", "Titânio Amarelo"],
+    "stock": 5,
+    "destaque": true
+  },
+  {
+    "id": "xiaomi-13tpro",
+    "nome": "Xiaomi 13T Pro",
+    "descricao": "Fotografia de nível profissional com lentes Leica.",
+    "preco": 480000,
+    "precoPromocional": 449999,
+    "emPromocao": true,
+    "categoria": "smartphones",
+    "imagens": ["xiaomi13tpro-1.webp", "xiaomi13tpro-2.webp"],
+    "especificacoes": {
+      "ecra": "6.67” AMOLED 144Hz",
+      "processador": "MediaTek Dimensity 9200+",
+      "ram": "12GB",
+      "armazenamento": "256GB / 512GB",
+      "camara": "50 MP + 50 MP + 12 MP",
+      "bateria": "5000 mAh, carregamento 120W"
+    },
+    "variantes": [
+      { "nome": "256GB", "preco": 480000 },
+      { "nome": "512GB", "preco": 530000 }
+    ],
+    "cores": ["Preto", "Verde", "Azul"],
+    "stock": 12,
+    "destaque": true
+  },
+  {
+    "id": "airpods-pro2",
+    "nome": "AirPods Pro 2ª Geração",
+    "descricao": "Cancelamento de ruído adaptativo e áudio espacial.",
+    "preco": 185000,
+    "precoPromocional": 169999,
+    "emPromocao": true,
+    "categoria": "acessorios",
+    "imagens": ["airpodspro2-1.webp", "airpodspro2-2.webp"],
+    "especificacoes": {
+      "chip": "H2",
+      "autonomia": "6h (30h com case)",
+      "resistencia": "IP54",
+      "conexao": "Bluetooth 5.3"
+    },
+    "cores": ["Branco"],
+    "stock": 15,
+    "destaque": true
+  },
+  {
+    "id": "powerbank-20k",
+    "nome": "Power Bank 20000mAh",
+    "descricao": "Carregamento rápido para até 3 dispositivos.",
+    "preco": 25000,
+    "categoria": "acessorios",
+    "imagens": ["powerbank.webp"],
+    "cores": ["Preto", "Branco"],
+    "stock": 20
+  },
+  {
+    "id": "capa-iphone15",
+    "nome": "Capa Transparente iPhone 15",
+    "descricao": "Proteção fina e resistente com design anti-amarelamento.",
+    "preco": 8500,
+    "categoria": "capas",
+    "imagens": ["capa-iphone15.webp"],
+    "cores": ["Transparente"],
+    "stock": 30
+  },
+  {
+    "id": "carregador-20w",
+    "nome": "Carregador Rápido 20W USB-C",
+    "descricao": "Compatível com iPhone e Android. Carregamento seguro.",
+    "preco": 12000,
+    "categoria": "carregadores",
+    "imagens": ["carregador-20w.webp"],
+    "stock": 25
+  },
+  {
+    "id": "ipad-air",
+    "nome": "iPad Air 11”",
+    "descricao": "Chip M2. Liquid Retina. Poder para criar e entreter.",
+    "preco": 520000,
+    "categoria": "tablets",
+    "imagens": ["ipad-air.webp"],
+    "especificacoes": {
+      "ecra": "11” Liquid Retina",
+      "chip": "M2",
+      "armazenamento": "128GB / 256GB / 512GB / 1TB"
+    },
+    "variantes": [
+      { "nome": "128GB", "preco": 520000 },
+      { "nome": "256GB", "preco": 590000 }
+    ],
+    "cores": ["Cinza Sideral", "Roxo", "Estelar", "Azul"],
+    "stock": 7
+  },
+  {
+    "id": "samsung-tab-s9",
+    "nome": "Samsung Galaxy Tab S9",
+    "descricao": "Tablet premium com S Pen incluída e ecrã Dynamic AMOLED 2X.",
+    "preco": 610000,
+    "categoria": "tablets",
+    "imagens": ["tabs9.webp"],
+    "especificacoes": {
+      "ecra": "11” Dynamic AMOLED 2X 120Hz",
+      "processador": "Snapdragon 8 Gen 2",
+      "ram": "12GB"
+    },
+    "variantes": [
+      { "nome": "256GB", "preco": 610000 }
+    ],
+    "cores": ["Bege", "Grafite"],
+    "stock": 4
+  }
+]
