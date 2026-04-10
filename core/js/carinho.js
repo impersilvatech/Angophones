@@ -130,4 +130,154 @@ export function atualizarQuantidade(itemKey, quantidade) {
 }
 
 /**
- * Limpa todo o carrin
+ * Limpa todo o carrinho
+ */
+export function limparCarrinho() {
+  carrinho = [];
+  removerLocal(CARRINHO_CHAVE);
+  notificarObservadores();
+  atualizarContadorUI();
+}
+
+/**
+ * Verifica se um produto está no carrinho
+ * @param {string} produtoId - ID do produto
+ * @returns {boolean}
+ */
+export function estaNoCarrinho(produtoId) {
+  return carrinho.some(item => item.id === produtoId);
+}
+
+/**
+ * Aplica um cupão de desconto
+ * @param {string} codigo - Código do cupão
+ * @returns {Object|null} Cupão aplicado ou null
+ */
+export function aplicarCupao(codigo) {
+  const cupoes = window.CATALOGO?.cupoes || [];
+  const cupao = cupoes.find(c => c.codigo === codigo.toUpperCase() && c.ativo);
+  
+  if (!cupao) {
+    toast('Cupão inválido ou expirado', 'erro');
+    return null;
+  }
+  
+  // Verificar validade
+  if (cupao.validoAte && new Date(cupao.validoAte) < new Date()) {
+    toast('Cupão expirado', 'erro');
+    return null;
+  }
+  
+  // Verificar valor mínimo
+  const subtotal = getSubtotal();
+  if (cupao.minimoCompra && subtotal < cupao.minimoCompra) {
+    toast(`Compra mínima de ${cupao.minimoCompra.toLocaleString()} Kz`, 'aviso');
+    return null;
+  }
+  
+  salvarLocal('cupao_aplicado', cupao);
+  notificarObservadores();
+  toast(`Cupão ${codigo} aplicado!`, 'sucesso');
+  return cupao;
+}
+
+/**
+ * Remove o cupão aplicado
+ */
+export function removerCupao() {
+  removerLocal('cupao_aplicado');
+  notificarObservadores();
+  toast('Cupão removido', 'info');
+}
+
+/**
+ * Obtém o cupão aplicado actualmente
+ * @returns {Object|null}
+ */
+export function getCupaoAplicado() {
+  return carregarLocal('cupao_aplicado');
+}
+
+/**
+ * Calcula o desconto do cupão
+ * @returns {number} Valor do desconto
+ */
+export function getDescontoCupao() {
+  const cupao = getCupaoAplicado();
+  if (!cupao) return 0;
+  
+  const subtotal = getSubtotal();
+  
+  if (cupao.tipo === 'percentual') {
+    return Math.round((subtotal * cupao.valor) / 100);
+  } else if (cupao.tipo === 'fixo') {
+    return Math.min(cupao.valor, subtotal);
+  }
+  return 0;
+}
+
+/**
+ * Calcula o total final (subtotal - desconto + entrega)
+ * @param {number} valorEntrega - Valor da entrega
+ * @returns {number} Total final
+ */
+export function getTotalFinal(valorEntrega = 0) {
+  const subtotal = getSubtotal();
+  const desconto = getDescontoCupao();
+  return Math.max(0, subtotal - desconto + valorEntrega);
+}
+
+/**
+ * Actualiza o contador visual do carrinho no UI
+ */
+function atualizarContadorUI() {
+  const quantidade = getQuantidadeTotal();
+  
+  document.querySelectorAll('[data-carrinho-contador]').forEach(el => {
+    el.textContent = quantidade;
+    el.style.display = quantidade > 0 ? 'flex' : 'none';
+  });
+  
+  // Actualizar também elementos com classe específica
+  document.querySelectorAll('.carrinho-contador').forEach(el => {
+    el.textContent = quantidade;
+    el.style.display = quantidade > 0 ? 'flex' : 'none';
+  });
+}
+
+/**
+ * Inicializa o carrinho
+ */
+export function inicializarCarrinho() {
+  // Carregar dados do localStorage
+  const salvo = carregarLocal(CARRINHO_CHAVE);
+  if (salvo) carrinho = salvo;
+  
+  atualizarContadorUI();
+  notificarObservadores();
+}
+
+// Inicializar quando o DOM estiver pronto
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', inicializarCarrinho);
+}
+
+// Expor funções globalmente
+if (typeof window !== 'undefined') {
+  window.carrinho = {
+    getCarrinho,
+    getQuantidadeTotal,
+    getSubtotal,
+    adicionarAoCarrinho,
+    removerDoCarrinho,
+    atualizarQuantidade,
+    limparCarrinho,
+    estaNoCarrinho,
+    aplicarCupao,
+    removerCupao,
+    getCupaoAplicado,
+    getDescontoCupao,
+    getTotalFinal,
+    observarCarrinho
+  };
+}
