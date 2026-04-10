@@ -1,0 +1,397 @@
+/* ============================================
+   ADMIN-CORE.CSS – Estilos base do painel admin
+   ============================================ */
+
+/* -------------------- Layout do Admin ------------------- */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--cor-fundo);
+}
+
+/* Sidebar */
+.admin-sidebar {
+  width: 280px;
+  background: var(--cor-card);
+  border-right: 1px solid var(--cor-borda);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 50;
+  overflow-y: auto;
+}
+
+.admin-sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.admin-logo {
+  font-family: var(--font-titulo);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-logo i {
+  color: var(--cor-primaria);
+}
+
+.admin-nav {
+  flex: 1;
+  padding: 1.5rem 0.75rem;
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius-md);
+  color: var(--cor-texto-suave);
+  transition: var(--transition);
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+}
+
+.admin-nav-item i {
+  width: 24px;
+  text-align: center;
+}
+
+.admin-nav-item:hover {
+  background: rgba(255,255,255,0.05);
+  color: var(--cor-texto);
+}
+
+.admin-nav-item.active {
+  background: var(--cor-primaria);
+  color: white;
+}
+
+.admin-sidebar-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--cor-borda);
+}
+
+/* Conteúdo principal */
+.admin-main {
+  flex: 1;
+  margin-left: 280px;
+  padding: 2rem;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+  margin-bottom: 0;
+  font-size: 2rem;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* -------------------- Tabs ------------------- */
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--cor-borda);
+  margin-bottom: 2rem;
+}
+
+.admin-tab {
+  padding: 0.875rem 1.5rem;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.admin-tab:hover {
+  color: var(--cor-texto);
+  background: rgba(255,255,255,0.03);
+}
+
+.admin-tab.active {
+  color: var(--cor-primaria);
+  border-bottom-color: var(--cor-primaria);
+}
+
+.admin-tab-content {
+  display: none;
+}
+
+.admin-tab-content.active {
+  display: block;
+}
+
+/* -------------------- Cards e Tabelas ------------------- */
+.admin-card {
+  background: var(--cor-card);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--cor-borda);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.admin-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.admin-card-header h3 {
+  margin-bottom: 0;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.admin-table th {
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+/* -------------------- Formulários do Admin ------------------- */
+.admin-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.admin-form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.admin-form-control {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: #1A1A1E;
+  border: 2px solid var(--cor-borda);
+  border-radius: var(--border-radius-md);
+  color: var(--cor-texto);
+  transition: var(--transition);
+}
+
+.admin-form-control:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+}
+
+.admin-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.admin-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--cor-borda);
+}
+
+/* -------------------- Upload de Imagem ------------------- */
+.admin-upload-area {
+  border: 2px dashed var(--cor-borda);
+  border-radius: var(--border-radius-md);
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  background: #1A1A1E;
+}
+
+.admin-upload-area:hover {
+  border-color: var(--cor-primaria);
+  background: rgba(255,85,0,0.05);
+}
+
+.admin-upload-area i {
+  font-size: 2.5rem;
+  color: var(--cor-texto-muted);
+  margin-bottom: 1rem;
+}
+
+.admin-upload-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.admin-upload-preview img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--cor-borda);
+}
+
+/* -------------------- Lista de Itens (ex.: produtos) ------------------- */
+.admin-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #1A1A1E;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--cor-borda);
+}
+
+.admin-item-img {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  background: var(--cor-card);
+}
+
+.admin-item-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-item-info {
+  flex: 1;
+}
+
+.admin-item-info h4 {
+  margin-bottom: 0.25rem;
+}
+
+.admin-item-info p {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.admin-item-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* -------------------- Modal de Confirmação ------------------- */
+.admin-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-modal.active {
+  display: flex;
+}
+
+.admin-modal-content {
+  background: var(--cor-card);
+  border-radius: var(--border-radius-xl);
+  max-width: 500px;
+  width: 90%;
+  padding: 2rem;
+  border: 1px solid var(--cor-borda);
+}
+
+.admin-modal-header {
+  margin-bottom: 1.5rem;
+}
+
+.admin-modal-body {
+  margin-bottom: 2rem;
+}
+
+.admin-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* -------------------- Responsividade ------------------- */
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    width: 80px;
+  }
+  
+  .admin-sidebar span:not(.admin-nav-item i) {
+    display: none;
+  }
+  
+  .admin-nav-item {
+    justify-content: center;
+    padding: 0.75rem;
+  }
+  
+  .admin-main {
+    margin-left: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  
+  .admin-layout {
+    flex-direction: column;
+  }
+  
+  .admin-main {
+    margin-left: 0;
+  }
+  
+  .admin-form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .admin-table {
+    display: block;
+    overflow-x: auto;
+  }
+}
