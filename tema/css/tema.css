@@ -724,53 +724,189 @@ a:hover {
   }
 }
 
-/* -------------------- Modo escuro (já é o padrão) e claro (opcional) ------------------- */
-/* O tema claro pode ser activado via JavaScript adicionando classe .tema-claro ao body */
+/* ============================================
+   TEMA CLARO - Sobrescreve as variáveis
+   ============================================ */
+
 body.tema-claro {
+  /* Cores principais - mantem o laranja como cor de destaque */
+  --cor-primaria: #FF5500;
+  --cor-primaria-hover: #E64A00;
+  --cor-secundaria: #FF7A33;
+  
+  /* Fundos - claros */
   --cor-fundo: #F5F5F7;
   --cor-fundo-alt: #FFFFFF;
   --cor-card: #FFFFFF;
   --cor-card-hover: #F9F9FB;
   --cor-borda: #E5E5EA;
+  
+  /* Texto - escuro para contraste */
   --cor-texto: #1C1C1E;
   --cor-texto-suave: #3A3A3C;
-  --cor-texto-muted: #8E8E93;
+  --cor-texto-muted: #6B6B76;
+  
+  /* Sombras - mais suaves */
+  --sombra-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --sombra-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --sombra-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+  --sombra-laranja: 0 8px 24px rgba(255, 85, 0, 0.15);
 }
 
+/* Ajustes específicos para elementos no tema claro */
 body.tema-claro .cabecalho {
-  background: rgba(245, 245, 247, 0.9);
+  background: rgba(245, 245, 247, 0.95);
   backdrop-filter: blur(12px);
-  border-bottom-color: rgba(0,0,0,0.05);
+  border-bottom-color: rgba(0, 0, 0, 0.05);
 }
 
-body.tema-claro .card-produto,
-body.tema-claro .form-control {
-  background: #FFFFFF;
+body.tema-claro .logo {
   color: #1C1C1E;
 }
 
-body.tema-claro .form-control {
+body.tema-claro .tema-toggle {
+  color: #1C1C1E;
+}
+
+body.tema-claro .tema-toggle:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+body.tema-claro .hero-title-outline {
+  -webkit-text-stroke: 2px #1C1C1E;
+  text-stroke: 2px #1C1C1E;
+}
+
+body.tema-claro .hero-slogan {
+  color: #3A3A3C;
+}
+
+body.tema-claro .hero-badge {
+  background: rgba(255, 85, 0, 0.08);
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria);
+}
+
+body.tema-claro .categoria-item {
   background: #FFFFFF;
   border-color: #E5E5EA;
 }
 
-/* -------------------- Animações ------------------- */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+body.tema-claro .categoria-item:hover {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 8px 24px rgba(255, 85, 0, 0.1);
 }
 
-.animate-fade-up {
-  animation: fadeUp 0.6s ease forwards;
+body.tema-claro .categoria-icon {
+  background: rgba(255, 85, 0, 0.06);
 }
 
-.stagger-item {
-  opacity: 0;
-  animation: fadeUp 0.5s ease forwards;
+body.tema-claro .categoria-count {
+  color: #6B6B76;
 }
 
-.stagger-item:nth-child(1) { animation-delay: 0.1s; }
-.stagger-item:nth-child(2) { animation-delay: 0.2s; }
-.stagger-item:nth-child(3) { animation-delay: 0.3s; }
-.stagger-item:nth-child(4) { animation-delay: 0.4s; }
-.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+body.tema-claro .feature-card {
+  background: #FFFFFF;
+  border-color: #E5E5EA;
+}
+
+body.tema-claro .feature-icon {
+  background: rgba(255, 85, 0, 0.06);
+}
+
+body.tema-claro .feature-card p {
+  color: #3A3A3C;
+}
+
+body.tema-claro .depoimento-card {
+  background: #FFFFFF;
+  border-color: #E5E5EA;
+}
+
+body.tema-claro .depoimento-texto {
+  color: #1C1C1E;
+}
+
+body.tema-claro .depoimento-cidade {
+  color: #6B6B76;
+}
+
+body.tema-claro .banner-destaque {
+  background: rgba(255, 85, 0, 0.04);
+  border-color: rgba(255, 85, 0, 0.15);
+}
+
+body.tema-claro .cta-section {
+  background: linear-gradient(135deg, rgba(255, 85, 0, 0.04), transparent);
+}
+
+body.tema-claro .bottom-nav {
+  background: rgba(245, 245, 247, 0.98);
+  border-top-color: rgba(0, 0, 0, 0.05);
+}
+
+body.tema-claro .bottom-nav-item {
+  color: #6B6B76;
+}
+
+body.tema-claro .bottom-nav-item:hover {
+  color: #1C1C1E;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+body.tema-claro .bottom-nav-item.active {
+  color: var(--cor-primaria);
+}
+
+body.tema-claro .bottom-nav-item .nav-badge {
+  border-color: #F5F5F7;
+}
+
+body.tema-claro .btn-outline {
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria);
+}
+
+body.tema-claro .btn-outline:hover {
+  background: var(--cor-primaria);
+  color: white;
+}
+
+body.tema-claro .text-muted {
+  color: #6B6B76 !important;
+}
+
+body.tema-claro input,
+body.tema-claro select,
+body.tema-claro textarea {
+  background: #FFFFFF;
+  border-color: #E5E5EA;
+  color: #1C1C1E;
+}
+
+body.tema-claro input::placeholder {
+  color: #8E8E93;
+}
+
+body.tema-claro .loading-placeholder {
+  color: #6B6B76;
+}
+
+body.tema-claro .carrossel-seta {
+  background: #FFFFFF;
+  border-color: #E5E5EA;
+  color: #1C1C1E;
+}
+
+body.tema-claro .carrossel-seta:hover {
+  background: var(--cor-primaria);
+  color: white;
+}
+
+body.tema-claro .indicador {
+  background: #C6C6C8;
+}
+
+body.tema-claro .indicador.active {
+  background: var(--cor-primaria);
+}
