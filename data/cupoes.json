@@ -1,0 +1,28 @@
+[
+  {
+    "codigo": "BEMVINDO10",
+    "tipo": "percentual",
+    "valor": 10,
+    "validoAte": "2025-12-31",
+    "usoUnico": true,
+    "ativo": true
+  },
+  {
+    "codigo": "TECH20",
+    "tipo": "percentual",
+    "valor": 20,
+    "validoAte": "2025-06-30",
+    "usoUnico": false,
+    "ativo": true,
+    "minimoCompra": 100000
+  },
+  {
+    "codigo": "FRETE50",
+    "tipo": "fixo",
+    "valor": 5000,
+    "validoAte": "2025-12-31",
+    "usoUnico": true,
+    "ativo": true,
+    "aplicaEm": "frete"
+  }
+]
