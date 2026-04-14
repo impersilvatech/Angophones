@@ -1,1 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-AO" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=yes">
+<meta name="theme-color" content="#06060E">
+<title>Sobre | Angophones</title>
+<link rel="icon" href="tema/assets/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060E;
+  --bg2: #0A0A14;
+  --card: #0F0F13;
+  --border: #2A2A2E;
+  --primary: #FF5500;
+  --white: #FFFFFF;
+  --muted: #A0A0A8;
+  --muted2: #6B6B76;
+  --ft: 'Bebas Neue', 'Impact', sans-serif;
+  --fb: 'Outfit', sans-serif;
+  --grad: linear-gradient(135deg, #FF5500, #FF7A33);
+}
+[data-theme="light"] {
+  --bg: #F5F5F7;
+  --bg2: #FFFFFF;
+  --card: #FFFFFF;
+  --border: #E5E5EA;
+  --white: #1C1C1E;
+  --muted: #6B6B76;
+  --muted2: #8E8E93;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  padding-bottom: 80px;
+  transition: background 0.3s, color 0.3s;
+}
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(6, 6, 14, 0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+[data-theme="light"] .hdr { background: rgba(245, 245, 247, 0.97); }
+.hdr-nome {
+  font-family: var(--ft);
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+}
+.hdr-nome span { color: var(--primary); }
+.hb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: none;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--white);
+}
+.container { padding: 16px; max-width: 600px; margin: 0 auto; }
+.sobre-hero {
+  text-align: center;
+  padding: 20px 0;
+}
+.sobre-hero h1 {
+  font-family: var(--ft);
+  font-size: 2.5rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.sobre-hero p {
+  color: var(--muted);
+  font-size: 1rem;
+}
+.card-section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.card-section h2 {
+  font-family: var(--ft);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+.card-section p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.stat-item {
+  text-align: center;
+}
+.stat-number {
+  font-family: var(--ft);
+  font-size: 2rem;
+  color: var(--primary);
+}
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.equipa-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.equipa-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.equipa-img {
+  aspect-ratio: 1;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.equipa-img i {
+  font-size: 3rem;
+  color: var(--muted2);
+  opacity: 0.5;
+}
+.equipa-info {
+  padding: 12px;
+  text-align: center;
+}
+.equipa-info h3 {
+  font-family: var(--ft);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.equipa-info .cargo {
+  color: var(--primary);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.equipa-info .bio {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.contacto-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.contacto-item i {
+  width: 24px;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+.contacto-item span {
+  color: var(--muted);
+}
+.redes-sociais {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+.redes-sociais a {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 1.3rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.redes-sociais a:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  padding: 8px 16px 12px;
+  display: flex;
+  justify-content: space-around;
+  background: rgba(6, 6, 14, 0.97);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+}
+[data-theme="light"] .bottom-nav { background: rgba(245, 245, 247, 0.97); }
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+}
+.bottom-nav a i { font-size: 1.3rem; }
+.bottom-nav a.active { color: var(--primary); }
+.fab-whatsapp {
+  position: fixed;
+  bottom: 90px;
+  right: 16px;
+  width: 55px;
+  height: 55px;
+  background: #25D366;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  z-index: 150;
+  text-decoration: none;
+}
+@media (min-width: 769px) {
+  .bottom-nav { display: none; }
+  body { padding-bottom: 20px; }
+  .fab-whatsapp { bottom: 24px; }
+  .equipa-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
 
+<header class="hdr">
+  <div class="hdr-nome">Ango<span>phones</span></div>
+  <button class="hb" onclick="alternarTema()">
+    <i data-theme-ico class="fa-regular fa-sun"></i>
+  </button>
+</header>
+
+<div class="container">
+  <div class="sobre-hero">
+    <h1>Sobre Nós</h1>
+    <p>Conheça a nossa história</p>
+  </div>
+
+  <div class="card-section">
+    <h2>Nossa História</h2>
+    <p>Fundada em 2021, a Angophones nasceu da paixão por tecnologia de ponta e da vontade de trazer os melhores dispositivos para o mercado angolano. Trabalhamos apenas com produtos originais, garantia oficial e um serviço de apoio ao cliente dedicado.</p>
+    <p>A nossa missão é tornar a tecnologia premium acessível e confiável para todos os angolanos, oferecendo os melhores smartphones, tablets e acessórios com entrega rápida e suporte personalizado.</p>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">2021</div>
+        <div class="stat-label">Fundação</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">+500</div>
+        <div class="stat-label">Clientes</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">24h</div>
+        <div class="stat-label">Entrega</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <h2>Nossa Equipa</h2>
+    <div class="equipa-grid">
+      <div class="equipa-card">
+        <div class="equipa-img">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="equipa-info">
+          <h3>Carlos Mendes</h3>
+          <div class="cargo">Fundador & CEO</div>
+          <div class="bio">Apaixonado por gadgets desde criança, com mais de 10 anos no sector tecnológico.</div>
+        </div>
+      </div>
+      <div class="equipa-card">
+        <div class="equipa-img">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="equipa-info">
+          <h3>Ana Costa</h3>
+          <div class="cargo">Diretora de Operações</div>
+          <div class="bio">Especialista em logística e atendimento, garante que cada encomenda chegue perfeita.</div>
+        </div>
+      </div>
+      <div class="equipa-card">
+        <div class="equipa-img">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="equipa-info">
+          <h3>Miguel Santos</h3>
+          <div class="cargo">Especialista de Produto</div>
+          <div class="bio">Conhece cada smartphone como a palma da mão e ajuda a escolher o ideal.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <h2>Contacto</h2>
+    <div class="contacto-item">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Av. 21 de Janeiro, nº 45, Luanda, Angola</span>
+    </div>
+    <div class="contacto-item">
+      <i class="fa-solid fa-phone"></i>
+      <span>+244 954 288 128</span>
+    </div>
+    <div class="contacto-item">
+      <i class="fa-regular fa-envelope"></i>
+      <span>contacto@angophones.co.ao</span>
+    </div>
+    <div class="contacto-item">
+      <i class="fa-regular fa-clock"></i>
+      <span>Seg-Sex: 9h-18h, Sáb: 9h-13h</span>
+    </div>
+    <div class="redes-sociais">
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#"><i class="fa-brands fa-facebook"></i></a>
+      <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+  </div>
+</div>
+
+<a href="https://wa.me/244954288128?text=Ola!%20Gostaria%20de%20mais%20informacoes." class="fab-whatsapp" target="_blank">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<nav class="bottom-nav">
+  <a href="index.html"><i class="fa-solid fa-house"></i><span>Inicio</span></a>
+  <a href="loja.html"><i class="fa-solid fa-mobile-screen"></i><span>Loja</span></a>
+  <a href="carrinho.html"><i class="fa-solid fa-cart-shopping"></i><span>Carrinho</span></a>
+  <a href="favoritos.html"><i class="fa-solid fa-heart"></i><span>Favoritos</span></a>
+  <a href="sobre.html" class="active"><i class="fa-solid fa-circle-info"></i><span>Sobre</span></a>
+</nav>
+
+<script>
+// TEMA
+function alternarTema() {
+  const html = document.documentElement;
+  const icon = document.querySelector('[data-theme-ico]');
+  const temaAtual = html.getAttribute('data-theme') || 'dark';
+  const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+  
+  html.setAttribute('data-theme', novoTema);
+  localStorage.setItem('tema', novoTema);
+  
+  if (icon) {
+    icon.className = novoTema === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+  }
+  
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', novoTema === 'dark' ? '#06060E' : '#F5F5F7');
+}
+
+// Inicializar
+(function() {
+  const temaSalvo = localStorage.getItem('tema') || 'dark';
+  document.documentElement.setAttribute('data-theme', temaSalvo);
+  const icon = document.querySelector('[data-theme-ico]');
+  if (icon) {
+    icon.className = temaSalvo === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+  }
+})();
+</script>
+</body>
+</html>
