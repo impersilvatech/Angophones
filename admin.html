@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="pt-AO" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=yes">
+<meta name="theme-color" content="#06060E">
+<title>Admin | Angophones</title>
+<link rel="icon" href="tema/assets/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060E;
+  --bg2: #0A0A14;
+  --card: #0F0F13;
+  --border: #2A2A2E;
+  --primary: #FF5500;
+  --red: #EF4444;
+  --green: #22C55E;
+  --white: #FFFFFF;
+  --muted: #A0A0A8;
+  --muted2: #6B6B76;
+  --ft: 'Bebas Neue', 'Impact', sans-serif;
+  --fb: 'Outfit', sans-serif;
+  --grad: linear-gradient(135deg, #FF5500, #FF7A33);
+}
+[data-theme="light"] {
+  --bg: #F5F5F7;
+  --bg2: #FFFFFF;
+  --card: #FFFFFF;
+  --border: #E5E5EA;
+  --white: #1C1C1E;
+  --muted: #6B6B76;
+  --muted2: #8E8E93;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(6, 6, 14, 0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+[data-theme="light"] .hdr { background: rgba(245, 245, 247, 0.97); }
+.hdr-nome {
+  font-family: var(--ft);
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+}
+.hdr-nome span { color: var(--primary); }
+.hb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: none;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--white);
+}
+/* Login */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 70px);
+  padding: 20px;
+}
+.login-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 30px 24px;
+  max-width: 350px;
+  width: 100%;
+  text-align: center;
+}
+.login-box h2 {
+  font-family: var(--ft);
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.login-box p {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.pin-display {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.pin-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background 0.2s;
+}
+.pin-dot.filled { background: var(--primary); }
+.pin-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.pin-btn {
+  aspect-ratio: 1;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  font-family: var(--ft);
+  font-size: 1.5rem;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.pin-btn:hover { background: var(--primary); border-color: var(--primary); color: white; }
+.pin-btn.clear { font-size: 1rem; color: var(--red); }
+.pin-btn.clear:hover { background: var(--red); color: white; }
+/* Dashboard */
+.dashboard { display: none; padding: 16px; }
+.tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 4px;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  font-family: var(--ft);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 30px;
+  transition: all 0.2s;
+}
+.tab i { margin-right: 6px; }
+.tab.active {
+  background: var(--primary);
+  color: white;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.section-title {
+  font-family: var(--ft);
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--white);
+}
+.form-control {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: var(--fb);
+  font-size: 0.9rem;
+  color: var(--white);
+  outline: none;
+}
+.form-control:focus { border-color: var(--primary); }
+textarea.form-control { min-height: 80px; resize: vertical; }
+.btn {
+  padding: 12px 20px;
+  background: var(--grad);
+  border: none;
+  border-radius: 30px;
+  font-family: var(--ft);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: white;
+  cursor: pointer;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+.btn-outline {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.btn-danger { background: var(--red); }
+.item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+.item-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.item-card img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--bg);
+}
+.item-info { flex: 1; }
+.item-info h4 { font-family: var(--ft); font-size: 0.95rem; margin-bottom: 4px; }
+.item-info p { font-size: 0.75rem; color: var(--muted); }
+.item-actions { display: flex; gap: 6px; }
+.item-actions button {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer;
+}
+.item-actions button:hover { background: var(--primary); color: white; border-color: var(--primary); }
+.color-picker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.color-picker input { width: 60px; height: 40px; border: none; background: none; cursor: pointer; }
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  max-width: calc(100vw - 32px);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.modal {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.modal h3 { font-family: var(--ft); margin-bottom: 16px; }
+.modal-actions { display: flex; gap: 8px; margin-top: 20px; justify-content: flex-end; }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-nome">Ango<span>phones</span> Admin</div>
+  <button class="hb" onclick="alternarTema()"><i data-theme-ico class="fa-regular fa-sun"></i></button>
+</header>
+
+<!-- Login -->
+<div id="login-container" class="login-container">
+  <div class="login-box">
+    <h2>Admin</h2>
+    <p>Digite o PIN de acesso</p>
+    <div class="pin-display" id="pin-display">
+      <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
+    </div>
+    <div class="pin-pad" id="pin-pad"></div>
+    <button class="btn" onclick="verificarPin()">Entrar</button>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard" class="dashboard">
+  <div class="tabs" id="tabs"></div>
+  
+  <!-- Produtos -->
+  <div id="tab-produtos" class="tab-content active">
+    <h2 class="section-title">Gestão de Produtos</h2>
+    <button class="btn" onclick="abrirModalProduto()"><i class="fa-solid fa-plus"></i> Novo Produto</button>
+    <div class="item-list" id="lista-produtos"></div>
+  </div>
+  
+  <!-- Categorias -->
+  <div id="tab-categorias" class="tab-content">
+    <h2 class="section-title">Gestão de Categorias</h2>
+    <button class="btn" onclick="abrirModalCategoria()"><i class="fa-solid fa-plus"></i> Nova Categoria</button>
+    <div class="item-list" id="lista-categorias"></div>
+  </div>
+  
+  <!-- Vitrine -->
+  <div id="tab-vitrine" class="tab-content">
+    <h2 class="section-title">Configurações da Vitrine</h2>
+    <div class="form-group">
+      <label class="form-label">Badge do Hero</label>
+      <input type="text" class="form-control" id="vitrine-badge" placeholder="Tech Premium">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Título do Hero</label>
+      <input type="text" class="form-control" id="vitrine-titulo" placeholder="Angophones">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Slogan</label>
+      <input type="text" class="form-control" id="vitrine-slogan" placeholder="O teu próximo telemóvel está aqui.">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Banner de Destaque</label>
+      <input type="text" class="form-control" id="vitrine-banner" placeholder="Novos iPhone 15 Pro disponíveis!">
+    </div>
+    <div class="form-group">
+      <label class="form-label"><input type="checkbox" id="vitrine-banner-ativo"> Banner ativo</label>
+    </div>
+    <button class="btn" onclick="salvarVitrine()">Salvar Vitrine</button>
+  </div>
+  
+  <!-- Conteúdo (Features/Depoimentos) -->
+  <div id="tab-conteudo" class="tab-content">
+    <h2 class="section-title">Features (Porquê nós)</h2>
+    <div id="lista-features"></div>
+    <button class="btn" onclick="adicionarFeature()"><i class="fa-solid fa-plus"></i> Adicionar Feature</button>
+    
+    <h2 class="section-title" style="margin-top:24px;">Depoimentos</h2>
+    <div id="lista-depoimentos"></div>
+    <button class="btn" onclick="adicionarDepoimento()"><i class="fa-solid fa-plus"></i> Adicionar Depoimento</button>
+  </div>
+  
+  <!-- Aparência -->
+  <div id="tab-aparencia" class="tab-content">
+    <h2 class="section-title">Aparência</h2>
+    <div class="form-group">
+      <label class="form-label">Cor Principal</label>
+      <div class="color-picker">
+        <input type="color" id="cor-primaria" value="#FF5500">
+        <span id="cor-preview">#FF5500</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Cor de Fundo</label>
+      <div class="color-picker">
+        <input type="color" id="cor-fundo" value="#06060E">
+        <span id="cor-fundo-preview">#06060E</span>
+      </div>
+    </div>
+    <button class="btn" onclick="salvarAparencia()">Salvar Aparência</button>
+  </div>
+  
+  <!-- Loja -->
+  <div id="tab-loja" class="tab-content">
+    <h2 class="section-title">Configurações da Loja</h2>
+    <div class="form-group">
+      <label class="form-label">Nome da Loja</label>
+      <input type="text" class="form-control" id="loja-nome" value="Angophones">
+    </div>
+    <div class="form-group">
+      <label class="form-label">WhatsApp</label>
+      <input type="text" class="form-control" id="loja-whatsapp" value="+244954288128">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input type="text" class="form-control" id="loja-email" value="contacto@angophones.co.ao">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Endereço</label>
+      <input type="text" class="form-control" id="loja-endereco" value="Av. 21 de Janeiro, Luanda">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Taxa de Entrega (Kz)</label>
+      <input type="number" class="form-control" id="loja-taxa" value="1500">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Entrega Grátis acima de (Kz)</label>
+      <input type="number" class="form-control" id="loja-gratis" value="50000">
+    </div>
+    <button class="btn" onclick="salvarLoja()">Salvar Loja</button>
+  </div>
+  
+  <!-- Exportar -->
+  <div id="tab-exportar" class="tab-content">
+    <h2 class="section-title">Exportar Dados</h2>
+    <button class="btn" onclick="exportarJSON()"><i class="fa-solid fa-download"></i> Exportar catálogo</button>
+    <button class="btn btn-outline" onclick="importarJSON()"><i class="fa-solid fa-upload"></i> Importar catálogo</button>
+    <input type="file" id="import-file" accept=".json" style="display:none;">
+  </div>
+  
+  <!-- Dados -->
+  <div id="tab-dados" class="tab-content">
+    <h2 class="section-title">Gestão de Dados</h2>
+    <button class="btn btn-danger" onclick="limparCarrinhoAdmin()">Limpar Carrinho</button>
+    <button class="btn btn-danger" onclick="limparFavoritosAdmin()">Limpar Favoritos</button>
+    <button class="btn btn-danger" onclick="resetarFabrica()">Reset de Fábrica</button>
+  </div>
+  
+  <!-- Segurança -->
+  <div id="tab-seguranca" class="tab-content">
+    <h2 class="section-title">Alterar PIN</h2>
+    <div class="form-group">
+      <label class="form-label">PIN Atual</label>
+      <input type="password" class="form-control" id="pin-atual" maxlength="4">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Novo PIN</label>
+      <input type="password" class="form-control" id="pin-novo" maxlength="4">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Confirmar PIN</label>
+      <input type="password" class="form-control" id="pin-confirmar" maxlength="4">
+    </div>
+    <button class="btn" onclick="alterarPin()">Alterar PIN</button>
+  </div>
+</div>
+
+<!-- Modal Produto -->
+<div class="modal-overlay" id="modal-produto">
+  <div class="modal">
+    <h3 id="modal-produto-titulo">Novo Produto</h3>
+    <input type="hidden" id="produto-id">
+    <div class="form-group">
+      <label class="form-label">Nome</label>
+      <input type="text" class="form-control" id="produto-nome">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Categoria</label>
+      <select class="form-control" id="produto-categoria"></select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Descrição</label>
+      <textarea class="form-control" id="produto-descricao"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Preço (Kz)</label>
+      <input type="number" class="form-control" id="produto-preco">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Preço Promocional (Kz)</label>
+      <input type="number" class="form-control" id="produto-preco-promo">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Stock</label>
+      <input type="number" class="form-control" id="produto-stock" value="10">
+    </div>
+    <div class="form-group">
+      <label class="form-label"><input type="checkbox" id="produto-destaque"> Destaque</label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="salvarProduto()">Salvar</button>
+      <button class="btn btn-outline" onclick="fecharModal('modal-produto')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Categoria -->
+<div class="modal-overlay" id="modal-categoria">
+  <div class="modal">
+    <h3 id="modal-categoria-titulo">Nova Categoria</h3>
+    <input type="hidden" id="categoria-id">
+    <div class="form-group">
+      <label class="form-label">Nome</label>
+      <input type="text" class="form-control" id="categoria-nome">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Ícone (Font Awesome)</label>
+      <input type="text" class="form-control" id="categoria-icone" placeholder="fa-mobile-screen">
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="salvarCategoria()">Salvar</button>
+      <button class="btn btn-outline" onclick="fecharModal('modal-categoria')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ========== TEMA ==========
+function alternarTema() {
+  const html = document.documentElement;
+  const icon = document.querySelector('[data-theme-ico]');
+  const temaAtual = html.getAttribute('data-theme') || 'dark';
+  const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', novoTema);
+  localStorage.setItem('tema', novoTema);
+  if (icon) icon.className = novoTema === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+}
+(function() {
+  const temaSalvo = localStorage.getItem('tema') || 'dark';
+  document.documentElement.setAttribute('data-theme', temaSalvo);
+  const icon = document.querySelector('[data-theme-ico]');
+  if (icon) icon.className = temaSalvo === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+})();
+
+// ========== CONFIGURAÇÕES ==========
+const DEFAULT_PIN = '1793';
+let pinAtual = localStorage.getItem('admin_pin') || DEFAULT_PIN;
+let pinEntrada = '';
+
+// ========== DADOS (carregados do localStorage) ==========
+let PRODUTOS = [];
+let CATEGORIAS = [];
+let FEATURES = [];
+let DEPOIMENTOS = [];
+let VITRINE = { badge: 'Tech Premium', titulo: 'Angophones', slogan: 'O teu próximo telemóvel está aqui.', banner: 'Novos iPhone 15 Pro disponíveis!', bannerAtivo: true };
+let LOJA = { nome: 'Angophones', whatsapp: '+244954288128', email: 'contacto@angophones.co.ao', endereco: 'Av. 21 de Janeiro, Luanda', taxaEntrega: 1500, gratisAcima: 50000 };
+let APARENCIA = { corPrimaria: '#FF5500', corFundo: '#06060E' };
+
+// ========== INICIALIZAR ==========
+function carregarDados() {
+  try {
+    PRODUTOS = JSON.parse(localStorage.getItem('admin_produtos')) || [
+      { id: 1, nome: 'iPhone 15 Pro', categoria: 'smartphones', descricao: 'Titânio. Chip A17 Pro.', preco: 850000, precoPromocional: 799999, stock: 8, destaque: true, imagens: [] },
+      { id: 2, nome: 'Samsung Galaxy S24 Ultra', categoria: 'smartphones', descricao: 'O poder da IA.', preco: 920000, precoPromocional: null, stock: 5, destaque: true, imagens: [] },
+    ];
+    CATEGORIAS = JSON.parse(localStorage.getItem('admin_categorias')) || [
+      { id: 'smartphones', nome: 'Smartphones', icone: 'fa-mobile-screen' },
+      { id: 'acessorios', nome: 'Acessórios', icone: 'fa-headphones' },
+    ];
+    FEATURES = JSON.parse(localStorage.getItem('admin_features')) || [
+      { icone: 'fa-truck-fast', titulo: 'Entrega em 24h', descricao: 'Luanda e províncias com tracking.' },
+      { icone: 'fa-certificate', titulo: 'Garantia Oficial', descricao: '2 anos de garantia.' },
+    ];
+    DEPOIMENTOS = JSON.parse(localStorage.getItem('admin_depoimentos')) || [
+      { nome: 'Joana Ribeiro', cidade: 'Luanda', texto: 'Atendimento impecável!', avaliacao: 5 },
+    ];
+    VITRINE = JSON.parse(localStorage.getItem('admin_vitrine')) || VITRINE;
+    LOJA = JSON.parse(localStorage.getItem('admin_loja')) || LOJA;
+    APARENCIA = JSON.parse(localStorage.getItem('admin_aparencia')) || APARENCIA;
+  } catch(e) { /* usa defaults */ }
+}
+carregarDados();
+
+// ========== PIN PAD ==========
+function gerarPinPad() {
+  const pad = document.getElementById('pin-pad');
+  for (let i = 1; i <= 9; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'pin-btn';
+    btn.textContent = i;
+    btn.onclick = () => adicionarDigito(i);
+    pad.appendChild(btn);
+  }
+  const btnClear = document.createElement('button');
+  btnClear.className = 'pin-btn clear';
+  btnClear.innerHTML = '<i class="fa-solid fa-delete-left"></i>';
+  btnClear.onclick = limparPin;
+  pad.appendChild(btnClear);
+  
+  const btn0 = document.createElement('button');
+  btn0.className = 'pin-btn';
+  btn0.textContent = '0';
+  btn0.onclick = () => adicionarDigito(0);
+  pad.appendChild(btn0);
+  
+  const btnEnter = document.createElement('button');
+  btnEnter.className = 'pin-btn';
+  btnEnter.style.background = 'var(--primary)';
+  btnEnter.style.color = 'white';
+  btnEnter.innerHTML = '<i class="fa-solid fa-arrow-right"></i>';
+  btnEnter.onclick = verificarPin;
+  pad.appendChild(btnEnter);
+}
+
+function adicionarDigito(d) {
+  if (pinEntrada.length < 4) {
+    pinEntrada += d;
+    atualizarPinDisplay();
+  }
+}
+
+function limparPin() {
+  pinEntrada = '';
+  atualizarPinDisplay();
+}
+
+function atualizarPinDisplay() {
+  const dots = document.querySelectorAll('.pin-dot');
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('filled', i < pinEntrada.length);
+  });
+}
+
+function verificarPin() {
+  if (pinEntrada === pinAtual) {
+    document.getElementById('login-container').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    inicializarDashboard();
+    toast('Bem-vindo ao painel admin', 'ok');
+  } else {
+    toast('PIN incorreto', 'err');
+    limparPin();
+  }
+}
+
+// ========== DASHBOARD ==========
+function inicializarDashboard() {
+  renderizarTabs();
+  renderizarListaProdutos();
+  renderizarListaCategorias();
+  renderizarVitrine();
+  renderizarFeatures();
+  renderizarDepoimentos();
+  renderizarLoja();
+  renderizarAparencia();
+}
+
+const tabsConfig = [
+  { id: 'produtos', label: 'Produtos', icone: 'fa-box' },
+  { id: 'categorias', label: 'Categorias', icone: 'fa-tags' },
+  { id: 'vitrine', label: 'Vitrine', icone: 'fa-store' },
+  { id: 'conteudo', label: 'Conteúdo', icone: 'fa-pen' },
+  { id: 'aparencia', label: 'Aparência', icone: 'fa-palette' },
+  { id: 'loja', label: 'Loja', icone: 'fa-shop' },
+  { id: 'exportar', label: 'Exportar', icone: 'fa-download' },
+  { id: 'dados', label: 'Dados', icone: 'fa-database' },
+  { id: 'seguranca', label: 'Segurança', icone: 'fa-lock' }
+];
+
+function renderizarTabs() {
+  const tabsContainer = document.getElementById('tabs');
+  tabsContainer.innerHTML = tabsConfig.map(tab => `
+    <button class="tab" onclick="mostrarTab('${tab.id}')"><i class="fa-solid ${tab.icone}"></i> ${tab.label}</button>
+  `).join('');
+  document.querySelector('.tab').classList.add('active');
+}
+
+function mostrarTab(tabId) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelector(`.tab[onclick="mostrarTab('${tabId}')"]`).classList.add('active');
+  document.getElementById(`tab-${tabId}`).classList.add('active');
+}
+
+// ========== PRODUTOS ==========
+function renderizarListaProdutos() {
+  const container = document.getElementById('lista-produtos');
+  container.innerHTML = PRODUTOS.map(p => `
+    <div class="item-card">
+      <div class="item-info">
+        <h4>${p.nome}</h4>
+        <p>${formatarKz(p.precoPromocional || p.preco)} | Stock: ${p.stock}</p>
+      </div>
+      <div class="item-actions">
+        <button onclick="editarProduto(${p.id})"><i class="fa-solid fa-pen"></i></button>
+        <button onclick="excluirProduto(${p.id})"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function abrirModalProduto() {
+  document.getElementById('modal-produto-titulo').textContent = 'Novo Produto';
+  document.getElementById('produto-id').value = '';
+  document.getElementById('produto-nome').value = '';
+  document.getElementById('produto-descricao').value = '';
+  document.getElementById('produto-preco').value = '';
+  document.getElementById('produto-preco-promo').value = '';
+  document.getElementById('produto-stock').value = '10';
+  document.getElementById('produto-destaque').checked = false;
+  
+  const select = document.getElementById('produto-categoria');
+  select.innerHTML = CATEGORIAS.map(c => `<option value="${c.id}">${c.nome}</option>`).join('');
+  
+  document.getElementById('modal-produto').style.display = 'flex';
+}
+
+function editarProduto(id) {
+  const p = PRODUTOS.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('modal-produto-titulo').textContent = 'Editar Produto';
+  document.getElementById('produto-id').value = p.id;
+  document.getElementById('produto-nome').value = p.nome;
+  document.getElementById('produto-descricao').value = p.descricao || '';
+  document.getElementById('produto-preco').value = p.preco;
+  document.getElementById('produto-preco-promo').value = p.precoPromocional || '';
+  document.getElementById('produto-stock').value = p.stock;
+  document.getElementById('produto-destaque').checked = p.destaque || false;
+  
+  const select = document.getElementById('produto-categoria');
+  select.innerHTML = CATEGORIAS.map(c => `<option value="${c.id}" ${c.id === p.categoria ? 'selected' : ''}>${c.nome}</option>`).join('');
+  
+  document.getElementById('modal-produto').style.display = 'flex';
+}
+
+function salvarProduto() {
+  const id = document.getElementById('produto-id').value;
+  const nome = document.getElementById('produto-nome').value.trim();
+  const categoria = document.getElementById('produto-categoria').value;
+  const descricao = document.getElementById('produto-descricao').value.trim();
+  const preco = parseInt(document.getElementById('produto-preco').value) || 0;
+  const precoPromo = document.getElementById('produto-preco-promo').value;
+  const stock = parseInt(document.getElementById('produto-stock').value) || 0;
+  const destaque = document.getElementById('produto-destaque').checked;
+  
+  if (!nome || !categoria) return toast('Preencha os campos obrigatórios', 'err');
+  
+  const produto = {
+    id: id ? parseInt(id) : Date.now(),
+    nome, categoria, descricao, preco,
+    precoPromocional: precoPromo ? parseInt(precoPromo) : null,
+    emPromocao: !!precoPromo,
+    stock, destaque,
+    imagens: []
+  };
+  
+  if (id) {
+    const index = PRODUTOS.findIndex(p => p.id === parseInt(id));
+    PRODUTOS[index] = produto;
+  } else {
+    PRODUTOS.push(produto);
+  }
+  
+  salvarDados();
+  renderizarListaProdutos();
+  fecharModal('modal-produto');
+  toast('Produto salvo com sucesso', 'ok');
+}
+
+function excluirProduto(id) {
+  if (confirm('Excluir este produto?')) {
+    PRODUTOS = PRODUTOS.filter(p => p.id !== id);
+    salvarDados();
+    renderizarListaProdutos();
+    toast('Produto excluído', 'ok');
+  }
+}
+
+// ========== CATEGORIAS ==========
+function renderizarListaCategorias() {
+  const container = document.getElementById('lista-categorias');
+  container.innerHTML = CATEGORIAS.map(c => `
+    <div class="item-card">
+      <div class="item-info">
+        <h4><i class="fa-solid ${c.icone}"></i> ${c.nome}</h4>
+      </div>
+      <div class="item-actions">
+        <button onclick="editarCategoria('${c.id}')"><i class="fa-solid fa-pen"></i></button>
+        <button onclick="excluirCategoria('${c.id}')"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function abrirModalCategoria() {
+  document.getElementById('modal-categoria-titulo').textContent = 'Nova Categoria';
+  document.getElementById('categoria-id').value = '';
+  document.getElementById('categoria-nome').value = '';
+  document.getElementById('categoria-icone').value = 'fa-mobile-screen';
+  document.getElementById('modal-categoria').style.display = 'flex';
+}
+
+function editarCategoria(id) {
+  const c = CATEGORIAS.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('modal-categoria-titulo').textContent = 'Editar Categoria';
+  document.getElementById('categoria-id').value = c.id;
+  document.getElementById('categoria-nome').value = c.nome;
+  document.getElementById('categoria-icone').value = c.icone;
+  document.getElementById('modal-categoria').style.display = 'flex';
+}
+
+function salvarCategoria() {
+  const id = document.getElementById('categoria-id').value;
+  const nome = document.getElementById('categoria-nome').value.trim();
+  const icone = document.getElementById('categoria-icone').value.trim();
+  
+  if (!nome) return toast('Nome obrigatório', 'err');
+  
+  const categoria = {
+    id: id || nome.toLowerCase().replace(/\s+/g, '-'),
+    nome, icone: icone || 'fa-folder'
+  };
+  
+  if (id) {
+    const index = CATEGORIAS.findIndex(c => c.id === id);
+    CATEGORIAS[index] = categoria;
+  } else {
+    CATEGORIAS.push(categoria);
+  }
+  
+  salvarDados();
+  renderizarListaCategorias();
+  fecharModal('modal-categoria');
+  toast('Categoria salva', 'ok');
+}
+
+function excluirCategoria(id) {
+  if (confirm('Excluir esta categoria?')) {
+    CATEGORIAS = CATEGORIAS.filter(c => c.id !== id);
+    salvarDados();
+    renderizarListaCategorias();
+    toast('Categoria excluída', 'ok');
+  }
+}
+
+// ========== VITRINE ==========
+function renderizarVitrine() {
+  document.getElementById('vitrine-badge').value = VITRINE.badge || '';
+  document.getElementById('vitrine-titulo').value = VITRINE.titulo || '';
+  document.getElementById('vitrine-slogan').value = VITRINE.slogan || '';
+  document.getElementById('vitrine-banner').value = VITRINE.banner || '';
+  document.getElementById('vitrine-banner-ativo').checked = VITRINE.bannerAtivo || false;
+}
+
+function salvarVitrine() {
+  VITRINE = {
+    badge: document.getElementById('vitrine-badge').value,
+    titulo: document.getElementById('vitrine-titulo').value,
+    slogan: document.getElementById('vitrine-slogan').value,
+    banner: document.getElementById('vitrine-banner').value,
+    bannerAtivo: document.getElementById('vitrine-banner-ativo').checked
+  };
+  salvarDados();
+  toast('Vitrine salva', 'ok');
+}
+
+// ========== FEATURES ==========
+function renderizarFeatures() {
+  const container = document.getElementById('lista-features');
+  container.innerHTML = FEATURES.map((f, i) => `
+    <div class="item-card">
+      <div class="item-info">
+        <h4><i class="fa-solid ${f.icone}"></i> ${f.titulo}</h4>
+        <p>${f.descricao}</p>
+      </div>
+      <div class="item-actions">
+        <button onclick="removerFeature(${i})"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function adicionarFeature() {
+  const icone = prompt('Ícone (ex: fa-truck-fast):', 'fa-circle-check');
+  const titulo = prompt('Título:', 'Novo benefício');
+  const descricao = prompt('Descrição:', 'Descrição do benefício');
+  if (titulo) {
+    FEATURES.push({ icone: icone || 'fa-circle-check', titulo, descricao: descricao || '' });
+    salvarDados();
+    renderizarFeatures();
+  }
+}
+
+function removerFeature(i) { FEATURES.splice(i, 1); salvarDados(); renderizarFeatures(); }
+
+// ========== DEPOIMENTOS ==========
+function renderizarDepoimentos() {
+  const container = document.getElementById('lista-depoimentos');
+  container.innerHTML = DEPOIMENTOS.map((d, i) => `
+    <div class="item-card">
+      <div class="item-info">
+        <h4>${d.nome} (${d.cidade}) - ${'★'.repeat(d.avaliacao)}</h4>
+        <p>${d.texto}</p>
+      </div>
+      <div class="item-actions">
+        <button onclick="removerDepoimento(${i})"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function adicionarDepoimento() {
+  const nome = prompt('Nome:', 'Cliente');
+  const cidade = prompt('Cidade:', 'Luanda');
+  const texto = prompt('Depoimento:', 'Ótimo serviço!');
+  const avaliacao = parseInt(prompt('Avaliação (1-5):', '5')) || 5;
+  if (nome && texto) {
+    DEPOIMENTOS.push({ nome, cidade, texto, avaliacao: Math.min(5, Math.max(1, avaliacao)) });
+    salvarDados();
+    renderizarDepoimentos();
+  }
+}
+
+function removerDepoimento(i) { DEPOIMENTOS.splice(i, 1); salvarDados(); renderizarDepoimentos(); }
+
+// ========== LOJA ==========
+function renderizarLoja() {
+  document.getElementById('loja-nome').value = LOJA.nome || '';
+  document.getElementById('loja-whatsapp').value = LOJA.whatsapp || '';
+  document.getElementById('loja-email').value = LOJA.email || '';
+  document.getElementById('loja-endereco').value = LOJA.endereco || '';
+  document.getElementById('loja-taxa').value = LOJA.taxaEntrega || 1500;
+  document.getElementById('loja-gratis').value = LOJA.gratisAcima || 50000;
+}
+
+function salvarLoja() {
+  LOJA = {
+    nome: document.getElementById('loja-nome').value,
+    whatsapp: document.getElementById('loja-whatsapp').value,
+    email: document.getElementById('loja-email').value,
+    endereco: document.getElementById('loja-endereco').value,
+    taxaEntrega: parseInt(document.getElementById('loja-taxa').value) || 1500,
+    gratisAcima: parseInt(document.getElementById('loja-gratis').value) || 50000
+  };
+  salvarDados();
+  toast('Configurações da loja salvas', 'ok');
+}
+
+// ========== APARÊNCIA ==========
+function renderizarAparencia() {
+  document.getElementById('cor-primaria').value = APARENCIA.corPrimaria;
+  document.getElementById('cor-fundo').value = APARENCIA.corFundo;
+  document.getElementById('cor-preview').textContent = APARENCIA.corPrimaria;
+  document.getElementById('cor-fundo-preview').textContent = APARENCIA.corFundo;
+  
+  document.getElementById('cor-primaria').oninput = (e) => {
+    document.getElementById('cor-preview').textContent = e.target.value;
+  };
+  document.getElementById('cor-fundo').oninput = (e) => {
+    document.getElementById('cor-fundo-preview').textContent = e.target.value;
+  };
+}
+
+function salvarAparencia() {
+  APARENCIA = {
+    corPrimaria: document.getElementById('cor-primaria').value,
+    corFundo: document.getElementById('cor-fundo').value
+  };
+  salvarDados();
+  toast('Aparência salva', 'ok');
+}
+
+// ========== EXPORTAR / IMPORTAR ==========
+function salvarDados() {
+  localStorage.setItem('admin_produtos', JSON.stringify(PRODUTOS));
+  localStorage.setItem('admin_categorias', JSON.stringify(CATEGORIAS));
+  localStorage.setItem('admin_features', JSON.stringify(FEATURES));
+  localStorage.setItem('admin_depoimentos', JSON.stringify(DEPOIMENTOS));
+  localStorage.setItem('admin_vitrine', JSON.stringify(VITRINE));
+  localStorage.setItem('admin_loja', JSON.stringify(LOJA));
+  localStorage.setItem('admin_aparencia', JSON.stringify(APARENCIA));
+}
+
+function exportarJSON() {
+  const dados = { PRODUTOS, CATEGORIAS, FEATURES, DEPOIMENTOS, VITRINE, LOJA, APARENCIA };
+  const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `angophones_backup_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  toast('Backup exportado', 'ok');
+}
+
+function importarJSON() {
+  const input = document.getElementById('import-file');
+  input.onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const dados = JSON.parse(ev.target.result);
+        if (dados.PRODUTOS) PRODUTOS = dados.PRODUTOS;
+        if (dados.CATEGORIAS) CATEGORIAS = dados.CATEGORIAS;
+        if (dados.FEATURES) FEATURES = dados.FEATURES;
+        if (dados.DEPOIMENTOS) DEPOIMENTOS = dados.DEPOIMENTOS;
+        if (dados.VITRINE) VITRINE = dados.VITRINE;
+        if (dados.LOJA) LOJA = dados.LOJA;
+        if (dados.APARENCIA) APARENCIA = dados.APARENCIA;
+        salvarDados();
+        inicializarDashboard();
+        toast('Dados importados com sucesso', 'ok');
+      } catch(ex) { toast('Arquivo inválido', 'err'); }
+    };
+    reader.readAsText(file);
+    input.value = '';
+  };
+  input.click();
+}
+
+// ========== DADOS ==========
+function limparCarrinhoAdmin() { if(confirm('Limpar carrinho?')) { localStorage.removeItem('angophones_carrinho'); toast('Carrinho limpo', 'ok'); } }
+function limparFavoritosAdmin() { if(confirm('Limpar favoritos?')) { localStorage.removeItem('angophones_favoritos'); toast('Favoritos limpos', 'ok'); } }
+function resetarFabrica() {
+  if(confirm('ATENÇÃO: Isto irá repor todos os produtos, categorias e configurações de fábrica. Continuar?')) {
+    localStorage.clear();
+    carregarDados();
+    inicializarDashboard();
+    toast('Reset de fábrica concluído', 'ok');
+  }
+}
+
+// ========== SEGURANÇA ==========
+function alterarPin() {
+  const atual = document.getElementById('pin-atual').value;
+  const novo = document.getElementById('pin-novo').value;
+  const confirmar = document.getElementById('pin-confirmar').value;
+  if (atual !== pinAtual) return toast('PIN atual incorreto', 'err');
+  if (novo.length !== 4) return toast('O PIN deve ter 4 dígitos', 'err');
+  if (novo !== confirmar) return toast('PINs não coincidem', 'err');
+  pinAtual = novo;
+  localStorage.setItem('admin_pin', novo);
+  document.getElementById('pin-atual').value = '';
+  document.getElementById('pin-novo').value = '';
+  document.getElementById('pin-confirmar').value = '';
+  toast('PIN alterado com sucesso', 'ok');
+}
+
+// ========== UTILITÁRIOS ==========
+function formatarKz(v) { return v.toLocaleString('pt-AO', { minimumFractionDigits: 2 }) + ' Kz'; }
+function fecharModal(id) { document.getElementById(id).style.display = 'none'; }
+function toast(msg, tipo) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.className = 'toast show';
+  t.style.borderLeftColor = tipo === 'err' ? '#EF4444' : '#FF5500';
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Iniciar PIN pad
+gerarPinPad();
+</script>
+</body>
+</html>
