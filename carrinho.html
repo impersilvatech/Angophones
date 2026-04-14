@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-AO" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=yes">
+<meta name="theme-color" content="#06060E">
+<title>Carrinho | Angophones</title>
+<link rel="icon" href="tema/assets/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060E;
+  --bg2: #0A0A14;
+  --card: #0F0F13;
+  --border: #2A2A2E;
+  --primary: #FF5500;
+  --primary-hover: #FF7A33;
+  --red: #EF4444;
+  --green: #22C55E;
+  --white: #FFFFFF;
+  --muted: #A0A0A8;
+  --muted2: #6B6B76;
+  --ft: 'Bebas Neue', 'Impact', sans-serif;
+  --fb: 'Outfit', sans-serif;
+  --grad: linear-gradient(135deg, #FF5500, #FF7A33);
+  --tr: all 0.2s ease;
+}
+[data-theme="light"] {
+  --bg: #F5F5F7;
+  --bg2: #FFFFFF;
+  --card: #FFFFFF;
+  --border: #E5E5EA;
+  --white: #1C1C1E;
+  --muted: #6B6B76;
+  --muted2: #8E8E93;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  padding-bottom: 72px;
+  transition: background 0.3s, color 0.3s;
+}
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(6, 6, 14, 0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+[data-theme="light"] .hdr { background: rgba(245, 245, 247, 0.97); }
+.hdr-nome {
+  font-family: var(--ft);
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+}
+.hdr-nome span { color: var(--primary); }
+.hb {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: none;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--white);
+}
+.container { padding: 16px; }
+.carrinho-vazio {
+  text-align: center;
+  padding: 60px 20px;
+}
+.carrinho-vazio i {
+  font-size: 4rem;
+  color: var(--muted2);
+  opacity: 0.3;
+  margin-bottom: 16px;
+}
+.carrinho-vazio h2 {
+  font-family: var(--ft);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.carrinho-vazio p {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.carrinho-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 10px;
+}
+.carrinho-item-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  background: var(--bg2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.carrinho-item-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.carrinho-item-img i {
+  font-size: 2rem;
+  color: var(--muted2);
+  opacity: 0.5;
+}
+.carrinho-item-info {
+  flex: 1;
+  min-width: 0;
+}
+.carrinho-item-nome {
+  font-family: var(--ft);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+.carrinho-item-preco {
+  font-family: var(--ft);
+  font-size: 0.95rem;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.carrinho-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2px;
+}
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qty-btn:hover { background: var(--primary); color: white; }
+.qty-val {
+  min-width: 30px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.btn-remover {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--red);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+.btn-remover:hover {
+  background: var(--red);
+  color: white;
+  border-color: var(--red);
+}
+.resumo {
+  margin-top: 20px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.resumo-titulo {
+  font-family: var(--ft);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+.resumo-linha {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.resumo-linha.total {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-family: var(--ft);
+  font-size: 1.2rem;
+  color: var(--white);
+}
+.resumo-linha.total span:last-child {
+  color: var(--primary);
+}
+.cupao-section {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0;
+}
+.cupao-input {
+  flex: 1;
+  padding: 12px 14px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: var(--fb);
+  font-size: 0.85rem;
+  color: var(--white);
+  outline: none;
+  text-transform: uppercase;
+}
+.cupao-input::placeholder {
+  color: var(--muted2);
+  text-transform: none;
+}
+.cupao-input:focus {
+  border-color: var(--primary);
+}
+.btn-cupao {
+  padding: 12px 20px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: var(--ft);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-cupao:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.cupao-aplicado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 85, 0, 0.1);
+  border: 1px solid rgba(255, 85, 0, 0.3);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.cupao-aplicado span {
+  color: var(--primary);
+  font-weight: 600;
+}
+.btn-remover-cupao {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.btn-finalizar {
+  width: 100%;
+  padding: 16px;
+  background: var(--grad);
+  border: none;
+  border-radius: 50px;
+  font-family: var(--ft);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: white;
+  cursor: pointer;
+  margin-top: 16px;
+  box-shadow: 0 4px 14px rgba(255, 85, 0, 0.3);
+}
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  padding: 8px 12px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(6, 6, 14, 0.97);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+}
+[data-theme="light"] .bottom-nav { background: rgba(245, 245, 247, 0.97); }
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 12px;
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.bottom-nav-item i { font-size: 1.2rem; }
+.bottom-nav-item.active { color: var(--primary); }
+.fab-whatsapp {
+  position: fixed;
+  bottom: 85px;
+  right: 16px;
+  width: 50px;
+  height: 50px;
+  background: #25D366;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  z-index: 150;
+  text-decoration: none;
+}
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  max-width: calc(100vw - 32px);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+.toast.ok { border-color: var(--primary); color: var(--primary); }
+.toast.err { border-color: var(--red); color: var(--red); }
+@media (min-width: 769px) {
+  .bottom-nav { display: none; }
+  body { padding-bottom: 0; }
+  .fab-whatsapp { bottom: 24px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-nome">Ango<span>phones</span></div>
+  <button class="hb" id="tema-toggle"><i data-theme-ico class="fa-regular fa-sun"></i></button>
+</header>
+
+<div class="container" id="carrinho-container">
+  <div class="carrinho-vazio">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <h2>Carrinho Vazio</h2>
+    <p>Adicione produtos para continuar</p>
+    <a href="loja.html" class="btn" style="display:inline-block;padding:12px 24px;background:var(--grad);border-radius:50px;color:white;text-decoration:none;font-family:var(--ft);">Explorar Produtos</a>
+  </div>
+</div>
+
+<a href="#" class="fab-whatsapp" id="fab-whatsapp" target="_blank">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<nav class="bottom-nav">
+  <a href="index.html" class="bottom-nav-item"><i class="fa-solid fa-house"></i><span>Inicio</span></a>
+  <a href="loja.html" class="bottom-nav-item"><i class="fa-solid fa-mobile-screen"></i><span>Loja</span></a>
+  <a href="carrinho.html" class="bottom-nav-item active"><i class="fa-solid fa-cart-shopping"></i><span>Carrinho</span></a>
+  <a href="favoritos.html" class="bottom-nav-item"><i class="fa-solid fa-heart"></i><span>Favoritos</span></a>
+  <a href="sobre.html" class="bottom-nav-item"><i class="fa-solid fa-circle-info"></i><span>Sobre</span></a>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script src="core/js/loader.js"></script>
+<script src="core/js/utils.js"></script>
+<script src="core/js/core.js"></script>
+<script src="core/js/toast.js"></script>
+<script src="core/js/tema.js"></script>
+<script src="core/js/cart.js"></script>
+
+<script>
+let catalogo = null;
+
+function inicializar(data) {
+  catalogo = data;
+  if (!catalogo) return;
+  
+  const fab = document.getElementById('fab-whatsapp');
+  if (fab && catalogo.loja?.whatsapp) {
+    fab.href = `https://wa.me/${catalogo.loja.whatsapp.replace(/\D/g, '')}?text=Ola!%20Gostaria%20de%20informacoes.`;
+  }
+  
+  renderizarCarrinho();
+}
+
+function formatarKz(v) {
+  return v.toLocaleString('pt-AO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Kz';
+}
+
+function renderizarCarrinho() {
+  const container = document.getElementById('carrinho-container');
+  const carrinho = window.cart?.getCarrinho() || [];
+  
+  if (!carrinho.length) {
+    container.innerHTML = `
+      <div class="carrinho-vazio">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <h2>Carrinho Vazio</h2>
+        <p>Adicione produtos para continuar</p>
+        <a href="loja.html" class="btn" style="display:inline-block;padding:12px 24px;background:var(--grad);border-radius:50px;color:white;text-decoration:none;font-family:var(--ft);">Explorar Produtos</a>
+      </div>
+    `;
+    return;
+  }
+  
+  let html = '<div class="carrinho-itens">';
+  
+  carrinho.forEach((item, index) => {
+    const precoTotal = item.preco * item.quantidade;
+    html += `
+      <div class="carrinho-item" data-key="${item.itemKey}">
+        <div class="carrinho-item-img">
+          ${item.imagem ? `<img src="imagens/produtos/${item.imagem}" alt="${item.nome}" onerror="this.innerHTML='<i class=\'fa-solid fa-mobile-screen\'></i>'">` : '<i class="fa-solid fa-mobile-screen"></i>'}
+        </div>
+        <div class="carrinho-item-info">
+          <div class="carrinho-item-nome">${item.nome}</div>
+          ${item.variante ? `<div style="font-size:0.7rem;color:var(--muted);">${item.variante}</div>` : ''}
+          <div class="carrinho-item-preco">${formatarKz(item.preco)}</div>
+          <div class="carrinho-item-actions">
+            <div class="qty-control">
+              <button class="qty-btn" onclick="alterarQuantidade('${item.itemKey}', -1)">−</button>
+              <span class="qty-val">${item.quantidade}</span>
+              <button class="qty-btn" onclick="alterarQuantidade('${item.itemKey}', 1)">+</button>
+            </div>
+            <button class="btn-remover" onclick="removerItem('${item.itemKey}')">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+  
+  html += '</div>';
+  
+  const subtotal = window.cart?.getSubtotal() || 0;
+  const desconto = window.cart?.getDescontoCupao() || 0;
+  const cupao = window.cart?.getCupaoAplicado();
+  const entrega = window.core?.calcularEntrega(subtotal) || 1500;
+  const isEntregaGratis = window.core?.isEntregaGratis(subtotal) || false;
+  const total = subtotal - desconto + (isEntregaGratis ? 0 : entrega);
+  
+  html += `
+    <div class="resumo">
+      <h3 class="resumo-titulo">Resumo da Compra</h3>
+      <div class="resumo-linha">
+        <span>Subtotal</span>
+        <span>${formatarKz(subtotal)}</span>
+      </div>
+      ${desconto > 0 ? `
+        <div class="resumo-linha" style="color:var(--green);">
+          <span>Desconto ${cupao ? `(${cupao.codigo})` : ''}</span>
+          <span>-${formatarKz(desconto)}</span>
+        </div>
+      ` : ''}
+      <div class="resumo-linha">
+        <span>Entrega ${isEntregaGratis ? '(Grátis)' : ''}</span>
+        <span>${isEntregaGratis ? formatarKz(0) : formatarKz(entrega)}</span>
+      </div>
+      <div class="resumo-linha total">
+        <span>Total</span>
+        <span>${formatarKz(total)}</span>
+      </div>
+    </div>
+  `;
+  
+  if (!cupao) {
+    html += `
+      <div class="cupao-section">
+        <input type="text" class="cupao-input" id="cupao-input" placeholder="Codigo do cupao">
+        <button class="btn-cupao" onclick="aplicarCupao()">Aplicar</button>
+      </div>
+    `;
+  } else {
+    html += `
+      <div class="cupao-aplicado">
+        <span><i class="fa-solid fa-tag"></i> ${cupao.codigo} aplicado</span>
+        <button class="btn-remover-cupao" onclick="removerCupao()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    `;
+  }
+  
+  html += `
+    <button class="btn-finalizar" onclick="finalizarCompra()">
+      <i class="fa-solid fa-check"></i> Finalizar Compra
+    </button>
+  `;
+  
+  container.innerHTML = html;
+}
+
+window.alterarQuantidade = function(itemKey, delta) {
+  if (!window.cart) return;
+  const item = window.cart.getCarrinho().find(i => i.itemKey === itemKey);
+  if (!item) return;
+  const novaQtd = item.quantidade + delta;
+  window.cart.atualizarQuantidade(itemKey, novaQtd);
+  renderizarCarrinho();
+};
+
+window.removerItem = function(itemKey) {
+  if (!window.cart) return;
+  window.cart.removerDoCarrinho(itemKey);
+  renderizarCarrinho();
+  toast('Item removido do carrinho', 'ok');
+};
+
+window.aplicarCupao = function() {
+  const input = document.getElementById('cupao-input');
+  if (!input || !input.value) return;
+  if (!window.cart) return;
+  const resultado = window.cart.aplicarCupao(input.value);
+  if (resultado) {
+    renderizarCarrinho();
+    toast(`Cupao ${resultado.codigo} aplicado!`, 'ok');
+  }
+};
+
+window.removerCupao = function() {
+  if (!window.cart) return;
+  window.cart.removerCupao();
+  renderizarCarrinho();
+  toast('Cupao removido', 'ok');
+};
+
+window.finalizarCompra = function() {
+  const carrinho = window.cart?.getCarrinho() || [];
+  if (!carrinho.length) {
+    toast('Carrinho vazio', 'err');
+    return;
+  }
+  window.location.href = 'dados.html';
+};
+
+function toast(msg, tipo) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.className = `toast show ${tipo || 'ok'}`;
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+document.getElementById('tema-toggle').addEventListener('click', function() {
+  if (window.tema) {
+    window.tema.alternarTema();
+    const themeIco = document.querySelector('[data-theme-ico]');
+    const temaAtual = window.tema.getTema();
+    if (themeIco) {
+      themeIco.className = temaAtual === 'escuro' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+    }
+  }
+});
+
+if (window.CATALOGO) inicializar(window.CATALOGO);
+else window.addEventListener('catalogoCarregado', e => inicializar(e.detail));
+setTimeout(() => { if (window.CATALOGO) inicializar(window.CATALOGO); }, 1500);
+</script>
+</body>
+</html>
