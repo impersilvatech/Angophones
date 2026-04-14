@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="pt-AO" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=yes">
+<meta name="theme-color" content="#06060E">
+<title>Admin GitHub | Angophones</title>
+<link rel="icon" href="tema/assets/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060E;
+  --bg2: #0A0A14;
+  --card: #0F0F13;
+  --border: #2A2A2E;
+  --primary: #FF5500;
+  --red: #EF4444;
+  --green: #22C55E;
+  --white: #FFFFFF;
+  --muted: #A0A0A8;
+  --muted2: #6B6B76;
+  --ft: 'Bebas Neue', 'Impact', sans-serif;
+  --fb: 'Outfit', sans-serif;
+  --grad: linear-gradient(135deg, #FF5500, #FF7A33);
+}
+[data-theme="light"] {
+  --bg: #F5F5F7;
+  --bg2: #FFFFFF;
+  --card: #FFFFFF;
+  --border: #E5E5EA;
+  --white: #1C1C1E;
+  --muted: #6B6B76;
+  --muted2: #8E8E93;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(6, 6, 14, 0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+[data-theme="light"] .hdr { background: rgba(245, 245, 247, 0.97); }
+.hdr-nome {
+  font-family: var(--ft);
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+}
+.hdr-nome span { color: var(--primary); }
+.hb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: none;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--white);
+}
+/* Configuração */
+.config-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 70px);
+  padding: 20px;
+}
+.config-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 30px 24px;
+  max-width: 400px;
+  width: 100%;
+}
+.config-box h2 {
+  font-family: var(--ft);
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--white);
+}
+.form-control {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: var(--fb);
+  font-size: 0.9rem;
+  color: var(--white);
+  outline: none;
+}
+.form-control:focus { border-color: var(--primary); }
+.btn {
+  padding: 12px 20px;
+  background: var(--grad);
+  border: none;
+  border-radius: 30px;
+  font-family: var(--ft);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+.btn-outline {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+/* Dashboard */
+.dashboard { display: none; padding: 16px; }
+.tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 4px;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  font-family: var(--ft);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 30px;
+  transition: all 0.2s;
+}
+.tab i { margin-right: 6px; }
+.tab.active {
+  background: var(--primary);
+  color: white;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.section-title {
+  font-family: var(--ft);
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+.item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+.item-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.item-info { flex: 1; }
+.item-info h4 { font-family: var(--ft); font-size: 0.95rem; margin-bottom: 4px; }
+.item-info p { font-size: 0.75rem; color: var(--muted); }
+.item-actions { display: flex; gap: 6px; }
+.item-actions button {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer;
+}
+.item-actions button:hover { background: var(--primary); color: white; border-color: var(--primary); }
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.modal {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.modal h3 { font-family: var(--ft); margin-bottom: 16px; }
+.modal-actions { display: flex; gap: 8px; margin-top: 20px; justify-content: flex-end; }
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  max-width: calc(100vw - 32px);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  margin-left: 8px;
+}
+.status-sync { background: var(--green); color: white; }
+.status-pending { background: var(--red); color: white; }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-nome">Ango<span>phones</span> Admin</div>
+  <button class="hb" onclick="alternarTema()"><i data-theme-ico class="fa-regular fa-sun"></i></button>
+</header>
+
+<!-- Configuração GitHub -->
+<div id="config-container" class="config-container">
+  <div class="config-box">
+    <h2>Configurar GitHub</h2>
+    <div class="form-group">
+      <label class="form-label">Token de Acesso Pessoal</label>
+      <input type="password" class="form-control" id="github-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+      <small style="color:var(--muted);">Precisa de permissão "repo"</small>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Owner (utilizador/organização)</label>
+      <input type="text" class="form-control" id="github-owner" placeholder="ex: impersilvatech">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Repositório</label>
+      <input type="text" class="form-control" id="github-repo" placeholder="ex: angophones">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Branch</label>
+      <input type="text" class="form-control" id="github-branch" value="main" placeholder="main">
+    </div>
+    <button class="btn" onclick="salvarConfiguracao()">Conectar e Carregar Dados</button>
+    <button class="btn btn-outline" onclick="window.location.href='index.html'">Voltar ao Site</button>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard" class="dashboard">
+  <div class="tabs" id="tabs"></div>
+  
+  <!-- Produtos -->
+  <div id="tab-produtos" class="tab-content active">
+    <h2 class="section-title">Gestão de Produtos</h2>
+    <button class="btn" onclick="abrirModalProduto()" style="width:auto; display:inline-block; margin-bottom:16px;"><i class="fa-solid fa-plus"></i> Novo Produto</button>
+    <div class="item-list" id="lista-produtos"></div>
+  </div>
+  
+  <!-- Categorias -->
+  <div id="tab-categorias" class="tab-content">
+    <h2 class="section-title">Gestão de Categorias</h2>
+    <button class="btn" onclick="abrirModalCategoria()" style="width:auto; display:inline-block; margin-bottom:16px;"><i class="fa-solid fa-plus"></i> Nova Categoria</button>
+    <div class="item-list" id="lista-categorias"></div>
+  </div>
+  
+  <!-- Loja -->
+  <div id="tab-loja" class="tab-content">
+    <h2 class="section-title">Configurações da Loja</h2>
+    <div class="form-group">
+      <label class="form-label">Nome da Loja</label>
+      <input type="text" class="form-control" id="loja-nome">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Slogan</label>
+      <input type="text" class="form-control" id="loja-slogan">
+    </div>
+    <div class="form-group">
+      <label class="form-label">WhatsApp</label>
+      <input type="text" class="form-control" id="loja-whatsapp">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input type="text" class="form-control" id="loja-email">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Endereço</label>
+      <input type="text" class="form-control" id="loja-endereco">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Taxa de Entrega (Kz)</label>
+      <input type="number" class="form-control" id="loja-taxa">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Entrega Grátis acima de (Kz)</label>
+      <input type="number" class="form-control" id="loja-gratis">
+    </div>
+    <button class="btn" onclick="salvarLoja()">Guardar Loja</button>
+  </div>
+  
+  <!-- Vitrine -->
+  <div id="tab-vitrine" class="tab-content">
+    <h2 class="section-title">Configurações da Vitrine</h2>
+    <div class="form-group">
+      <label class="form-label">Badge do Hero</label>
+      <input type="text" class="form-control" id="vitrine-badge">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Título do Hero</label>
+      <input type="text" class="form-control" id="vitrine-titulo">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Banner de Destaque</label>
+      <input type="text" class="form-control" id="vitrine-banner">
+    </div>
+    <div class="form-group">
+      <label class="form-label"><input type="checkbox" id="vitrine-banner-ativo"> Banner ativo</label>
+    </div>
+    <button class="btn" onclick="salvarVitrine()">Guardar Vitrine</button>
+  </div>
+  
+  <!-- Features -->
+  <div id="tab-features" class="tab-content">
+    <h2 class="section-title">Features (Porquê nós)</h2>
+    <div id="lista-features"></div>
+    <button class="btn" onclick="adicionarFeature()" style="width:auto; margin-top:16px;"><i class="fa-solid fa-plus"></i> Adicionar Feature</button>
+  </div>
+  
+  <!-- Depoimentos -->
+  <div id="tab-depoimentos" class="tab-content">
+    <h2 class="section-title">Depoimentos</h2>
+    <div id="lista-depoimentos"></div>
+    <button class="btn" onclick="adicionarDepoimento()" style="width:auto; margin-top:16px;"><i class="fa-solid fa-plus"></i> Adicionar Depoimento</button>
+  </div>
+  
+  <!-- Sync Status -->
+  <div style="margin-top: 30px; padding: 16px; background: var(--card); border-radius: 16px;">
+    <p><i class="fa-solid fa-cloud-upload-alt"></i> Alterações pendentes: <span id="pending-count">0</span></p>
+    <button class="btn" onclick="commitTudo()" style="width:auto;">Commit e Push para GitHub</button>
+    <button class="btn btn-outline" onclick="recarregarTudo()" style="width:auto; margin-left:10px;">Recarregar do GitHub</button>
+  </div>
+</div>
+
+<!-- Modal Produto -->
+<div class="modal-overlay" id="modal-produto">
+  <div class="modal">
+    <h3 id="modal-produto-titulo">Novo Produto</h3>
+    <input type="hidden" id="produto-id">
+    <div class="form-group"><label class="form-label">Nome</label><input type="text" class="form-control" id="produto-nome"></div>
+    <div class="form-group"><label class="form-label">Categoria</label><select class="form-control" id="produto-categoria"></select></div>
+    <div class="form-group"><label class="form-label">Descrição</label><textarea class="form-control" id="produto-descricao"></textarea></div>
+    <div class="form-group"><label class="form-label">Preço (Kz)</label><input type="number" class="form-control" id="produto-preco"></div>
+    <div class="form-group"><label class="form-label">Preço Promocional</label><input type="number" class="form-control" id="produto-preco-promo"></div>
+    <div class="form-group"><label class="form-label">Stock</label><input type="number" class="form-control" id="produto-stock" value="10"></div>
+    <div class="form-group"><label><input type="checkbox" id="produto-destaque"> Destaque</label></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="salvarProduto()">Salvar</button>
+      <button class="btn btn-outline" onclick="fecharModal('modal-produto')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Categoria -->
+<div class="modal-overlay" id="modal-categoria">
+  <div class="modal">
+    <h3 id="modal-categoria-titulo">Nova Categoria</h3>
+    <input type="hidden" id="categoria-id">
+    <div class="form-group"><label class="form-label">Nome</label><input type="text" class="form-control" id="categoria-nome"></div>
+    <div class="form-group"><label class="form-label">Ícone (Font Awesome)</label><input type="text" class="form-control" id="categoria-icone" placeholder="fa-mobile-screen"></div>
+    <div class="form-group"><label class="form-label">Cor (hex)</label><input type="color" id="categoria-cor" value="#FF5500"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="salvarCategoria()">Salvar</button>
+      <button class="btn btn-outline" onclick="fecharModal('modal-categoria')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ========== TEMA ==========
+function alternarTema() {
+  const html = document.documentElement;
+  const icon = document.querySelector('[data-theme-ico]');
+  const temaAtual = html.getAttribute('data-theme') || 'dark';
+  const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', novoTema);
+  localStorage.setItem('tema', novoTema);
+  if (icon) icon.className = novoTema === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+}
+(function() {
+  const temaSalvo = localStorage.getItem('tema') || 'dark';
+  document.documentElement.setAttribute('data-theme', temaSalvo);
+  const icon = document.querySelector('[data-theme-ico]');
+  if (icon) icon.className = temaSalvo === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+})();
+
+// ========== CONFIG GITHUB ==========
+let GITHUB = {
+  token: localStorage.getItem('gh_token') || '',
+  owner: localStorage.getItem('gh_owner') || '',
+  repo: localStorage.getItem('gh_repo') || '',
+  branch: localStorage.getItem('gh_branch') || 'main'
+};
+
+// Dados carregados
+let PRODUTOS = [];
+let CATEGORIAS = [];
+let LOJA = {};
+let VITRINE = {};
+let FEATURES = [];
+let DEPOIMENTOS = [];
+
+// Controlo de alterações pendentes
+let pendingChanges = new Set();
+
+// ========== INICIALIZAR ==========
+if (GITHUB.token && GITHUB.owner && GITHUB.repo) {
+  document.getElementById('config-container').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  inicializarDashboard();
+} else {
+  document.getElementById('config-container').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+}
+
+function salvarConfiguracao() {
+  GITHUB.token = document.getElementById('github-token').value.trim();
+  GITHUB.owner = document.getElementById('github-owner').value.trim();
+  GITHUB.repo = document.getElementById('github-repo').value.trim();
+  GITHUB.branch = document.getElementById('github-branch').value.trim() || 'main';
+  
+  if (!GITHUB.token || !GITHUB.owner || !GITHUB.repo) {
+    toast('Preencha todos os campos', 'err');
+    return;
+  }
+  
+  localStorage.setItem('gh_token', GITHUB.token);
+  localStorage.setItem('gh_owner', GITHUB.owner);
+  localStorage.setItem('gh_repo', GITHUB.repo);
+  localStorage.setItem('gh_branch', GITHUB.branch);
+  
+  document.getElementById('config-container').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  inicializarDashboard();
+}
+
+async function inicializarDashboard() {
+  renderizarTabs();
+  await carregarTodosDados();
+}
+
+const tabsConfig = [
+  { id: 'produtos', label: 'Produtos', icone: 'fa-box' },
+  { id: 'categorias', label: 'Categorias', icone: 'fa-tags' },
+  { id: 'loja', label: 'Loja', icone: 'fa-shop' },
+  { id: 'vitrine', label: 'Vitrine', icone: 'fa-store' },
+  { id: 'features', label: 'Features', icone: 'fa-star' },
+  { id: 'depoimentos', label: 'Depoimentos', icone: 'fa-comment' }
+];
+
+function renderizarTabs() {
+  const container = document.getElementById('tabs');
+  container.innerHTML = tabsConfig.map(tab => `
+    <button class="tab" onclick="mostrarTab('${tab.id}')"><i class="fa-solid ${tab.icone}"></i> ${tab.label}</button>
+  `).join('');
+  document.querySelector('.tab').classList.add('active');
+}
+
+function mostrarTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelector(`.tab[onclick="mostrarTab('${id}')"]`).classList.add('active');
+  document.getElementById(`tab-${id}`).classList.add('active');
+}
+
+// ========== API GITHUB ==========
+async function fetchGitHub(path) {
+  const url = `https://api.github.com/repos/${GITHUB.owner}/${GITHUB.repo}/contents/${path}?ref=${GITHUB.branch}`;
+  const res = await fetch(url, {
+    headers: { 'Authorization': `token ${GITHUB.token}` }
+  });
+  if (!res.ok) throw new Error(`Erro ao carregar ${path}`);
+  const data = await res.json();
+  const content = decodeURIComponent(escape(atob(data.content)));
+  return { content: JSON.parse(content), sha: data.sha };
+}
+
+async function commitGitHub(path, content, message, sha = null) {
+  const url = `https://api.github.com/repos/${GITHUB.owner}/${GITHUB.repo}/contents/${path}`;
+  const body = {
+    message,
+    content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
+    branch: GITHUB.branch
+  };
+  if (sha) body.sha = sha;
+  
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `token ${GITHUB.token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) throw new Error(`Erro ao salvar ${path}`);
+  return res.json();
+}
+
+// ========== CARREGAR DADOS ==========
+let shas = {};
+
+async function carregarTodosDados() {
+  try {
+    const lojaData = await fetchGitHub('dados/loja.json');
+    LOJA = lojaData.content;
+    shas.loja = lojaData.sha;
+    
+    const catData = await fetchGitHub('dados/categorias.json');
+    CATEGORIAS = catData.content;
+    shas.categorias = catData.sha;
+    
+    const prodData = await fetchGitHub('dados/produtos.json');
+    PRODUTOS = prodData.content;
+    shas.produtos = prodData.sha;
+    
+    const vitrineData = await fetchGitHub('dados/vitrine.json');
+    VITRINE = vitrineData.content;
+    shas.vitrine = vitrineData.sha;
+    
+    const featData = await fetchGitHub('dados/features.json');
+    FEATURES = featData.content;
+    shas.features = featData.sha;
+    
+    const depData = await fetchGitHub('dados/depoimentos.json');
+    DEPOIMENTOS = depData.content;
+    shas.depoimentos = depData.sha;
+    
+    pendingChanges.clear();
+    atualizarPendingCount();
+    renderizarTodos();
+    toast('Dados carregados do GitHub', 'ok');
+  } catch(e) {
+    toast('Erro ao carregar dados. Verifique as configurações.', 'err');
+    console.error(e);
+  }
+}
+
+async function recarregarTudo() {
+  await carregarTodosDados();
+}
+
+function renderizarTodos() {
+  renderizarListaProdutos();
+  renderizarListaCategorias();
+  renderizarLoja();
+  renderizarVitrine();
+  renderizarFeatures();
+  renderizarDepoimentos();
+}
+
+// ========== PRODUTOS ==========
+function renderizarListaProdutos() {
+  const container = document.getElementById('lista-produtos');
+  container.innerHTML = PRODUTOS.map(p => `
+    <div class="item-card">
+      <div class="item-info">
+        <h4>${p.nome}</h4>
+        <p>${formatarKz(p.precoPromocional || p.preco)} | Stock: ${p.stock}</p>
+      </div>
+      <div class="item-actions">
+        <button onclick="editarProduto(${p.id})"><i class="fa-solid fa-pen"></i></button>
+        <button onclick="excluirProduto(${p.id})"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function abrirModalProduto() {
+  document.getElementById('modal-produto-titulo').textContent = 'Novo Produto';
+  document.getElementById('produto-id').value = '';
+  document.getElementById('produto-nome').value = '';
+  document.getElementById('produto-descricao').value = '';
+  document.getElementById('produto-preco').value = '';
+  document.getElementById('produto-preco-promo').value = '';
+  document.getElementById('produto-stock').value = '10';
+  document.getElementById('produto-destaque').checked = false;
+  
+  const select = document.getElementById('produto-categoria');
+  select.innerHTML = CATEGORIAS.map(c => `<option value="${c.id}">${c.nome}</option>`).join('');
+  document.getElementById('modal-produto').style.display = 'flex';
+}
+
+function editarProduto(id) {
+  const p = PRODUTOS.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('modal-produto-titulo').textContent = 'Editar Produto';
+  document.getElementById('produto-id').value = p.id;
+  document.getElementById('produto-nome').value = p.nome;
+  document.getElementById('produto-descricao').value = p.descricao || '';
+  document.getElementById('produto-preco').value = p.preco;
+  document.getElementById('produto-preco-promo').value = p.precoPromocional || '';
+  document.getElementById('produto-stock').value = p.stock;
+  document.getElementById('produto-destaque').checked = p.destaque || false;
+  
+  const select = document.getElementById('produto-categoria');
+  select.innerHTML = CATEGORIAS.map(c => `<option value="${c.id}" ${c.id === p.categoria ? 'selected' : ''}>${c.nome}</option>`).join('');
+  document.getElementById('modal-produto').style.display = 'flex';
+}
+
+function salvarProduto() {
+  const id = document.getElementById('produto-id').value;
+  const nome = document.getElementById('produto-nome').value.trim();
+  const categoria = document.getElementById('produto-categoria').value;
+  const descricao = document.getElementById('produto-descricao').value.trim();
+  const preco = parseInt(document.getElementById('produto-preco').value) || 0;
+  const precoPromo = document.getElementById('produto-preco-promo').value;
+  const stock = parseInt(document.getElementById('produto-stock').value) || 0;
+  const destaque = document.getElementById('produto-destaque').checked;
+  
+  if (!nome || !categoria) return toast('Preencha os campos obrigatórios', 'err');
+  
+  const produto = {
+    id: id ? parseInt(id) : Date.now(),
+    nome, categoria, descricao, preco,
+    precoPromocional: precoPromo ? parseInt(precoPromo) : null,
+    emPromocao: !!precoPromo,
+    stock, destaque,
+    imagens: []
+  };
+  
+  if (id) {
+    const index = PRODUTOS.findIndex(p => p.id === parseInt(id));
+    PRODUTOS[index] = produto;
+  } else {
+    PRODUTOS.push(produto);
+  }
+  
+  pendingChanges.add('produtos');
+  renderizarListaProdutos();
+  fecharModal('modal-produto');
+  atualizarPendingCount();
+  toast('Produto guardado localmente. Faça commit para enviar ao GitHub.', 'ok');
+}
+
+function excluirProduto(id) {
+  if (confirm('Excluir este produto?')) {
+    PRODUTOS = PRODUTOS.filter(p => p.id !== id);
+    pendingChanges.add('produtos');
+    renderizarListaProdutos();
+    atualizarPendingCount();
+    toast('Produto excluído (pendente de commit)', 'ok');
+  }
+}
+
+// ========== CATEGORIAS ==========
+function renderizarListaCategorias() {
+  const container = document.getElementById('lista-categorias');
+  container.innerHTML = CATEGORIAS.map(c => `
+    <div class="item-card">
+      <div class="item-info">
+        <h4><i class="fa-solid ${c.icone}"></i> ${c.nome}</h4>
+      </div>
+      <div class="item-actions">
+        <button onclick="editarCategoria('${c.id}')"><i class="fa-solid fa-pen"></i></button>
+        <button onclick="excluirCategoria('${c.id}')"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function abrirModalCategoria() {
+  document.getElementById('modal-categoria-titulo').textContent = 'Nova Categoria';
+  document.getElementById('categoria-id').value = '';
+  document.getElementById('categoria-nome').value = '';
+  document.getElementById('categoria-icone').value = 'fa-mobile-screen';
+  document.getElementById('categoria-cor').value = '#FF5500';
+  document.getElementById('modal-categoria').style.display = 'flex';
+}
+
+function editarCategoria(id) {
+  const c = CATEGORIAS.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('modal-categoria-titulo').textContent = 'Editar Categoria';
+  document.getElementById('categoria-id').value = c.id;
+  document.getElementById('categoria-nome').value = c.nome;
+  document.getElementById('categoria-icone').value = c.icone;
+  document.getElementById('categoria-cor').value = c.cor || '#FF5500';
+  document.getElementById('modal-categoria').style.display = 'flex';
+}
+
+function salvarCategoria() {
+  const id = document.getElementById('categoria-id').value;
+  const nome = document.getElementById('categoria-nome').value.trim();
+  const icone = document.getElementById('categoria-icone').value.trim();
+  const cor = document.getElementById('categoria-cor').value;
+  
+  if (!nome) return toast('Nome obrigatório', 'err');
+  
+  const categoria = {
+    id: id || nome.toLowerCase().replace(/\s+/g, '-'),
+    nome, icone: icone || 'fa-folder', cor
+  };
+  
+  if (id) {
+    const index = CATEGORIAS.findIndex(c => c.id === id);
+    CATEGORIAS[index] = categoria;
+  } else {
+    CATEGORIAS.push(categoria);
+  }
+  
+  pendingChanges.add('categorias');
+  renderizarListaCategorias();
+  fecharModal('modal-categoria');
+  atualizarPendingCount();
+  toast('Categoria guardada localmente', 'ok');
+}
+
+function excluirCategoria(id) {
+  if (confirm('Excluir esta categoria?')) {
+    CATEGORIAS = CATEGORIAS.filter(c => c.id !== id);
+    pendingChanges.add('categorias');
+    renderizarListaCategorias();
+    atualizarPendingCount();
+    toast('Categoria excluída', 'ok');
+  }
+}
+
+// ========== LOJA ==========
+function renderizarLoja() {
+  document.getElementById('loja-nome').value = LOJA.nome || '';
+  document.getElementById('loja-slogan').value = LOJA.slogan || '';
+  document.getElementById('loja-whatsapp').value = LOJA.whatsapp || '';
+  document.getElementById('loja-email').value = LOJA.email || '';
+  document.getElementById('loja-endereco').value = LOJA.endereco || '';
+  document.getElementById('loja-taxa').value = LOJA.entregas?.taxaEntregaBase || 1500;
+  document.getElementById('loja-gratis').value = LOJA.entregas?.gratisAcima || 50000;
+}
+
+function salvarLoja() {
+  LOJA = {
+    ...LOJA,
+    nome: document.getElementById('loja-nome').value,
+    slogan: document.getElementById('loja-slogan').value,
+    whatsapp: document.getElementById('loja-whatsapp').value,
+    email: document.getElementById('loja-email').value,
+    endereco: document.getElementById('loja-endereco').value,
+    entregas: {
+      taxaEntregaBase: parseInt(document.getElementById('loja-taxa').value) || 1500,
+      gratisAcima: parseInt(document.getElementById('loja-gratis').value) || 50000,
+      temEntrega: true,
+      temLevantamento: true
+    }
+  };
+  pendingChanges.add('loja');
+  atualizarPendingCount();
+  toast('Loja guardada localmente', 'ok');
+}
+
+// ========== VITRINE ==========
+function renderizarVitrine() {
+  document.getElementById('vitrine-badge').value = VITRINE.heroBadge || '';
+  document.getElementById('vitrine-titulo').value = VITRINE.heroTitulo || '';
+  document.getElementById('vitrine-banner').value = VITRINE.bannerDestaque || '';
+  document.getElementById('vitrine-banner-ativo').checked = VITRINE.bannerAtivo || false;
+}
+
+function salvarVitrine() {
+  VITRINE = {
+    heroBadge: document.getElementById('vitrine-badge').value,
+    heroTitulo: document.getElementById('vitrine-titulo').value,
+    bannerDestaque: document.getElementById('vitrine-banner').value,
+    bannerAtivo: document.getElementById('vitrine-banner-ativo').checked
+  };
+  pendingChanges.add('vitrine');
+  atualizarPendingCount();
+  toast('Vitrine guardada localmente', 'ok');
+}
+
+// ========== FEATURES ==========
+function renderizarFeatures() {
+  const container = document.getElementById('lista-features');
+  container.innerHTML = FEATURES.map((f, i) => `
+    <div class="item-card">
+      <div class="item-info">
+        <h4><i class="fa-solid ${f.icone}"></i> ${f.titulo}</h4>
+        <p>${f.descricao}</p>
+      </div>
+      <div class="item-actions">
+        <button onclick="removerFeature(${i})"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function adicionarFeature() {
+  const icone = prompt('Ícone (ex: fa-truck-fast):', 'fa-circle-check');
+  const titulo = prompt('Título:', 'Novo benefício');
+  const descricao = prompt('Descrição:', 'Descrição do benefício');
+  if (titulo) {
+    FEATURES.push({ icone: icone || 'fa-circle-check', titulo, descricao: descricao || '' });
+    pendingChanges.add('features');
+    renderizarFeatures();
+    atualizarPendingCount();
+  }
+}
+
+function removerFeature(i) {
+  FEATURES.splice(i, 1);
+  pendingChanges.add('features');
+  renderizarFeatures();
+  atualizarPendingCount();
+}
+
+// ========== DEPOIMENTOS ==========
+function renderizarDepoimentos() {
+  const container = document.getElementById('lista-depoimentos');
+  container.innerHTML = DEPOIMENTOS.map((d, i) => `
+    <div class="item-card">
+      <div class="item-info">
+        <h4>${d.nome} (${d.cidade}) - ${'★'.repeat(d.avaliacao)}</h4>
+        <p>${d.texto}</p>
+      </div>
+      <div class="item-actions">
+        <button onclick="removerDepoimento(${i})"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function adicionarDepoimento() {
+  const nome = prompt('Nome:', 'Cliente');
+  const cidade = prompt('Cidade:', 'Luanda');
+  const texto = prompt('Depoimento:', 'Ótimo serviço!');
+  const avaliacao = parseInt(prompt('Avaliação (1-5):', '5')) || 5;
+  if (nome && texto) {
+    DEPOIMENTOS.push({ nome, cidade, texto, avaliacao: Math.min(5, Math.max(1, avaliacao)) });
+    pendingChanges.add('depoimentos');
+    renderizarDepoimentos();
+    atualizarPendingCount();
+  }
+}
+
+function removerDepoimento(i) {
+  DEPOIMENTOS.splice(i, 1);
+  pendingChanges.add('depoimentos');
+  renderizarDepoimentos();
+  atualizarPendingCount();
+}
+
+// ========== COMMIT ==========
+function atualizarPendingCount() {
+  document.getElementById('pending-count').textContent = pendingChanges.size;
+}
+
+async function commitTudo() {
+  if (pendingChanges.size === 0) {
+    toast('Nenhuma alteração para salvar', 'ok');
+    return;
+  }
+  
+  toast('A enviar alterações para o GitHub...', 'ok');
+  
+  try {
+    for (let tipo of pendingChanges) {
+      switch(tipo) {
+        case 'produtos':
+          await commitGitHub('dados/produtos.json', PRODUTOS, 'Atualizar produtos', shas.produtos);
+          break;
+        case 'categorias':
+          await commitGitHub('dados/categorias.json', CATEGORIAS, 'Atualizar categorias', shas.categorias);
+          break;
+        case 'loja':
+          await commitGitHub('dados/loja.json', LOJA, 'Atualizar loja', shas.loja);
+          break;
+        case 'vitrine':
+          await commitGitHub('dados/vitrine.json', VITRINE, 'Atualizar vitrine', shas.vitrine);
+          break;
+        case 'features':
+          await commitGitHub('dados/features.json', FEATURES, 'Atualizar features', shas.features);
+          break;
+        case 'depoimentos':
+          await commitGitHub('dados/depoimentos.json', DEPOIMENTOS, 'Atualizar depoimentos', shas.depoimentos);
+          break;
+      }
+    }
+    
+    pendingChanges.clear();
+    atualizarPendingCount();
+    toast('Alterações enviadas com sucesso! O site será atualizado em instantes.', 'ok');
+    
+    // Recarregar para obter novos SHAs
+    setTimeout(() => carregarTodosDados(), 2000);
+  } catch(e) {
+    toast('Erro ao enviar para o GitHub. Verifique o token e a conexão.', 'err');
+    console.error(e);
+  }
+}
+
+// ========== UTILITÁRIOS ==========
+function formatarKz(v) { return v.toLocaleString('pt-AO', { minimumFractionDigits: 2 }) + ' Kz'; }
+function fecharModal(id) { document.getElementById(id).style.display = 'none'; }
+function toast(msg, tipo) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.className = 'toast show';
+  t.style.borderLeftColor = tipo === 'err' ? '#EF4444' : '#FF5500';
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+</script>
+</body>
+</html>
