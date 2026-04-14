@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="pt-AO" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=yes">
+<meta name="theme-color" content="#06060E">
+<title>Favoritos | Angophones</title>
+<link rel="icon" href="tema/assets/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060E;
+  --bg2: #0A0A14;
+  --card: #0F0F13;
+  --border: #2A2A2E;
+  --primary: #FF5500;
+  --red: #EF4444;
+  --green: #22C55E;
+  --white: #FFFFFF;
+  --muted: #A0A0A8;
+  --muted2: #6B6B76;
+  --ft: 'Bebas Neue', 'Impact', sans-serif;
+  --fb: 'Outfit', sans-serif;
+  --grad: linear-gradient(135deg, #FF5500, #FF7A33);
+}
+[data-theme="light"] {
+  --bg: #F5F5F7;
+  --bg2: #FFFFFF;
+  --card: #FFFFFF;
+  --border: #E5E5EA;
+  --white: #1C1C1E;
+  --muted: #6B6B76;
+  --muted2: #8E8E93;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  padding-bottom: 80px;
+  transition: background 0.3s, color 0.3s;
+}
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(6, 6, 14, 0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+[data-theme="light"] .hdr { background: rgba(245, 245, 247, 0.97); }
+.hdr-nome {
+  font-family: var(--ft);
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+}
+.hdr-nome span { color: var(--primary); }
+.hb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: none;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--white);
+}
+.container { padding: 16px; max-width: 600px; margin: 0 auto; }
+.favoritos-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.favoritos-header h2 {
+  font-family: var(--ft);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+}
+.favoritos-header span {
+  color: var(--primary);
+}
+.btn-partilhar {
+  padding: 10px 16px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-family: var(--ft);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  cursor: pointer;
+}
+.btn-partilhar i { margin-right: 6px; }
+.btn-partilhar:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.favoritos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.pcard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.pcard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(255, 85, 0, 0.1);
+  border-color: rgba(255, 85, 0, 0.3);
+}
+.pcard-img {
+  aspect-ratio: 1;
+  background: var(--bg2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  border-radius: 14px 14px 0 0;
+}
+.pcard-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pcard-img i {
+  font-size: 2.5rem;
+  color: var(--muted2);
+  opacity: 0.5;
+}
+.btn-remover-wl {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(6, 6, 14, 0.8);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 5;
+  color: var(--red);
+}
+.btn-remover-wl:hover {
+  background: var(--red);
+  color: white;
+}
+.pcard-body {
+  padding: 10px 10px 12px;
+}
+.pcard-cat {
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--primary);
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.pcard-nome {
+  font-family: var(--ft);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 6px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.pcard-preco {
+  font-family: var(--ft);
+  font-size: 0.95rem;
+  color: var(--primary);
+}
+.pcard-preco s {
+  font-size: 0.7rem;
+  color: var(--muted2);
+  margin-left: 6px;
+}
+.btn-add-quick {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--grad);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(255, 85, 0, 0.3);
+  z-index: 5;
+}
+.btn-add-quick:hover {
+  transform: scale(1.05);
+}
+.favoritos-vazio {
+  text-align: center;
+  padding: 60px 20px;
+}
+.favoritos-vazio i {
+  font-size: 4rem;
+  color: var(--muted2);
+  opacity: 0.3;
+  margin-bottom: 16px;
+}
+.favoritos-vazio h2 {
+  font-family: var(--ft);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.favoritos-vazio p {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--grad);
+  border: none;
+  border-radius: 50px;
+  font-family: var(--ft);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  padding: 8px 16px 12px;
+  display: flex;
+  justify-content: space-around;
+  background: rgba(6, 6, 14, 0.97);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+}
+[data-theme="light"] .bottom-nav { background: rgba(245, 245, 247, 0.97); }
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+}
+.bottom-nav a i { font-size: 1.3rem; }
+.bottom-nav a.active { color: var(--primary); }
+.fab-whatsapp {
+  position: fixed;
+  bottom: 90px;
+  right: 16px;
+  width: 55px;
+  height: 55px;
+  background: #25D366;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  z-index: 150;
+  text-decoration: none;
+}
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  max-width: calc(100vw - 32px);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (min-width: 769px) {
+  .bottom-nav { display: none; }
+  body { padding-bottom: 20px; }
+  .fab-whatsapp { bottom: 24px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-nome">Ango<span>phones</span></div>
+  <button class="hb" onclick="alternarTema()">
+    <i data-theme-ico class="fa-regular fa-sun"></i>
+  </button>
+</header>
+
+<div class="container" id="favoritos-container">
+  <div class="favoritos-header">
+    <h2>Favoritos <span id="favoritos-count">(0)</span></h2>
+    <button class="btn-partilhar" onclick="partilharWishlist()">
+      <i class="fa-solid fa-share-nodes"></i> Partilhar
+    </button>
+  </div>
+  <div class="favoritos-grid" id="favoritos-grid"></div>
+</div>
+
+<a href="https://wa.me/244954288128?text=Ola!%20Gostaria%20de%20mais%20informacoes." class="fab-whatsapp" target="_blank">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<nav class="bottom-nav">
+  <a href="index.html"><i class="fa-solid fa-house"></i><span>Inicio</span></a>
+  <a href="loja.html"><i class="fa-solid fa-mobile-screen"></i><span>Loja</span></a>
+  <a href="carrinho.html"><i class="fa-solid fa-cart-shopping"></i><span>Carrinho</span></a>
+  <a href="favoritos.html" class="active"><i class="fa-solid fa-heart"></i><span>Favoritos</span></a>
+  <a href="sobre.html"><i class="fa-solid fa-circle-info"></i><span>Sobre</span></a>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ========== TEMA ==========
+function alternarTema() {
+  const html = document.documentElement;
+  const icon = document.querySelector('[data-theme-ico]');
+  const temaAtual = html.getAttribute('data-theme') || 'dark';
+  const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+  
+  html.setAttribute('data-theme', novoTema);
+  localStorage.setItem('tema', novoTema);
+  
+  if (icon) {
+    icon.className = novoTema === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+  }
+  
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', novoTema === 'dark' ? '#06060E' : '#F5F5F7');
+}
+
+(function() {
+  const temaSalvo = localStorage.getItem('tema') || 'dark';
+  document.documentElement.setAttribute('data-theme', temaSalvo);
+  const icon = document.querySelector('[data-theme-ico]');
+  if (icon) {
+    icon.className = temaSalvo === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+  }
+})();
+
+// ========== DADOS DOS PRODUTOS (FALLBACK) ==========
+const PRODUTOS = [
+  { id: 1, nome: 'iPhone 15 Pro', categoria: 'smartphones', preco: 850000, precoPromocional: 799999, emPromocao: true, imagens: [], stock: 8, destaque: true },
+  { id: 2, nome: 'Samsung Galaxy S24 Ultra', categoria: 'smartphones', preco: 920000, precoPromocional: null, emPromocao: false, imagens: [], stock: 5, destaque: true },
+  { id: 3, nome: 'Xiaomi 13T Pro', categoria: 'smartphones', preco: 480000, precoPromocional: 449999, emPromocao: true, imagens: [], stock: 12, destaque: true },
+  { id: 4, nome: 'AirPods Pro 2ª Geração', categoria: 'acessorios', preco: 185000, precoPromocional: 169999, emPromocao: true, imagens: [], stock: 15, destaque: true },
+  { id: 5, nome: 'Power Bank 20000mAh', categoria: 'acessorios', preco: 25000, imagens: [], stock: 20 },
+  { id: 6, nome: 'Capa Transparente iPhone 15', categoria: 'capas', preco: 8500, imagens: [], stock: 30 },
+  { id: 7, nome: 'Carregador Rápido 20W USB-C', categoria: 'carregadores', preco: 12000, imagens: [], stock: 25 },
+  { id: 8, nome: 'iPad Air 11"', categoria: 'tablets', preco: 520000, imagens: [], stock: 7 },
+  { id: 9, nome: 'Samsung Galaxy Tab S9', categoria: 'tablets', preco: 610000, imagens: [], stock: 4 }
+];
+
+const CATEGORIAS = {
+  'smartphones': 'Smartphones',
+  'acessorios': 'Acessórios',
+  'capas': 'Capas',
+  'carregadores': 'Carregadores',
+  'tablets': 'Tablets'
+};
+
+// ========== FAVORITOS ==========
+function getFavoritos() {
+  const f = localStorage.getItem('angophones_favoritos');
+  return f ? JSON.parse(f) : [];
+}
+
+function salvarFavoritos(favoritos) {
+  localStorage.setItem('angophones_favoritos', JSON.stringify(favoritos));
+}
+
+function getCarrinho() {
+  const c = localStorage.getItem('angophones_carrinho');
+  return c ? JSON.parse(c) : [];
+}
+
+function salvarCarrinho(carrinho) {
+  localStorage.setItem('angophones_carrinho', JSON.stringify(carrinho));
+}
+
+function formatarKz(v) {
+  return v.toLocaleString('pt-AO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Kz';
+}
+
+function toast(msg, tipo) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.className = 'toast show';
+  t.style.borderLeftColor = tipo === 'err' ? '#EF4444' : '#FF5500';
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ========== RENDERIZAR ==========
+function renderizarFavoritos() {
+  const grid = document.getElementById('favoritos-grid');
+  const countSpan = document.getElementById('favoritos-count');
+  const container = document.getElementById('favoritos-container');
+  const favoritos = getFavoritos();
+  
+  countSpan.textContent = `(${favoritos.length})`;
+  
+  if (!favoritos.length) {
+    container.innerHTML = `
+      <div class="favoritos-header">
+        <h2>Favoritos <span>(0)</span></h2>
+        <button class="btn-partilhar" onclick="partilharWishlist()">
+          <i class="fa-solid fa-share-nodes"></i> Partilhar
+        </button>
+      </div>
+      <div class="favoritos-vazio">
+        <i class="fa-regular fa-heart"></i>
+        <h2>Lista de Favoritos Vazia</h2>
+        <p>Adicione produtos aos favoritos para vê-los aqui</p>
+        <a href="loja.html" class="btn">Explorar Produtos</a>
+      </div>
+    `;
+    return;
+  }
+  
+  // Filtrar produtos que estão nos favoritos
+  const produtosFavoritos = favoritos.map(fav => {
+    const produto = PRODUTOS.find(p => p.id === fav.id);
+    return produto || fav;
+  }).filter(p => p);
+  
+  grid.innerHTML = produtosFavoritos.map(produto => {
+    const preco = produto.precoPromocional || produto.preco;
+    const precoOrig = produto.emPromocao ? produto.preco : null;
+    const esgotado = produto.stock === 0;
+    
+    return `<div class="pcard ${esgotado ? 'esgotado' : ''}" onclick="window.location.href='produto.html?id=${produto.id}'">
+      <div class="pcard-img">
+        ${produto.imagens && produto.imagens[0] ? `<img src="imagens/produtos/${produto.imagens[0]}" alt="${produto.nome}">` : '<i class="fa-solid fa-mobile-screen"></i>'}
+        <button class="btn-remover-wl" onclick="event.stopPropagation(); removerFavorito(${produto.id})">
+          <i class="fa-solid fa-heart"></i>
+        </button>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-cat">${CATEGORIAS[produto.categoria] || ''}</div>
+        <div class="pcard-nome">${produto.nome}</div>
+        <div class="pcard-preco">
+          ${formatarKz(preco)}
+          ${precoOrig ? `<s>${formatarKz(precoOrig)}</s>` : ''}
+        </div>
+      </div>
+      ${!esgotado ? `<button class="btn-add-quick" onclick="event.stopPropagation(); adicionarAoCarrinho(${produto.id})"><i class="fa-solid fa-plus"></i></button>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ========== AÇÕES ==========
+window.removerFavorito = function(id) {
+  const favoritos = getFavoritos();
+  const novosFavoritos = favoritos.filter(f => f.id !== id);
+  salvarFavoritos(novosFavoritos);
+  renderizarFavoritos();
+  
+  const produto = PRODUTOS.find(p => p.id === id);
+  toast(`${produto?.nome || 'Produto'} removido dos favoritos`, 'ok');
+};
+
+window.adicionarAoCarrinho = function(id) {
+  const produto = PRODUTOS.find(p => p.id === id);
+  if (!produto) {
+    toast('Produto não encontrado', 'err');
+    return;
+  }
+  
+  if (produto.stock === 0) {
+    toast('Produto esgotado', 'err');
+    return;
+  }
+  
+  const carrinho = getCarrinho();
+  const preco = produto.precoPromocional || produto.preco;
+  const itemKey = `${produto.id}_padrao_padrao`;
+  
+  const itemExistente = carrinho.find(i => i.itemKey === itemKey);
+  if (itemExistente) {
+    itemExistente.quantidade += 1;
+  } else {
+    carrinho.push({
+      itemKey,
+      id: produto.id,
+      nome: produto.nome,
+      preco: preco,
+      imagem: produto.imagens?.[0] || '',
+      quantidade: 1,
+      variante: null,
+      cor: null
+    });
+  }
+  
+  salvarCarrinho(carrinho);
+  toast(`${produto.nome} adicionado ao carrinho`, 'ok');
+};
+
+window.partilharWishlist = function() {
+  const favoritos = getFavoritos();
+  if (!favoritos.length) {
+    toast('Adicione produtos aos favoritos primeiro', 'err');
+    return;
+  }
+  
+  let mensagem = '*Minha Wishlist - Angophones*\n\n';
+  favoritos.forEach((fav, i) => {
+    const produto = PRODUTOS.find(p => p.id === fav.id);
+    if (produto) {
+      const preco = produto.precoPromocional || produto.preco;
+      mensagem += `${i+1}. ${produto.nome} - ${formatarKz(preco)}\n`;
+    }
+  });
+  mensagem += '\nVeja estes produtos em: ' + window.location.origin;
+  
+  window.open(`https://wa.me/?text=${encodeURIComponent(mensagem)}`, '_blank');
+  toast('A partilhar no WhatsApp...', 'ok');
+};
+
+// Inicializar
+renderizarFavoritos();
+</script>
+</body>
+</html>
