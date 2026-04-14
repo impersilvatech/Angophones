@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-AO" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=yes">
+<meta name="theme-color" content="#06060E">
+<title>Dados de Entrega | Angophones</title>
+<link rel="icon" href="tema/assets/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06060E;
+  --bg2: #0A0A14;
+  --card: #0F0F13;
+  --border: #2A2A2E;
+  --primary: #FF5500;
+  --red: #EF4444;
+  --white: #FFFFFF;
+  --muted: #A0A0A8;
+  --muted2: #6B6B76;
+  --ft: 'Bebas Neue', 'Impact', sans-serif;
+  --fb: 'Outfit', sans-serif;
+  --grad: linear-gradient(135deg, #FF5500, #FF7A33);
+}
+[data-theme="light"] {
+  --bg: #F5F5F7;
+  --bg2: #FFFFFF;
+  --card: #FFFFFF;
+  --border: #E5E5EA;
+  --white: #1C1C1E;
+  --muted: #6B6B76;
+  --muted2: #8E8E93;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  padding-bottom: 72px;
+  transition: background 0.3s, color 0.3s;
+}
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(6, 6, 14, 0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+[data-theme="light"] .hdr { background: rgba(245, 245, 247, 0.97); }
+.hdr-nome {
+  font-family: var(--ft);
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+}
+.hdr-nome span { color: var(--primary); }
+.hb {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: none;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--white);
+}
+.container { padding: 16px; max-width: 500px; margin: 0 auto; }
+.progresso {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.progresso-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.step-num {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+.step-num.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+.step-num.completed {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+.step-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.progresso-line {
+  width: 30px;
+  height: 2px;
+  background: var(--border);
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.form-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--white);
+}
+.form-label i {
+  width: 20px;
+  color: var(--primary);
+}
+.form-control {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-family: var(--fb);
+  font-size: 0.95rem;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-control:focus {
+  border-color: var(--primary);
+}
+.form-control::placeholder {
+  color: var(--muted2);
+}
+.form-select {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-family: var(--fb);
+  font-size: 0.95rem;
+  color: var(--white);
+  outline: none;
+}
+.entrega-opcoes {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+.entrega-opt {
+  flex: 1;
+  padding: 14px;
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.entrega-opt i {
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+  display: block;
+  color: var(--muted);
+}
+.entrega-opt span {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.entrega-opt.active {
+  border-color: var(--primary);
+  background: rgba(255, 85, 0, 0.05);
+}
+.entrega-opt.active i {
+  color: var(--primary);
+}
+.resumo-pedido {
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.resumo-titulo {
+  font-family: var(--ft);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+.resumo-linha {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.resumo-linha.total {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-family: var(--ft);
+  font-size: 1.1rem;
+  color: var(--white);
+}
+.resumo-linha.total span:last-child {
+  color: var(--primary);
+}
+.btn-continuar {
+  width: 100%;
+  padding: 16px;
+  margin-top: 20px;
+  background: var(--grad);
+  border: none;
+  border-radius: 50px;
+  font-family: var(--ft);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 85, 0, 0.3);
+}
+.btn-voltar {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-family: var(--ft);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  cursor: pointer;
+}
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  max-width: calc(100vw - 32px);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+.toast.ok { border-color: var(--primary); color: var(--primary); }
+.toast.err { border-color: var(--red); color: var(--red); }
+@media (min-width: 769px) {
+  body { padding-bottom: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-nome">Ango<span>phones</span></div>
+  <button class="hb" id="tema-toggle" onclick="alternarTema()">
+    <i data-theme-ico class="fa-regular fa-sun"></i>
+  </button>
+</header>
+
+<div class="container">
+  <div class="progresso">
+    <div class="progresso-step">
+      <span class="step-num completed"><i class="fa-solid fa-check"></i></span>
+      <span class="step-label">Carrinho</span>
+    </div>
+    <div class="progresso-line"></div>
+    <div class="progresso-step">
+      <span class="step-num active">2</span>
+      <span class="step-label">Dados</span>
+    </div>
+    <div class="progresso-line"></div>
+    <div class="progresso-step">
+      <span class="step-num">3</span>
+      <span class="step-label">Confirmar</span>
+    </div>
+  </div>
+
+  <form id="form-dados">
+    <div class="form-group">
+      <label class="form-label"><i class="fa-solid fa-user"></i> Nome Completo</label>
+      <input type="text" class="form-control" id="nome" placeholder="Ex: João da Silva" required>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label"><i class="fa-solid fa-phone"></i> Telefone (WhatsApp)</label>
+      <input type="tel" class="form-control" id="telefone" placeholder="Ex: 923 456 789" required>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label"><i class="fa-solid fa-location-dot"></i> Província</label>
+      <select class="form-select" id="provincia" required>
+        <option value="">Selecione...</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label"><i class="fa-solid fa-city"></i> Município</label>
+      <input type="text" class="form-control" id="municipio" placeholder="Ex: Luanda" required>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label"><i class="fa-solid fa-map-pin"></i> Bairro / Referência</label>
+      <input type="text" class="form-control" id="bairro" placeholder="Ex: Maianga, perto da...">
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label"><i class="fa-solid fa-truck"></i> Tipo de Entrega</label>
+      <div class="entrega-opcoes">
+        <div class="entrega-opt active" data-tipo="entrega">
+          <i class="fa-solid fa-truck"></i>
+          <span>Entrega</span>
+        </div>
+        <div class="entrega-opt" data-tipo="levantamento">
+          <i class="fa-solid fa-store"></i>
+          <span>Levantamento</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label"><i class="fa-regular fa-note-sticky"></i> Notas (opcional)</label>
+      <textarea class="form-control" id="notas" rows="2" placeholder="Observações sobre a entrega..."></textarea>
+    </div>
+  </form>
+  
+  <div class="resumo-pedido" id="resumo-pedido">
+    <div class="resumo-titulo">Resumo do Pedido</div>
+    <div class="resumo-linha">
+      <span>Subtotal</span>
+      <span id="resumo-subtotal">0,00 Kz</span>
+    </div>
+    <div class="resumo-linha" id="resumo-desconto-linha" style="display:none;">
+      <span>Desconto</span>
+      <span id="resumo-desconto" style="color: #22C55E;">0,00 Kz</span>
+    </div>
+    <div class="resumo-linha">
+      <span>Entrega</span>
+      <span id="resumo-entrega">0,00 Kz</span>
+    </div>
+    <div class="resumo-linha total">
+      <span>Total</span>
+      <span id="resumo-total">0,00 Kz</span>
+    </div>
+  </div>
+  
+  <button class="btn-continuar" onclick="continuar()">
+    <i class="fa-solid fa-arrow-right"></i> Continuar para Confirmação
+  </button>
+  <button class="btn-voltar" onclick="window.location.href='carrinho.html'">
+    <i class="fa-solid fa-arrow-left"></i> Voltar ao Carrinho
+  </button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="core/js/loader.js"></script>
+<script src="core/js/utils.js"></script>
+<script src="core/js/core.js"></script>
+<script src="core/js/toast.js"></script>
+<script src="core/js/cart.js"></script>
+
+<script>
+// ========== TEMA ==========
+window.alternarTema = function() {
+  const html = document.documentElement;
+  const themeIco = document.querySelector('[data-theme-ico]');
+  const currentTheme = html.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  html.setAttribute('data-theme', newTheme);
+  localStorage.setItem('cf_theme', newTheme);
+  
+  if (themeIco) {
+    themeIco.className = newTheme === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+  }
+  
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) {
+    metaTheme.setAttribute('content', newTheme === 'dark' ? '#06060E' : '#F5F5F7');
+  }
+};
+
+(function() {
+  const html = document.documentElement;
+  const themeIco = document.querySelector('[data-theme-ico]');
+  const currentTheme = html.getAttribute('data-theme') || 'dark';
+  if (themeIco) {
+    themeIco.className = currentTheme === 'dark' ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+  }
+})();
+
+// ========== DADOS ==========
+let catalogo = null;
+let tipoEntrega = 'entrega';
+
+function inicializar(data) {
+  catalogo = data;
+  if (!catalogo) return;
+  
+  const carrinho = window.cart?.getCarrinho() || [];
+  if (!carrinho.length) {
+    window.location.href = 'carrinho.html';
+    return;
+  }
+  
+  preencherProvincias();
+  carregarDadosSalvos();
+  atualizarResumo();
+}
+
+function preencherProvincias() {
+  const select = document.getElementById('provincia');
+  const provincias = window.core?.getProvincias() || [
+    'Bengo', 'Benguela', 'Bié', 'Cabinda', 'Cuando Cubango',
+    'Cuanza Norte', 'Cuanza Sul', 'Cunene', 'Huambo', 'Huíla',
+    'Luanda', 'Lunda Norte', 'Lunda Sul', 'Malanje', 'Moxico',
+    'Namibe', 'Uíge', 'Zaire'
+  ];
+  
+  provincias.forEach(p => {
+    const option = document.createElement('option');
+    option.value = p;
+    option.textContent = p;
+    select.appendChild(option);
+  });
+}
+
+function carregarDadosSalvos() {
+  const dados = JSON.parse(localStorage.getItem('cf_cliente') || '{}');
+  if (dados.nome) document.getElementById('nome').value = dados.nome;
+  if (dados.telefone) document.getElementById('telefone').value = dados.telefone;
+  if (dados.provincia) document.getElementById('provincia').value = dados.provincia;
+  if (dados.municipio) document.getElementById('municipio').value = dados.municipio;
+  if (dados.bairro) document.getElementById('bairro').value = dados.bairro;
+  if (dados.tipoEntrega) {
+    tipoEntrega = dados.tipoEntrega;
+    document.querySelectorAll('.entrega-opt').forEach(opt => {
+      opt.classList.toggle('active', opt.dataset.tipo === tipoEntrega);
+    });
+  }
+}
+
+document.querySelectorAll('.entrega-opt').forEach(opt => {
+  opt.addEventListener('click', function() {
+    document.querySelectorAll('.entrega-opt').forEach(o => o.classList.remove('active'));
+    this.classList.add('active');
+    tipoEntrega = this.dataset.tipo;
+    atualizarResumo();
+  });
+});
+
+function formatarKz(v) {
+  return v.toLocaleString('pt-AO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Kz';
+}
+
+function atualizarResumo() {
+  const subtotal = window.cart?.getSubtotal() || 0;
+  const desconto = window.cart?.getDescontoCupao() || 0;
+  const cupao = window.cart?.getCupaoAplicado();
+  const isGratis = window.core?.isEntregaGratis(subtotal) || false;
+  const valorEntrega = tipoEntrega === 'levantamento' ? 0 : (isGratis ? 0 : (catalogo?.loja?.entregas?.taxaEntregaBase || 1500));
+  const total = subtotal - desconto + valorEntrega;
+  
+  document.getElementById('resumo-subtotal').textContent = formatarKz(subtotal);
+  
+  const descontoLinha = document.getElementById('resumo-desconto-linha');
+  if (desconto > 0) {
+    descontoLinha.style.display = 'flex';
+    document.getElementById('resumo-desconto').textContent = `-${formatarKz(desconto)}`;
+  } else {
+    descontoLinha.style.display = 'none';
+  }
+  
+  let entregaTexto = formatarKz(valorEntrega);
+  if (tipoEntrega === 'levantamento') entregaTexto = 'Grátis (Levantamento)';
+  else if (isGratis) entregaTexto = 'Grátis';
+  document.getElementById('resumo-entrega').textContent = entregaTexto;
+  
+  document.getElementById('resumo-total').textContent = formatarKz(total);
+}
+
+function toast(msg, tipo) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.className = `toast show ${tipo || 'ok'}`;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+window.continuar = function() {
+  const nome = document.getElementById('nome').value.trim();
+  const telefone = document.getElementById('telefone').value.trim();
+  const provincia = document.getElementById('provincia').value;
+  const municipio = document.getElementById('municipio').value.trim();
+  const bairro = document.getElementById('bairro').value.trim();
+  const notas = document.getElementById('notas').value.trim();
+  
+  if (!nome || !telefone || !provincia || !municipio) {
+    toast('Preencha todos os campos obrigatórios', 'err');
+    return;
+  }
+  
+  const dados = { nome, telefone, provincia, municipio, bairro, tipoEntrega, notas };
+  localStorage.setItem('cf_cliente', JSON.stringify(dados));
+  
+  window.location.href = 'confirmacao.html';
+};
+
+if (window.CATALOGO) inicializar(window.CATALOGO);
+else window.addEventListener('catalogoCarregado', e => inicializar(e.detail));
+setTimeout(() => { if (window.CATALOGO) inicializar(window.CATALOGO); }, 1500);
+</script>
+</body>
+</html>
