@@ -16,5 +16,17 @@
     "cidade": "Huambo",
     "texto": "Já comprei vários acessórios. Rápidos e confiáveis.",
     "avaliacao": 4
+  },
+  {
+    "nome": "Cliente",
+    "cidade": "Luanda",
+    "texto": "Ótimo serviço!",
+    "avaliacao": 5
+  },
+  {
+    "nome": "João ",
+    "cidade": "Huambo ",
+    "texto": "Ótimo serviço!",
+    "avaliacao": 5
   }
 ]
