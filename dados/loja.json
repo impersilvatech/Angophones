@@ -1,7 +1,7 @@
 {
   "nome": "Angophones",
   "tagline": "Tech Premium",
-  "slogan": "O teu próximo telemóvel está aqui.",
+  "slogan": "Telemóvel ",
   "whatsapp": "+244954288128",
   "email": "contacto@angophones.co.ao",
   "moeda": "Kz",
@@ -44,9 +44,9 @@
     "loja-interior2.webp"
   ],
   "entregas": {
-    "temEntrega": true,
-    "temLevantamento": true,
     "taxaEntregaBase": 1500,
-    "gratisAcima": 50000
+    "gratisAcima": 50000,
+    "temEntrega": true,
+    "temLevantamento": true
   }
 }
